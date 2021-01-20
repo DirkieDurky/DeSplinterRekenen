@@ -1,22 +1,28 @@
 <html>
 <head>
     <title>Inloggen</title>
-    <link rel=stylesheet href=inlogpagina.css>
+    <link href=inlogpagina.css rel=stylesheet>
 </head>
-<body style="background-image: url('RekensiteBackground.png')"">
-    <div class=signin>
-        <h1 class=title>Inloggen bij de Splinter Rekensite</h1><br>
-            <form>
-                <div class=name>
-                    Naam:<br>
-                    <input type=text name=name placeholder=Naam class=input><br>
-                </div>
-                <div class=pass>
-                    Wachtwoord:<br>
-                    <input type=password name=pass placeholder=Wachtwoord class=input>
-                </div>
-                <div class=button><h3>Inloggen</h3></div>
-            </form>
-    </div>
+<body>
+<div class="field" id="signin">
+    <h1 class=title>Inloggen bij de Splinter Rekensite</h1><br>
+    <form>
+        <div class=name>
+            Email:<br>
+            <input class="input" name=name placeholder=Email type=text><br>
+        </div>
+        <div class=pass>
+            Wachtwoord:<br>
+            <input class="input" name=pass placeholder=Wachtwoord type=password>
+        </div>
+        <div>
+            <input class="submit" name="submit" type="submit" value="Inloggen">
+        </div>
+        <div class="signinlinks">
+            <a class="hyperlinks" href="createaccount.html">Ik heb nog geen account</a>
+            &#183 <a class="hyperlinks" href="forgotpass1.html">Wachtwoord vergeten</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>
