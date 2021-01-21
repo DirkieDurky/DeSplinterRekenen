@@ -1,3 +1,4 @@
+<style>
 @font-face {
     font-family: Torus Regular;
     src: url("Torus Regular.otf");
@@ -22,12 +23,22 @@ body {
 }
 
 #signin {
-    height: 450px;
+    height: 435px;
 }
 
 #createaccount {
-    height: 720px;
+    height: 738px;
 }
+
+.extend {
+    animation:extend;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes extend{
+    to {height: <?php session_start(); echo $_SESSION['extendheight'];?>px;}
+ }
 
 #forgotpass {
     height: 350px;
@@ -90,6 +101,25 @@ body {
     left: 50%;
     width: 500px;
     margin-top: 100px;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+    position: relative;
+    transform: translate(-50%, 0%);
+    top: 50px;
+    left: 50%;
+    width: 600px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: show 200ms step-start 400ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show{
+    to {opacity: 100}
 }
 
 .hyperlinks:link {
