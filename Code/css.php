@@ -1,11 +1,11 @@
 <style>
 @font-face {
     font-family: Torus Regular;
-    src: url("Torus Regular.otf");
+    src: url("../Torus Regular.otf");
 }
 
 body {
-    background-image: url('RekensiteBackground.png');
+    background-image: url('../RekensiteBackground.png');
 }
 
 .field {
@@ -22,12 +22,34 @@ body {
     background-color: #333;
 }
 
-#signin {
+#signIn {
     height: 435px;
 }
 
-#createaccount {
+#createAccount {
     height: 738px;
+}
+
+.backButton {
+    font-family: "Torus Regular";
+    margin-top: 50px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    left: 30%;
+    transform: translate(-50%, 0%);
+    width: 100px;
+    height: 50px;
+    border-radius: 16px;
+    font-size: 17px;
+    background-color: #333;
+    border: none;
+}
+
+.backButton:hover {
+    cursor: pointer;
+    animation: hover 200ms;
+    animation-fill-mode: forwards;
 }
 
 .extend {
@@ -37,8 +59,8 @@ body {
 }
 
 @keyframes extend{
-    to {height: <?php session_start(); echo $_SESSION['extendheight'];?>px;}
- }
+    to {height: <?php session_start(); echo $_SESSION['extendHeight'];?>px;}
+}
 
 #forgotpass {
     height: 350px;
@@ -48,14 +70,14 @@ body {
     font-size: 35px;
 }
 
-.undertitle {
+.underTitle {
     font-size: 20px;
     position: relative;
     transform: translate(-50%, -50%);
     left: 50%;
     width: 550px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 .input {
@@ -108,7 +130,6 @@ body {
     font-size: 20px;
     position: relative;
     transform: translate(-50%, 0%);
-    top: 50px;
     left: 50%;
     width: 600px;
     margin-top: 30px;
@@ -116,6 +137,14 @@ body {
     opacity: 0;
     animation: show 200ms step-start 400ms;
     animation-fill-mode: forwards;
+}
+
+.error#signIn {
+    top: 100px;
+}
+
+.error#createAccount {
+    top: 50px;
 }
 
 @keyframes show{
