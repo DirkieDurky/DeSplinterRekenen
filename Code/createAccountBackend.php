@@ -76,8 +76,10 @@ if ($_SESSION['error']!=""){
 } else {
     $stmt = mysqli_stmt_init($_SESSION['conn']);
     mysqli_stmt_prepare($stmt, "INSERT INTO accounts (FirstName, LastName, Email, Password, Type) VALUES (?,?,?,?,0);");
-    mysqli_stmt_bind_param($stmt, "ssss", $_GET['firstname'], $_GET['lastname'], $_GET['email'], password_hash($_GET['pass'],PASSWORD_DEFAULT));
+    echo "Adding password " . $_GET['pass'] . " to the database...<br>That is " . password_hash($_GET['pass'],PASSWORD_DEFAULT) . " when translated to a hash.";
+    $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
+    mysqli_stmt_bind_param($stmt, "ssss", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass);
     mysqli_stmt_execute($stmt);
-    header("Location: teacherSite.html");
+    //header("Location: teacherSite.html");
     exit();
 }

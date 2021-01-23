@@ -1,7 +1,19 @@
 <?php
 session_start();
-if (isset($_COOKIE['userEmail'])){
-    header("signInBackend.php");
+if (isset($_COOKIE['loginEmail'])){
+$_SESSION['conn'] = new mysqli("localhost", "root", "","desplinterrekenen");
+$stmt = mysqli_stmt_init($_SESSION['conn']);
+mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
+mysqli_stmt_bind_param($stmt, "s", $_COOKIE['loginEmail']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+    if ($row['Type'] == 0) {
+        header("Location: teacherSite.html");
+    } else {
+        header("Location: studentSite.html");
+    }
 }
 ?>
 <html lang="nl">
