@@ -4,7 +4,7 @@
     src: url("../Torus Regular.otf");
 }
 
-body {
+body#signIn {
     background-image: url('../RekensiteBackground.png');
 }
 
@@ -62,10 +62,6 @@ body {
     to {height: <?php session_start(); echo $_SESSION['extendHeight'];?>px;}
 }
 
-#forgotpass {
-    height: 350px;
-}
-
 .title {
     font-size: 35px;
 }
@@ -115,16 +111,6 @@ body {
     animation-fill-mode: forwards;
 }
 
-.signinlinks {
-    font-family: "Segoe UI";
-    font-size: 16px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    width: 500px;
-    margin-top: 100px;
-}
-
 .error {
     color: red;
     font-size: 20px;
@@ -150,6 +136,15 @@ body {
 @keyframes show{
     to {opacity: 100}
 }
+.hyperlinks {
+    font-family: "Segoe UI";
+    font-size: 16px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    width: 500px;
+    margin-top: 100px;
+}
 
 .hyperlinks:link {
     text-decoration: none;
@@ -171,4 +166,29 @@ body {
     to {
         filter: brightness(85%);
     }
+}
+
+body#teacherSite {
+    background-color: #181818;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 56px;
+    background-color: #212121;
+}
+
+.profPic {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+}
+
+.profpic:hover {
+    cursor:pointer;
 }

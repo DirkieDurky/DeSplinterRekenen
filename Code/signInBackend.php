@@ -34,8 +34,8 @@ if ($_GET['email'] == "") {
     } else {
         setcookie("loginEmail", $_GET['email']);
         if ($row['Type'] == 0) {
-            header("Location: teacherSite.html");
+            header("Location: teacherSite.php");
         } else {
-            header("Location: studentSite.html");
+            header("Location: studentSite.php");
         }
     }

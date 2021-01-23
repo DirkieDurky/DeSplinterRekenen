@@ -80,6 +80,6 @@ if ($_SESSION['error']!=""){
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
     mysqli_stmt_bind_param($stmt, "ssss", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass);
     mysqli_stmt_execute($stmt);
-    //header("Location: teacherSite.html");
+    //header("Location: teacherSite.php");
     exit();
 }
