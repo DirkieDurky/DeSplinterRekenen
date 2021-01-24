@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <title>Account maken</title>
-    <link href="css.php" rel=stylesheet>
+    <link href="../style.php" rel=stylesheet>
 </head>
 <body id="signIn">
 <div>

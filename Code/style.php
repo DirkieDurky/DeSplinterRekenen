@@ -1,4 +1,5 @@
 <style>
+
 @font-face {
     font-family: Torus Regular;
     src: url("../Torus Regular.otf");
@@ -9,7 +10,7 @@ body#signIn {
 }
 
 .field {
-    font-family: "Torus Regular";
+    font-family: "Torus Regular", serif;
     margin-top: 25px;
     color: white;
     text-align: center;
@@ -31,7 +32,7 @@ body#signIn {
 }
 
 .backButton {
-    font-family: "Torus Regular";
+    font-family: "Torus Regular", serif;
     margin-top: 50px;
     color: white;
     text-align: center;
@@ -52,16 +53,6 @@ body#signIn {
     animation-fill-mode: forwards;
 }
 
-.extend {
-    animation:extend;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes extend{
-    to {height: <?php session_start(); echo $_SESSION['extendHeight'];?>px;}
-}
-
 .title {
     font-size: 35px;
 }
@@ -77,7 +68,7 @@ body#signIn {
 }
 
 .input {
-    font-family: "Torus Regular";
+    font-family: "Torus Regular", serif;
     font-size: 20px;
     color: white;
     background-color: #222;
@@ -91,7 +82,7 @@ body#signIn {
 }
 
 .submit {
-    font-family: "Torus Regular";
+    font-family: "Torus Regular", serif;
     color: white;
     font-size: 20px;
     height: 55px;
@@ -133,11 +124,21 @@ body#signIn {
     top: 50px;
 }
 
+.extend {
+    animation:extend;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes extend{
+    to {height: <?php session_start(); echo $_SESSION['extendHeight'];?>px;}
+}
+
 @keyframes show{
     to {opacity: 100}
 }
 .hyperlinks {
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", serif;
     font-size: 16px;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -164,7 +165,7 @@ body#signIn {
         filter: brightness(100%);
     }
     to {
-        filter: brightness(85%);
+        filter: brightness(70%);
     }
 }
 
@@ -173,6 +174,7 @@ body#teacherSite {
 }
 
 .header {
+    font-family: "Torus regular", serif;
     position: absolute;
     top: 0;
     left: 0;
@@ -181,14 +183,73 @@ body#teacherSite {
     background-color: #212121;
 }
 
-.profPic {
+.headerSelect {
     position: absolute;
-    top: 12px;
-    right: 20px;
+    transform: translate(-50%, 0%);
+    left: 50%;
+}
+
+.headerSelect a{
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    border-top: none;
+    display: inline-block;
+    width: 300px;
+    height: 56px;
+    line-height: 56px;
+    background-color: #212121;
+}
+
+.headerSelect a:hover{
+   animation: hover 200ms;
+   animation-fill-mode: forwards;
+}
+
+.headerSelect #selected{
+    background-color: #3D3D3D;
+}
+
+.profPic {
+    background-color: #4CAF50;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
     width: 32px;
     height: 32px;
 }
 
-.profpic:hover {
-    cursor:pointer;
+.dropdown {
+    position: absolute;
+    top: 12px;
+    right: 20px;
 }
+
+.dropdown-cont {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #181818;
+    width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-cont a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-cont a:hover {
+    background-color: #212121;
+}
+
+.dropdown:hover .dropdown-cont {display: block;}

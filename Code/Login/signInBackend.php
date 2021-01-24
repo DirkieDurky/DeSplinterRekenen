@@ -1,5 +1,5 @@
 <?php
-include_once "db_connection.php";
+include_once "../db_connection.php";
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
 
@@ -34,8 +34,8 @@ if ($_GET['email'] == "") {
     } else {
         setcookie("loginEmail", $_GET['email']);
         if ($row['Type'] == 0) {
-            header("Location: teacherSite.php");
+            header("Location: ../Teacher/createStuAcc.php");
         } else {
-            header("Location: studentSite.php");
+            header("Location: ../Student/studentSite.php");
         }
     }

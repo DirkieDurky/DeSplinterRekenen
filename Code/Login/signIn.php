@@ -10,7 +10,7 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
     if ($row['Type'] == 0) {
-        header("Location: teacherSite.php");
+        header("Location: ../Teacher/createStuAcc.php");
     } else {
         header("Location: studentSite.php");
     }
@@ -19,7 +19,7 @@ $row = mysqli_fetch_assoc($result);
 <html lang="nl">
 <head>
     <title>Inloggen</title>
-    <link href=css.php rel=stylesheet>
+    <link href=../style.php rel=stylesheet>
 </head>
 <body id="signIn">
 <div class="field <?php if (isset($_SESSION['error']) && $_SESSION['error']!=""){echo "extend";}?>" id="signIn">
