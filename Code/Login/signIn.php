@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['appMan'] = FALSE;
 if (isset($_COOKIE['loginEmail'])){
 $_SESSION['conn'] = new mysqli("localhost", "root", "","desplinterrekenen");
 $stmt = mysqli_stmt_init($_SESSION['conn']);
@@ -10,18 +11,21 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
     if ($row['Type'] == 0) {
-        header("Location: teacherSite.html");
+        header("Location: ../Student/studentSite.php?selected=1");
+    } elseif ($row['Type'] == 1){
+        header("Location: ../Teacher/teacherSite.php?selected=1");
     } else {
-        header("Location: studentSite.html");
+        $_SESSION['appMan'] = TRUE;
+        header("Location: ../Teacher/teacherSite.php?selected=0");
     }
 }
 ?>
 <html lang="nl">
 <head>
     <title>Inloggen</title>
-    <link href=css.php rel=stylesheet>
+    <link href=../style.php rel=stylesheet>
 </head>
-<body>
+<body id="signIn">
 <div class="field <?php if (isset($_SESSION['error']) && $_SESSION['error']!=""){echo "extend";}?>" id="signIn">
     <h1 class=title>Inloggen bij de Splinter Rekensite</h1><br>
     <form action="signInBackend.php">
@@ -40,7 +44,7 @@ $row = mysqli_fetch_assoc($result);
         <div>
             <input class="submit" name="submit" type="submit" value="Inloggen">
         </div>
-        <div class="signInLinks">
+        <div>
             <a class="hyperlinks" href="createAccount.php">Ik heb nog geen account</a>
         </div>
     </form>

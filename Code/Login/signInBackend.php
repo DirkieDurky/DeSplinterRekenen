@@ -1,5 +1,5 @@
 <?php
-include_once "db_connection.php";
+include_once "../db_connection.php";
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
 
@@ -32,10 +32,13 @@ if ($_GET['email'] == "") {
         header("Location: signIn.php");
         exit();
     } else {
-        setcookie("loginEmail", $_GET['email']);
+        setcookie("loginEmail", $_GET['email'], time() + 2592000, "/");
         if ($row['Type'] == 0) {
-            header("Location: teacherSite.html");
+            header("Location: ../Student/studentSite.php?selected=1");
+        } elseif ($row['Type'] == 1){
+            header("Location: ../Teacher/teacherSite.php?selected=1");
         } else {
-            header("Location: studentSite.html");
+            $_SESSION['appMan'] = TRUE;
+            header("Location: ../Teacher/teacherSite.php?selected=0");
         }
     }
