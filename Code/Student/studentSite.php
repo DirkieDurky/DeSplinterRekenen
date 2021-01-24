@@ -6,7 +6,7 @@
 <body id="teacherSite">
 <div class="header">
     <div class="headerSelect">
-        <a href="createStuAcc.php" id="selected">Leerlingen-accounts maken</a><a href="assignTests.php">Geef leerlingen opdrachen</a><a href="results.php">Resultaten inzien</a>
+        <a href="studentSite.php?selected=1"<?php if ($_GET['selected'] == 1){echo " id=\"selected\"";}?>>Verplichte opdrachten</a><a href="studentSite.php?selected=2"<?php if ($_GET['selected'] == 2){echo " id=\"selected\"";}?>>Alle opdrachten</a>
     </div>
     <div class="dropdown">
         <img src="../../unknownUser.png" alt="profPic" class="profPic">
@@ -15,5 +15,12 @@
         </div>
     </div>
 </div>
+<?php
+if ($_GET['selected'] == 1){
+    include "mandatoryExercises.php";
+} else {
+    include "allExercises.php";
+}
+?>
 </body>
 </html>

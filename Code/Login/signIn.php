@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['appMan'] = FALSE;
 if (isset($_COOKIE['loginEmail'])){
 $_SESSION['conn'] = new mysqli("localhost", "root", "","desplinterrekenen");
 $stmt = mysqli_stmt_init($_SESSION['conn']);
@@ -10,9 +11,12 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
     if ($row['Type'] == 0) {
-        header("Location: ../Teacher/createStuAcc.php");
+        header("Location: ../Student/studentSite.php?selected=1");
+    } elseif ($row['Type'] == 1){
+        header("Location: ../Teacher/teacherSite.php?selected=1");
     } else {
-        header("Location: studentSite.php");
+        $_SESSION['appMan'] = TRUE;
+        header("Location: ../Teacher/teacherSite.php?selected=0");
     }
 }
 ?>

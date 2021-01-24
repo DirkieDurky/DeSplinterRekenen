@@ -11,7 +11,7 @@ body#signIn {
 
 .field {
     font-family: "Torus Regular", serif;
-    margin-top: 25px;
+    margin-top: 5px;
     color: white;
     text-align: center;
     position: absolute;
@@ -27,8 +27,8 @@ body#signIn {
     height: 435px;
 }
 
-#createAccount {
-    height: 738px;
+.field#createAccount {
+    height: 705px;
 }
 
 .backButton {
@@ -63,13 +63,14 @@ body#signIn {
     transform: translate(-50%, -50%);
     left: 50%;
     width: 550px;
-    margin-top: 40px;
-    margin-bottom: 10px;
+    margin-top: 35px;
+    margin-bottom: 20px;
 }
 
-.input {
+.field [type="text"],[type="password"] {
     font-family: "Torus Regular", serif;
     font-size: 20px;
+    position: relative;
     color: white;
     background-color: #222;
     border: none;
@@ -81,16 +82,25 @@ body#signIn {
     margin-top: 5px;
 }
 
+.type {
+    position: relative;
+    font-size: 20px;
+    display: block;
+    width: 298px;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .submit {
     font-family: "Torus Regular", serif;
     color: white;
     font-size: 20px;
     height: 55px;
     width: 350px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    margin-top: 35px;
-    left: 50%;
+    position: relative;
+    margin-top: 20px;
     background-color: red;
     border: none;
     border-radius: 10px;
@@ -109,7 +119,7 @@ body#signIn {
     transform: translate(-50%, 0%);
     left: 50%;
     width: 600px;
-    margin-top: 30px;
+    margin-top: 0px;
     margin-bottom: 20px;
     opacity: 0;
     animation: show 200ms step-start 400ms;
@@ -117,11 +127,11 @@ body#signIn {
 }
 
 .error#signIn {
-    top: 100px;
+    top: 35px;
 }
 
 .error#createAccount {
-    top: 50px;
+    top: 20px;
 }
 
 .extend {
@@ -144,7 +154,9 @@ body#signIn {
     transform: translate(-50%, -50%);
     left: 50%;
     width: 500px;
-    margin-top: 100px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
 }
 
 .hyperlinks:link {
@@ -187,6 +199,7 @@ body#teacherSite {
     position: absolute;
     transform: translate(-50%, 0%);
     left: 50%;
+    <?php if($_SESSION['appMan'] == TRUE){ echo "width: 1208px;";}?>
 }
 
 .headerSelect a{

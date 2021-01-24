@@ -4,6 +4,6 @@
     <link href=../style.php rel=stylesheet>
 </head>
 <body id="teacherSite">
-Pagina 2
+Pagina 1
 </body>
 </html>

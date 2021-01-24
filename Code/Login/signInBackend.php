@@ -32,10 +32,13 @@ if ($_GET['email'] == "") {
         header("Location: signIn.php");
         exit();
     } else {
-        setcookie("loginEmail", $_GET['email']);
+        setcookie("loginEmail", $_GET['email'], time() + 2592000, "/");
         if ($row['Type'] == 0) {
-            header("Location: ../Teacher/createStuAcc.php");
+            header("Location: ../Student/studentSite.php?selected=1");
+        } elseif ($row['Type'] == 1){
+            header("Location: ../Teacher/teacherSite.php?selected=1");
         } else {
-            header("Location: ../Student/studentSite.php");
+            $_SESSION['appMan'] = TRUE;
+            header("Location: ../Teacher/teacherSite.php?selected=0");
         }
     }

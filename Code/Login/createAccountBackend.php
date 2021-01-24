@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION['accMan'] = FALSE;
 include_once "../db_connection.php";
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
@@ -70,16 +72,18 @@ if ($_GET['pass'] == ""){
 $_SESSION['errorLength'] = substr_count($_SESSION['error'],"<br>");
 
 if ($_SESSION['error']!=""){
-    $_SESSION['extendHeight'] = 738 + ($_SESSION['errorLength'] * 24);
+    $_SESSION['extendHeight'] = 710 + ($_SESSION['errorLength'] * 23);
     header("Location: createAccount.php");
     exit();
 } else {
     $stmt = mysqli_stmt_init($_SESSION['conn']);
-    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (FirstName, LastName, Email, Password, Type) VALUES (?,?,?,?,0);");
-    echo "Adding password " . $_GET['pass'] . " to the database...<br>That is " . password_hash($_GET['pass'],PASSWORD_DEFAULT) . " when translated to a hash.";
+    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (FirstName, LastName, Email, Password, Type) VALUES (?,?,?,?,?);");
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
-    mysqli_stmt_bind_param($stmt, "ssss", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass);
+    mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['type']);
     mysqli_stmt_execute($stmt);
-    header("Location: ../Teacher/createStuAcc.php");
-    exit();
+    if ($_GET['type'] == 0) {
+        header("Location: ../Student/studentSite.php?selected=1");
+    } else {
+        header("Location: ../Teacher/teacherSite.php?selected=1");
+    }
 }
