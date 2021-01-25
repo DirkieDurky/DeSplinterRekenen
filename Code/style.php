@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <style>
-
 @font-face {
     font-family: Torus Regular;
     src: url("../Torus Regular.otf");
@@ -23,7 +25,7 @@ body#signIn {
     background-color: #333;
 }
 
-#signIn {
+.field#signIn {
     height: 435px;
 }
 
@@ -53,7 +55,7 @@ body#signIn {
     animation-fill-mode: forwards;
 }
 
-.title {
+h1 {
     font-size: 35px;
 }
 
@@ -82,7 +84,7 @@ body#signIn {
     margin-top: 5px;
 }
 
-.type {
+.teacher {
     position: relative;
     font-size: 20px;
     display: block;
@@ -119,19 +121,24 @@ body#signIn {
     transform: translate(-50%, 0%);
     left: 50%;
     width: 600px;
-    margin-top: 0px;
-    margin-bottom: 20px;
+    height: 100px;
     opacity: 0;
     animation: show 200ms step-start 400ms;
     animation-fill-mode: forwards;
 }
 
+@keyframes show{
+    to {opacity: 100}
+}
+
 .error#signIn {
-    top: 35px;
+    top: 0;
+    margin-top: -38px;
 }
 
 .error#createAccount {
     top: 20px;
+    margin-top: 0px;
 }
 
 .extend {
@@ -141,22 +148,20 @@ body#signIn {
 }
 
 @keyframes extend{
-    to {height: <?php session_start(); echo $_SESSION['extendHeight'];?>px;}
+    to {height: <?php  echo $_SESSION['extendHeight'];?>px;}
 }
 
-@keyframes show{
-    to {opacity: 100}
-}
 .hyperlinks {
     font-family: "Segoe UI", serif;
     font-size: 16px;
-    position: absolute;
+    position: relative;
     transform: translate(-50%, -50%);
+    display: block;
     left: 50%;
     width: 500px;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 30px;
+    margin-top: 35px;
+    height: 60px;
+    line-height: 60px;
 }
 
 .hyperlinks:link {
@@ -187,19 +192,20 @@ body#teacherSite {
 
 .header {
     font-family: "Torus regular", serif;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width:100%;
     height: 56px;
     background-color: #212121;
+    z-index: 1;
 }
 
 .headerSelect {
     position: absolute;
     transform: translate(-50%, 0%);
     left: 50%;
-    <?php if($_SESSION['appMan'] == TRUE){ echo "width: 1208px;";}?>
+    <?php if($_SESSION['perms'] == 2){ echo "width: 1208px;";}?>
 }
 
 .headerSelect a{
@@ -241,6 +247,7 @@ body#teacherSite {
     position: absolute;
     top: 12px;
     right: 20px;
+    z-index: 2;
 }
 
 .dropdown-cont {
@@ -266,3 +273,91 @@ body#teacherSite {
 }
 
 .dropdown:hover .dropdown-cont {display: block;}
+
+.teachers{
+    position: relative;
+    text-align: center;
+    transform: translate(-50%);
+    left: 50%;
+    margin-top: 50px;
+}
+
+.teacherField {
+    font-family: "Torus regular", serif;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    margin-top:56px;
+    background-color: #AAAAAA;
+    display:block;
+    padding: 60px 50px 0 50px;
+    min-width: 500px;
+    min-height: 500px;
+}
+
+.noPerms {
+    font-family: "Torus regular", serif;
+    font-size:20px;
+    text-align: center;
+    color: red;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 200px;
+    background-color: #212121;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.noPerms h3 {
+    position:absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 40%;
+    width: 380px;
+}
+
+#teacherSaveButton {
+    font-family: "Torus Regular", serif;
+    color: white;
+    font-size: 20px;
+    height: 55px;
+    width: 350px;
+    position: relative;
+    margin-top: 50px;
+    background-color: red;
+    border: none;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+#teacherSaveButton:hover {
+    cursor: pointer;
+    animation: hover 200ms;
+    animation-fill-mode: forwards;
+}
+
+.saved{
+    font-family: "Torus regular", serif;
+    position: fixed;
+    z-index: 1;
+    color: lime;
+    text-align: center;
+    right:2%;
+    bottom:2%;
+    background-color: #3d3d3d;
+    width: 250px;
+    height: 50px;
+    opacity: 0;
+    animation: noti 2500ms;
+}
+
+@keyframes noti {
+    from {opacity: 100}
+    50% {opacity: 100}
+    to {opacity: 0}
+}
