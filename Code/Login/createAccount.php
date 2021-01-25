@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
 <head>
     <title>Account maken</title>
@@ -9,7 +12,7 @@
         <input class="backbutton" type="submit" value="Terug">
     </form>
 </div>
-<div class="field <?php session_start(); if (isset($_SESSION['error'])&&$_SESSION['error']!=""){echo "extend";}?>" id=createAccount >
+<div class="field <?php if (isset($_SESSION['error'])&&$_SESSION['error']!=""){echo "extend";}?>" id=createAccount >
     <h1 class="title">Account aanmaken</h1>
     <form action="createAccountBackend.php">
         <label>
@@ -31,13 +34,13 @@
         Herhaal wachtwoord:<br>
         <input placeholder="Herhaal wachtwoord" type="password" name="repass" value="<?php if (isset($_SESSION['creAccRepass'])) {echo $_SESSION['creAccRepass'];}?>"><br>
         </label>
-        <label class="type">
+        <label class="teacher">
             Ik ben een leerling
-            <input type="radio" name="type" value="0">
+            <input type="radio" name="teacher" value=0>
         </label>
-        <label class="type">
+        <label class="teacher">
             Ik ben een leraar
-            <input type="radio" name="type" value="1">
+            <input type="radio" name="teacher" value=1>
         </label>
         <input class="submit" type="submit" value="Account aanmaken">
     </form>

@@ -1,44 +1,49 @@
 <?php
 include_once "../db_connection.php";
+$_SESSION['appMan'] = 0;
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
 
-$_SESSION['conn'] = new mysqli("localhost", "root", "","desplinterrekenen");
+$_SESSION['signInPass'] = $_GET['pass'];
+$_SESSION['signInEmail'] = $_GET['email'];
+
 $stmt = mysqli_stmt_init($_SESSION['conn']);
-mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
+mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE email=?");
 mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
+$_SESSION['loggedID'] = $row['id'];
 
 if ($_GET['email'] == "") {
         $_SESSION['error'] .= "Geen email ingevoerd.<br>";
-        $_SESSION['signInPass'] = $_GET['pass'];
-    } elseif ($row == "") {
+        unset($_SESSION['signInEmail']);
+    } elseif ($row['email'] == "") {
         $_SESSION['error'] .= "Er bestaat geen account dat deze email gebruikt.<br>";
-        $_SESSION['signInPass'] = $_GET['pass'];
+        unset($_SESSION['signInEmail']);
     }
     if ($_GET['pass'] == "") {
         $_SESSION['error'] .= "Geen wachtwoord ingevoerd.<br>";
-        $_SESSION['signInEmail'] = $_GET['email'];
-    } elseif (!password_verify($_GET['pass'],$row['Password']) && $row != "") {
+        unset($_SESSION['signInPass']);
+    } elseif (!password_verify($_GET['pass'],$row['password']) && $row != "") {
         $_SESSION['error'] .= "Uw wachtwoord is onjuist.<br>";
-        $_SESSION['signInEmail'] = $_GET['email'];
+        unset($_SESSION['signInPass']);
     }
 
     if ($_SESSION['error'] != "") {
         $_SESSION['errorLength'] = substr_count($_SESSION['error'], "<br>");
         $_SESSION['extendHeight'] = 440 + ($_SESSION['errorLength'] * 24);
+        echo $_SESSION['error'];
         header("Location: signIn.php");
         exit();
     } else {
-        setcookie("loginEmail", $_GET['email'], time() + 2592000, "/");
-        if ($row['Type'] == 0) {
+        if ($_GET['rememberMe'] == TRUE){
+            setcookie("loginEmail", $_GET['email'], time() + 2592000, "/");
+        }
+        if ($row['teacher'] == 0) {
             header("Location: ../Student/studentSite.php?selected=1");
-        } elseif ($row['Type'] == 1){
-            header("Location: ../Teacher/teacherSite.php?selected=1");
         } else {
-            $_SESSION['appMan'] = TRUE;
-            header("Location: ../Teacher/teacherSite.php?selected=0");
+                $_SESSION['perms'] = $row['perms'];
+            header("Location: ../teacher/teacherSite.php?selected=1");
         }
     }

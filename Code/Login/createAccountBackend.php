@@ -1,6 +1,4 @@
 <?php
-session_start();
-$_SESSION['accMan'] = FALSE;
 include_once "../db_connection.php";
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
@@ -38,8 +36,8 @@ if ($_GET['email'] == ""){
         mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
-        if ($row != "") {
+        $_SESSION['row'] = mysqli_fetch_assoc($result);
+        if ($_SESSION['row'] != "") {
             $_SESSION['error'] .= "Er bestaat al een ander account dat dit email gebruikt.<br>";
             unset($_SESSION['creAccEmail']);
         }
@@ -68,6 +66,9 @@ if ($_GET['pass'] == ""){
     unset($_SESSION['creAccPass']);
     unset($_SESSION['creAccRepass']);
 }
+if (!isset($_GET['teacher'])){
+    $_SESSION['error'] .= "Je hebt niet aangegeven of je een leraar bent of niet.<br>";
+}
 
 $_SESSION['errorLength'] = substr_count($_SESSION['error'],"<br>");
 
@@ -77,13 +78,13 @@ if ($_SESSION['error']!=""){
     exit();
 } else {
     $stmt = mysqli_stmt_init($_SESSION['conn']);
-    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (FirstName, LastName, Email, Password, Type) VALUES (?,?,?,?,?);");
+    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (firstName, lastName, email, password, teacher, perms) VALUES (?,?,?,?,?,0);");
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
-    mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['type']);
+    mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
     mysqli_stmt_execute($stmt);
-    if ($_GET['type'] == 0) {
+    if ($_GET['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {
-        header("Location: ../Teacher/teacherSite.php?selected=1");
+        header("Location: ../teacher/teacherSite.php?selected=1");
     }
 }
