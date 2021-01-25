@@ -1,16 +1,18 @@
 <?php
 session_start();
+$_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
-    $_SESSION['conn'] = new mysqli("localhost", "root", "", "desplinterrekenen");
-    $stmt = mysqli_stmt_init($_SESSION['conn']);
+    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
     mysqli_stmt_bind_param($stmt, "s", $_COOKIE['loginEmail']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $cookieRow = mysqli_fetch_assoc($result);
-    if ($cookieRow['teacher'] == FALSE) {
+    $row = mysqli_fetch_assoc($result);
+    if ($row['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {
+        $_SESSION['perms'] = $row['perms'];
         header("Location: ../teacher/teacherSite.php?selected=1");
     }
 }
@@ -36,6 +38,10 @@ if (isset($_COOKIE['loginEmail'])) {
             <input class="input" name=pass placeholder=Wachtwoord type=password value="<?php if (isset($_SESSION['signInPass'])) {echo $_SESSION['signInPass'];}?>">
             </label><br>
         </div>
+        <label>
+            Onthoud mijn gevens
+            <input type="checkbox" name="rememberMe">
+        </label><br>
             <input class="submit" name="submit" type="submit" value="Inloggen"><br>
     </form>
     <a class="hyperlinks" href="createAccount.php">Ik heb nog geen account</a>

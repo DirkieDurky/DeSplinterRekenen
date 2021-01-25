@@ -192,7 +192,7 @@ body#teacherSite {
 
 .header {
     font-family: "Torus regular", serif;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width:100%;
@@ -288,7 +288,12 @@ body#teacherSite {
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
+    margin-top:56px;
     background-color: #AAAAAA;
+    display:block;
+    padding: 60px 50px 0 50px;
+    min-width: 500px;
+    min-height: 500px;
 }
 
 .noPerms {
@@ -334,4 +339,25 @@ body#teacherSite {
     cursor: pointer;
     animation: hover 200ms;
     animation-fill-mode: forwards;
+}
+
+.saved{
+    font-family: "Torus regular", serif;
+    position: fixed;
+    z-index: 1;
+    color: lime;
+    text-align: center;
+    right:2%;
+    bottom:2%;
+    background-color: #3d3d3d;
+    width: 250px;
+    height: 50px;
+    opacity: 0;
+    animation: noti 2500ms;
+}
+
+@keyframes noti {
+    from {opacity: 100}
+    50% {opacity: 100}
+    to {opacity: 0}
 }

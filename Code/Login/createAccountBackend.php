@@ -1,5 +1,5 @@
 <?php
-include_once "../db_connection.php";
+session_start();
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
 
@@ -31,7 +31,8 @@ if ($_GET['email'] == ""){
         unset($_SESSION['creAccEmail']);
     } else {
         //Check if there is an account using entered email
-        $stmt = mysqli_stmt_init($_SESSION['conn']);
+        $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+        $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
         mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
         mysqli_stmt_execute($stmt);
@@ -77,14 +78,17 @@ if ($_SESSION['error']!=""){
     header("Location: createAccount.php");
     exit();
 } else {
-    $stmt = mysqli_stmt_init($_SESSION['conn']);
-    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (firstName, lastName, email, password, teacher, perms) VALUES (?,?,?,?,?,0);");
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
+
+    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (firstName, lastName, email, password, teacher, perms) VALUES (?,?,?,?,?,0);");
     mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
     mysqli_stmt_execute($stmt);
     if ($_GET['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {
+        $_SESSION['perms'] = 0;
         header("Location: ../teacher/teacherSite.php?selected=1");
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include_once "../db_connection.php";
+session_start();
 $_SESSION['appMan'] = 0;
 $_SESSION['error'] = "";
 $_SESSION['errorLength'] = 0;
@@ -7,7 +7,8 @@ $_SESSION['errorLength'] = 0;
 $_SESSION['signInPass'] = $_GET['pass'];
 $_SESSION['signInEmail'] = $_GET['email'];
 
-$stmt = mysqli_stmt_init($_SESSION['conn']);
+$conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+$stmt = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE email=?");
 mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
 mysqli_stmt_execute($stmt);
@@ -43,7 +44,7 @@ if ($_GET['email'] == "") {
         if ($row['teacher'] == 0) {
             header("Location: ../Student/studentSite.php?selected=1");
         } else {
-                $_SESSION['perms'] = $row['perms'];
+            $_SESSION['perms'] = $row['perms'];
             header("Location: ../teacher/teacherSite.php?selected=1");
         }
     }

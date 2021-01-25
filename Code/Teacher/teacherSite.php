@@ -1,5 +1,6 @@
 <?php
-session_start();
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    session_start();
 ?>
 <html lang="nl">
 <head>
@@ -11,15 +12,19 @@ session_start();
     <div class="headerSelect">
         <?php
         if ($_SESSION['perms'] == 2) {
-            if ($_GET['selected'] == 0) {
-                echo "<a href=\"teacherSite.php?selected=0\" id=\"selected\">Leraren beheren</a>";
+            if (isset($_GET['selected'])){
+                if ($_GET['selected'] == 0) {
+                    echo "<a href=\"teacherSite.php?selected=0\" id=\"selected\">Leraren beheren</a>";
+                } else {
+                    echo "<a href=\"teacherSite.php?selected=0\">Leraren beheren</a>";
+                }
             } else {
-                echo "<a href=\"teacherSite.php?selected=0\">Leraren beheren</a>";
+                echo "<a href=\"teacherSite.php?selected=0\" id=\"selected\">Leraren beheren</a>";
             }
         }?><!--
-        --><a href="teacherSite.php?selected=1"<?php if ($_GET['selected'] == 1){echo " id=\"selected\"";}?>>Leerlingen beheren</a><!--
-        --><a href="teacherSite.php?selected=2"<?php if ($_GET['selected'] == 2){echo " id=\"selected\"";}?>>Geef leerlingen opdrachen</a><!--
-        --><a href="teacherSite.php?selected=3"<?php if ($_GET['selected'] == 3){echo " id=\"selected\"";}?>>Resultaten inzien</a>
+        --><a href="teacherSite.php?selected=1"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 1){echo " id=\"selected\"";}} ?>>Leerlingen beheren</a><!--
+        --><a href="teacherSite.php?selected=2"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 2){echo " id=\"selected\"";}} ?>>Opdrachten toedienen</a><!--
+        --><a href="teacherSite.php?selected=3"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 3){echo " id=\"selected\"";}} ?>>Resultaten inzien</a>
     </div>
     <div class="dropdown">
         <img src="../../unknownUser.png" alt="profPic" class="profPic">
@@ -35,6 +40,7 @@ if ($_SESSION['perms'] == 0){
     <h3>Je mist de benodigde rechten om op deze pagina te zijn. Vraag aan een applicatiebeheerder om je de rechten te geven.</h3>
     </div>
 <?php
+
 } else {
 switch ($_GET['selected']){
     case 0:
