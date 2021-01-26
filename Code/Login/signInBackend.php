@@ -33,7 +33,7 @@ if ($_GET['email'] == "") {
 
     if ($_SESSION['error'] != "") {
         $_SESSION['errorLength'] = substr_count($_SESSION['error'], "<br>");
-        $_SESSION['extendHeight'] = 440 + ($_SESSION['errorLength'] * 24);
+        $_SESSION['extendHeight'] = 450 + ($_SESSION['errorLength'] * 24);
         echo $_SESSION['error'];
         header("Location: signIn.php");
         exit();
@@ -44,7 +44,6 @@ if ($_GET['email'] == "") {
         if ($row['teacher'] == 0) {
             header("Location: ../Student/studentSite.php?selected=1");
         } else {
-            $_SESSION['perms'] = $row['perms'];
             header("Location: ../teacher/teacherSite.php?selected=1");
         }
     }

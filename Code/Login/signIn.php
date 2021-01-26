@@ -12,7 +12,6 @@ if (isset($_COOKIE['loginEmail'])) {
     if ($row['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {
-        $_SESSION['perms'] = $row['perms'];
         header("Location: ../teacher/teacherSite.php?selected=1");
     }
 }

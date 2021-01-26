@@ -78,17 +78,18 @@ if ($_SESSION['error']!=""){
     header("Location: createAccount.php");
     exit();
 } else {
+
+
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
 
     $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
     $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (firstName, lastName, email, password, teacher, perms) VALUES (?,?,?,?,?,0);");
+    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groups`) VALUES (?,?,?,?,?,0,'default');");
     mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
     mysqli_stmt_execute($stmt);
-    if ($_GET['teacher'] == FALSE) {
+    if ($_GET['teacher'] == 0) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {
-        $_SESSION['perms'] = 0;
         header("Location: ../teacher/teacherSite.php?selected=1");
     }
 }

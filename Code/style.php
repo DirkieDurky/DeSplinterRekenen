@@ -159,7 +159,7 @@ h1 {
     display: block;
     left: 50%;
     width: 500px;
-    margin-top: 35px;
+    margin-top: 25px;
     height: 60px;
     line-height: 60px;
 }
@@ -195,17 +195,27 @@ body#teacherSite {
     position: fixed;
     top: 0;
     left: 0;
-    width:100%;
+    width: 100%;
     height: 56px;
     background-color: #212121;
     z-index: 1;
 }
 
+<?php
+    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE id=?");
+    mysqli_stmt_bind_param($stmt, "s", $_SESSION['loggedID']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+ ?>
+
 .headerSelect {
     position: absolute;
     transform: translate(-50%, 0%);
     left: 50%;
-    <?php if($_SESSION['perms'] == 2){ echo "width: 1208px;";}?>
+    <?php if($row['perms'] == 2){ echo "width: 1208px;";} elseif ($row['teacher'] == 0){echo "width: 604px;";}?>
 }
 
 .headerSelect a{
@@ -274,12 +284,45 @@ body#teacherSite {
 
 .dropdown:hover .dropdown-cont {display: block;}
 
-.teachers{
+.table {
     position: relative;
     text-align: center;
     transform: translate(-50%);
     left: 50%;
+    border-collapse: collapse;
+}
+
+.table td {
+    border: solid 1px;
+}
+
+.table#groups td:first-child{
+    border: none;
+}
+
+.table#students td:first-child{
+    border: none;
+}
+
+.table tr:first-child {
+    border-top: none;
+}
+
+#teachers {
     margin-top: 50px;
+}
+
+#groups {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#groups2 {
+    margin-top: 20px;
+}
+
+#students {
+    margin-top: 20px;
 }
 
 .teacherField {
@@ -291,12 +334,12 @@ body#teacherSite {
     margin-top:56px;
     background-color: #AAAAAA;
     display:block;
-    padding: 60px 50px 0 50px;
+    padding: 20px 50px 0 50px;
     min-width: 500px;
     min-height: 500px;
 }
 
-.noPerms {
+.warning {
     font-family: "Torus regular", serif;
     font-size:20px;
     text-align: center;
@@ -312,7 +355,7 @@ body#teacherSite {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.noPerms h3 {
+.warning h3 {
     position:absolute;
     transform: translate(-50%, -50%);
     left: 50%;
@@ -361,3 +404,57 @@ body#teacherSite {
     50% {opacity: 100}
     to {opacity: 0}
 }
+
+.addGroup {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    display: inline-block;
+}
+
+.addGroupButton {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+</style>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>

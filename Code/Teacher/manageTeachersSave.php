@@ -1,11 +1,9 @@
 <?php
 session_start();
-$teacher = 1;
-$teacher2 = 2;
 $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
 $stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE (teacher=? OR teacher=?) AND id!=?");
-mysqli_stmt_bind_param($stmt, "iii", $teacher, $teacher2, $_SESSION['loggedID']);
+mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE teacher=1 AND id!=?");
+mysqli_stmt_bind_param($stmt, "i", $_SESSION['loggedID']);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
