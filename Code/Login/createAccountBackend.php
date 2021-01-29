@@ -31,9 +31,9 @@ if ($_GET['email'] == ""){
         unset($_SESSION['creAccEmail']);
     } else {
         //Check if there is an account using entered email
-        $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+        $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
         $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
+        mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
         mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -82,11 +82,21 @@ if ($_SESSION['error']!=""){
 
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
 
-    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
     $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "INSERT INTO accounts (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groups`) VALUES (?,?,?,?,?,0,'default');");
+    mysqli_stmt_prepare($stmt, "INSERT INTO `accounts` (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groups`) VALUES (?,?,?,?,?,0,1);");
     mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
     mysqli_stmt_execute($stmt);
+
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
+    mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+
+    $_SESSION['loggedID'] = $row['id'];
+
     if ($_GET['teacher'] == 0) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {

@@ -2,13 +2,14 @@
 session_start();
 $_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
-    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
     $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE Email=?");
+    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
     mysqli_stmt_bind_param($stmt, "s", $_COOKIE['loginEmail']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
+    $_SESSION['loggedID'] = $row['id'];
     if ($row['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
     } else {

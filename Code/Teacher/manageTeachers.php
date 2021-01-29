@@ -32,9 +32,9 @@ Applicatiebeheerder (AB):
         <li>Leraren te beheren.</li>
     </ul>
     <?php
-    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
     $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE teacher=1 AND id!=?");
+    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
     mysqli_stmt_bind_param($stmt, "i", $_SESSION['loggedID']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -59,9 +59,9 @@ $i = 0;
 do {
     echo "<tr>";
     ?>
-    <td><label><input type="radio" name="perms<?php echo $i;?>" value="0" <?php if($row['perms'] == 0){echo "checked";}?>></label></td>
-    <td><label><input type="radio" name="perms<?php echo $i;?>" value="1" <?php if($row['perms'] == 1){echo "checked";}?>></label></td>
-    <td><label><input type="radio" name="perms<?php echo $i;?>" value="2" <?php if($row['perms'] == 2){echo "checked";}?>></label></td>
+    <td class="permsRadio"><label><input type="radio" name="perms<?php echo $i;?>" value="0" <?php if($row['perms'] == 0){echo "checked";}?>></label></td>
+    <td class="permsRadio"><label><input type="radio" name="perms<?php echo $i;?>" value="1" <?php if($row['perms'] == 1){echo "checked";}?>></label></td>
+    <td class="permsRadio"><label><input type="radio" name="perms<?php echo $i;?>" value="2" <?php if($row['perms'] == 2){echo "checked";}?>></label></td>
     <?php
     echo "<td>" . $row['firstName'] . "</td>";
     echo "<td>" . $row['lastName'] . "</td>";
@@ -76,6 +76,6 @@ $_SESSION['i'] = $i;
     </form>
     <?php } ?>
 </div>
-    <?php if (isset($_SESSION['saved'])){echo "<h3 class='saved'> " . $_SESSION['saved'] . " </h3>";} unset($_SESSION['saved'])?>
+    <?php if (isset($_SESSION['notif'])){echo "<h3 class='notif'> " . $_SESSION['notif'] . " </h3>";} unset($_SESSION['notif'])?>
 </body>
 </html>

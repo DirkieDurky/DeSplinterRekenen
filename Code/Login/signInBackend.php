@@ -7,9 +7,9 @@ $_SESSION['errorLength'] = 0;
 $_SESSION['signInPass'] = $_GET['pass'];
 $_SESSION['signInEmail'] = $_GET['email'];
 
-$conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
 $stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE email=?");
+mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE email=?");
 mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

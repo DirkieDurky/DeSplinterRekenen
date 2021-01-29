@@ -202,9 +202,9 @@ body#teacherSite {
 }
 
 <?php
-    $conn = new mysqli("localhost", "root", "", "desplinterrekenen");
+    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
     $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM accounts WHERE id=?");
+    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE id=?");
     mysqli_stmt_bind_param($stmt, "s", $_SESSION['loggedID']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -290,47 +290,48 @@ body#teacherSite {
     transform: translate(-50%);
     left: 50%;
     border-collapse: collapse;
+    width: 200px;
+}
+
+.collapsible th {
+    height: 25px;
 }
 
 .table td {
     border: solid 1px;
 }
 
-.table#groups td:first-child{
-    border: none;
+.table td:not(.permsRadio)  {
+    padding: 0 20px;
 }
 
-.table#students td:first-child{
+.table#students td:first-child, .table#usersInGroup td:first-child{
     border: none;
-}
-
-.table tr:first-child {
-    border-top: none;
+    padding: 0 2.5px;
 }
 
 #teachers {
     margin-top: 50px;
 }
 
-#groups {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#groups2 {
+#students{
     margin-top: 20px;
 }
 
-#students {
-    margin-top: 20px;
+#addToGroupForm {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin-top:20px;
+    display: inline-block;
 }
 
 .teacherField {
     font-family: "Torus regular", serif;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     left: 50%;
-    top: 50%;
+    top: 0;
     margin-top:56px;
     background-color: #AAAAAA;
     display:block;
@@ -384,7 +385,7 @@ body#teacherSite {
     animation-fill-mode: forwards;
 }
 
-.saved{
+.notif{
     font-family: "Torus regular", serif;
     position: fixed;
     z-index: 1;
@@ -396,65 +397,61 @@ body#teacherSite {
     width: 250px;
     height: 50px;
     opacity: 0;
-    animation: noti 2500ms;
+    animation: notif 2500ms;
 }
 
-@keyframes noti {
+@keyframes notif {
     from {opacity: 100}
     50% {opacity: 100}
     to {opacity: 0}
 }
 
-.addGroup {
+#addGroupButton {
     position: relative;
     transform: translate(-50%, -50%);
     left: 50%;
-    display: inline-block;
 }
 
-.addGroupButton {
+#addGroupForm {
     position: relative;
+    display: inline-block;
     transform: translate(-50%, -50%);
     left: 50%;
+    margin-bottom: 15px;
 }
 
 .collapsible {
     background-color: #eee;
-    color: #444;
     cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
     font-size: 15px;
+    width: 90%;
+    position: relative;
+    transform: translate(-50%, 0);
+    left: 50%;
+    height: 30px;
+    margin-top: 10px;
 }
 
-.active, .collapsible:hover {
+#groups {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.groupDelete {
+    position: absolute;
+    left: 5px;
+}
+
+.collapsibleActive, .collapsible:hover {
     background-color: #ccc;
 }
 
-.content {
-    padding: 0 18px;
+.collapsibleContent {
     display: none;
-    overflow: hidden;
+    max-height: 0;
     background-color: #f1f1f1;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
 
 </style>
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-</script>
