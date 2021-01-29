@@ -1,0 +1,9 @@
+Extra dingen om toe te voegen aan de rekensite als we tijd over hebben:
+
+Cookies veiliger maken
+Een warning als je op het punt staat een group te verwijderen.
+Als je op de deleteknop drukt bij een collapsible, maak de de collapsible niet groter of kleiner
+Icoontje op verwijderknoppen.
+Het mogelijk maken om leerlingen te slepen naar groepen om ze erin te stoppen.
+Wachtwoord vergeten optie
+Het mogelijk maken om 2 groepen met dezelfde naam te laten werken.

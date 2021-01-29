@@ -1,6 +1,13 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
     session_start();
+$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
+$stmt = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE id=?");
+mysqli_stmt_bind_param($stmt, "s", $_SESSION['loggedID']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
 ?>
 <html lang="nl">
 <head>
@@ -11,7 +18,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <div class="header">
     <div class="headerSelect">
         <?php
-        if ($_SESSION['perms'] == 2) {
+        if ($row['perms'] == 2) {
             if (isset($_GET['selected'])){
                 if ($_GET['selected'] == 0) {
                     echo "<a href=\"teacherSite.php?selected=0\" id=\"selected\">Leraren beheren</a>";
@@ -34,9 +41,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
     </div>
 </div>
 <?php
-if ($_SESSION['perms'] == 0){
+if ($row['perms'] == 0){
 ?>
-    <div class="noPerms">
+    <div class="warning">
     <h3>Je mist de benodigde rechten om op deze pagina te zijn. Vraag aan een applicatiebeheerder om je de rechten te geven.</h3>
     </div>
 <?php
@@ -44,11 +51,11 @@ if ($_SESSION['perms'] == 0){
 } else {
 switch ($_GET['selected']){
     case 0:
-        if ($_SESSION['perms'] == 2){
+        if ($row['perms'] == 2){
             include "manageTeachers.php";
         } else {
             ?>
-            <div class="noPerms">
+            <div class="warning">
                 <h3>Je mist de benodigde rechten om op deze pagina te zijn. Vraag aan een applicatiebeheerder om je de rechten te geven.</h3>
             </div>
             <?php
@@ -58,7 +65,7 @@ switch ($_GET['selected']){
         include "manageStudents.php";
         break;
     case 2:
-        include "assignTests.php";
+        include "Assignments.php";
         break;
     case 3:
         include "results.php";
