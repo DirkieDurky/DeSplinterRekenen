@@ -13,26 +13,26 @@ session_start();
     </form>
 </div>
 <div class="field <?php if (isset($_SESSION['error'])&&$_SESSION['error']!=""){echo "extend";}?>" id=createAccount >
-    <h1 class="title">Account aanmaken</h1>
+    <h1>Account aanmaken</h1>
     <form action="createAccountBackend.php">
         <label>
         Voornaam:<br>
-        <input placeholder="Voornaam" type="text" name="firstname" value="<?php if (isset($_SESSION['creAccFirst'])) {echo $_SESSION['creAccFirst'];}?>"><br>
+        <input placeholder="Voornaam" type="text" name="firstname" value="<?= isset($_SESSION['creAccFirst']) ? $_SESSION['creAccFirst'] : ""?>"><br>
         </label>
         <label>
         Achternaam:<br>
-        <input placeholder="Achternaam" type="text" name="lastname" value="<?php if (isset($_SESSION['creAccLast'])) {echo $_SESSION['creAccLast'];}?>"><br>
+        <input placeholder="Achternaam" type="text" name="lastname" value="<?= isset($_SESSION['creAccLast']) ? $_SESSION['creAccLast'] : ""?>"><br>
         <label>
         Email:<br>
-        <input placeholder="Email" type="text" name="email" value="<?php if (isset($_SESSION['creAccEmail'])) {echo $_SESSION['creAccEmail'];}?>"><br>
+        <input placeholder="Email" type="text" name="email" value="<?= isset($_SESSION['creAccEmail']) ? $_SESSION['creAccEmail'] : ""?>"><br>
         </label>
         <label>
         Wachtwoord:<br>
-        <input placeholder="Wachtwoord" type="password" name="pass" value="<?php if (isset($_SESSION['creAccPass'])) {echo $_SESSION['creAccPass'];}?>"><br>
+        <input placeholder="Wachtwoord" type="password" name="pass" value="<?= isset($_SESSION['creAccPass']) ? $_SESSION['creAccPass'] : ""?>"><br>
         </label>
         <label>
         Herhaal wachtwoord:<br>
-        <input placeholder="Herhaal wachtwoord" type="password" name="repass" value="<?php if (isset($_SESSION['creAccRepass'])) {echo $_SESSION['creAccRepass'];}?>"><br>
+        <input placeholder="Herhaal wachtwoord" type="password" name="repass" value="<?= isset($_SESSION['creAccRepass']) ? $_SESSION['creAccRepass'] : ""?>"><br>
         </label>
         <label class="teacher">
             Ik ben een leerling

@@ -59,16 +59,6 @@ h1 {
     font-size: 35px;
 }
 
-.underTitle {
-    font-size: 20px;
-    position: relative;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    width: 550px;
-    margin-top: 35px;
-    margin-bottom: 20px;
-}
-
 .field [type="text"],[type="password"] {
     font-family: "Torus Regular", serif;
     font-size: 20px;
@@ -148,7 +138,7 @@ h1 {
 }
 
 @keyframes extend{
-    to {height: <?php  echo $_SESSION['extendHeight'];?>px;}
+    to {height: <?= $_SESSION['extendHeight']?>px;}
 }
 
 .hyperlinks {
@@ -205,7 +195,7 @@ body#teacherSite {
     $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE id=?");
-    mysqli_stmt_bind_param($stmt, "s", $_SESSION['loggedID']);
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['loggedID']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
@@ -225,10 +215,10 @@ body#teacherSite {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: none;
     border-top: none;
-    display: inline-block;
+    display: table-cell;
     width: 300px;
     height: 56px;
-    line-height: 56px;
+    vertical-align: middle;
     background-color: #212121;
 }
 
@@ -430,6 +420,8 @@ body#teacherSite {
     left: 50%;
     height: 30px;
     margin-top: 10px;
+    border: none;
+    outline: none;
 }
 
 #groups {
@@ -452,6 +444,51 @@ body#teacherSite {
     background-color: #f1f1f1;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+    position: relative;
+    width: 90%;
+    left:50%;
+    transform: translate(-50%);
+}
+
+.collapsibleContent#table {
+    width: 100%;
+}
+
+#createAssignForm {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    font-family: "Torus regular", serif;
+    position: fixed;
+    background-color: #AAAAAA;
+    height: 100%;
+    width: 300px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#editAssignButtons {
+    background-color: #eee;
+    cursor: pointer;
+    font-size: 15px;
+    width: 90%;
+    position: relative;
+    transform: translate(-50%, 0);
+    left: 50%;
+    height: 30px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+}
+
+#editAssignButtons:hover {
+    background-color: #ccc;
 }
 
 </style>

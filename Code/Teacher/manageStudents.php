@@ -8,7 +8,7 @@ session_start();
 </head>
 <body>
 <div class="teacherField">
-    <h1 class="title">Leerlingen beheren</h1>
+    <h1>Leerlingen beheren</h1>
     Hier kun je groepen aanmaken om leerlingen in te stoppen, <br>
     en daaronder is het mogelijk om leerlingen toe te voegen aan deze groepen.
     <?php
@@ -33,10 +33,10 @@ session_start();
                 </th>
             </tr>
             <tr>
-                <td class="collapsibleContent">
+                <td class="collapsibleContent" id="table">
                 <?php
                 $stmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groups = ?");
+                mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groupID = ?");
                 mysqli_stmt_bind_param($stmt, "s", $row['id']);
                 mysqli_stmt_execute($stmt);
                 $result2 = mysqli_stmt_get_result($stmt);
@@ -83,9 +83,11 @@ session_start();
 
         <script>
             var collapsible = document.getElementsByClassName("collapsible");
-
             for (var i = 0; i < collapsible.length; i++) {
-                collapsible[i].addEventListener("click", function() {
+                collapsible[i].addEventListener("click", function(e) {
+                    if (e.target.tagName.toLowerCase() === 'input') {
+                        return;
+                    }
                     this.classList.toggle("collapsibleActive");
                     var content = this.querySelector('.collapsibleContent');
                     if (content.style.maxHeight){

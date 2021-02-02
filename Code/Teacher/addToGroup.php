@@ -18,7 +18,7 @@ echo "There were " . mysqli_num_rows($result) . " boxes to be checked<br>";
 for ($i=0; $i<mysqli_num_rows($result); $i++, $row = mysqli_fetch_array($result)) {
     if (isset($_GET['select' . $row['id']])) {
         $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET groups = ? WHERE id = ?");
+        mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET groupID = ? WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "si", $row2['id'], $row['id']);
         mysqli_stmt_execute($stmt);
     } else {
