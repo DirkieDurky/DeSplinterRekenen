@@ -1,9 +1,17 @@
 Extra dingen om toe te voegen aan de rekensite als we tijd over hebben:
 
-Cookies veiliger maken
+PDO gebruiken ipv mysqli.
+Cookies veiliger maken.
 Een warning als je op het punt staat een group te verwijderen.
-Als je op de deleteknop drukt bij een collapsible, maak de de collapsible niet groter of kleiner
+Gebruiker uit groep verwijderen zonder pagina te herladen.
+Selecteer alle leerlingen in een groep als een groep geselecteerd is.
 Icoontje op verwijderknoppen.
+Aantal leerlingen in groep laten zien.
+Het mogelijk maken om een profielfoto in te stellen, en om je wachtwoord, email, naam, achternaam aan te passen.
 Het mogelijk maken om leerlingen te slepen naar groepen om ze erin te stoppen.
-Wachtwoord vergeten optie
+Wachtwoord vergeten optie.
 Het mogelijk maken om 2 groepen met dezelfde naam te laten werken.
+Bestanden samenvoegen tot 1 bestand.
+Als er al een error is, pas de hoogte van het veld aan op basis van de oude hoogte ipv vanaf het begin.
+Site publiceren
+Site beveiligen met encryptie voor https

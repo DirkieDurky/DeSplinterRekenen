@@ -8,7 +8,7 @@ session_start();
 </head>
 <body>
 <div class="teacherField">
-<h1 class="title">Leraren beheren</h1>
+<h1>Leraren beheren</h1>
 Als applicatiebeheerder kunt u hier bepalen welke rechten leraren krijgen. <br>
 Iedereen kan zomaar een account aanmaken, dus niet iedereen kan natuurlijk rechten krijgen!<br>
 <br>

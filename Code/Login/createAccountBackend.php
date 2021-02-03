@@ -68,7 +68,7 @@ if ($_GET['pass'] == ""){
     unset($_SESSION['creAccRepass']);
 }
 if (!isset($_GET['teacher'])){
-    $_SESSION['error'] .= "Je hebt niet aangegeven of je een leraar bent of niet.<br>";
+    $_SESSION['error'] .= "Je hebt niet aangegeven of je een leraar of een leerling bent.<br>";
 }
 
 $_SESSION['errorLength'] = substr_count($_SESSION['error'],"<br>");
@@ -78,22 +78,26 @@ if ($_SESSION['error']!=""){
     header("Location: createAccount.php");
     exit();
 } else {
-
-
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
+        $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, "INSERT INTO `accounts` (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groupID`) VALUES (?,?,?,?,?,0,1);");
+        mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
+        mysqli_stmt_execute($stmt);
 
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "INSERT INTO `accounts` (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groups`) VALUES (?,?,?,?,?,0,1);");
-    mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
-    mysqli_stmt_execute($stmt);
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
+        mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
 
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
-    mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
+        if (!isset($row['perms'])) {
+            $_SESSION['error'] .= "Er ging aan onze kant iets mis bij het maken van je account, sorry! Probeer het later opnieuw.<br>";
+            $_SESSION['extendHeight'] = 750;
+            header("Location: createAccount.php");
+            exit();
+        }
 
     $_SESSION['loggedID'] = $row['id'];
 

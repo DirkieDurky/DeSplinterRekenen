@@ -30,7 +30,7 @@ $row = mysqli_fetch_assoc($result);
             }
         }?><!--
         --><a href="teacherSite.php?selected=1"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 1){echo " id=\"selected\"";}} ?>>Leerlingen beheren</a><!--
-        --><a href="teacherSite.php?selected=2"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 2){echo " id=\"selected\"";}} ?>>Opdrachten toedienen</a><!--
+        --><a href="teacherSite.php?selected=2"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 2){echo " id=\"selected\"";}} ?>>Opdrachten toedienen, bewerken of maken</a><!--
         --><a href="teacherSite.php?selected=3"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 3){echo " id=\"selected\"";}} ?>>Resultaten inzien</a>
     </div>
     <div class="dropdown">
@@ -65,7 +65,7 @@ switch ($_GET['selected']){
         include "manageStudents.php";
         break;
     case 2:
-        include "Assignments.php";
+        include "assignments.php";
         break;
     case 3:
         include "results.php";
