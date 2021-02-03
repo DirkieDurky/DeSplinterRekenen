@@ -45,7 +45,7 @@ session_start();
         </form>
         </center>
         <?php
-
+//Dit is een test
         ?>
         <div>
         <button class="collapsible">Titel</button>
