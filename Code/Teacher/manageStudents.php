@@ -159,8 +159,9 @@ session_start();
         <input type="submit" value="->" name="submit">
         </div>
     </form>
-    <?php } ?>
+    <?php }
+        if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification']);
+        if (isset($_SESSION['error'])){echo "<h3 class='error'> " . $_SESSION['error'] . " </h3>";} unset($_SESSION['error'])?>
 </div>
-<?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
 </body>
 </html>
