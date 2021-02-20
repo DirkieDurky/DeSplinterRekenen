@@ -20,7 +20,7 @@ for ($j = -1; $j < $groups['id'] || $j < $usersInGroup['id']; $j++, $groups = $s
         $sth4 = $pdo -> prepare("UPDATE `accounts` SET groupID = 1 WHERE id = ?");
         $sth4 -> execute([$inThisGroup['id']]);
 
-        $sth5 = $pdo -> prepare("DELETE FROM groups WHERE id = ?");
+        $sth5 = $pdo -> prepare("DELETE FROM `groups` WHERE id = ?");
         $sth5 -> execute([$groups['id']]);
     }
     //Remove user from group if asked

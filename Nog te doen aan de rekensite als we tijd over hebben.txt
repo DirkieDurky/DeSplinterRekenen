@@ -4,7 +4,7 @@ Cookies veiliger maken.
 Een warning als je op het punt staat een group te verwijderen.
 Gebruiker uit groep verwijderen zonder pagina te herladen.
 Selecteer alle leerlingen in een groep als een groep geselecteerd is.
-Icoontje op verwijderknoppen.
+Icoontje op verwijder-knoppen.
 Aantal leerlingen in groep laten zien.
 Het mogelijk maken om een profielfoto in te stellen, en om je wachtwoord, email, naam, achternaam aan te passen.
 Het mogelijk maken om leerlingen te slepen naar groepen om ze erin te stoppen.

@@ -73,6 +73,6 @@ $_SESSION['i'] = $i;
     </form>
     <?php } ?>
 </div>
-    <?php if (isset($_SESSION['notif'])){echo "<h3 class='notif'> " . $_SESSION['notif'] . " </h3>";} unset($_SESSION['notif'])?>
+    <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
 </body>
 </html>
