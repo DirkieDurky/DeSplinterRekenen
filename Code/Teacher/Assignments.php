@@ -1,5 +1,5 @@
 <?php
-require_once("../DBConnection.php");
+require_once("../DB_Connection.php");
 session_start();
 ?>
 <html lang="nl">
@@ -163,13 +163,19 @@ session_start();
     $sth -> execute();
     $row = $sth -> fetch();
     if (!$row == ""){
-    do { ?>
+    ?>
+    <form action="deleteAssign.php">
+    <?php do { ?>
         <div>
-            <button id="editAssignButtons" onclick="window.location.href = 'assignmentEditor.php?assign=<?= $row['id']?>';"><?= $row['name'] ?></button>
+            <button id="editAssignButtons" onclick="window.location.href = 'assignmentEditor.php?assign=<?= $row['id']?>';">
+                <label id="buttonDelete"><input type="button" name="delete<?= $row['id']; ?>"></label>
+                <?= $row['name']?>
+                <span id="continueIcon">-></span></button>
         </div>
-    <?php } while($row = $sth -> fetch()); } ?>
-    <center>
-    <form id="createAssignForm">
+    <?php } while($row = $sth -> fetch());?>
+        </form>
+    <?php } ?>
+    <form action="createAssignment.php" id="createAssignForm">
         <input type="hidden" name="selected" value="2">
         <label>
             Maak een nieuwe opdracht met de naam
@@ -177,18 +183,7 @@ session_start();
         </label>
         <input type="submit" name="createAssignButton" value="->">
     </form>
-    </center>
-    <?php
-    if (isset($_GET['createAssignButton'])){
-        $sth = $pdo->prepare("INSERT INTO `assignments` (`name`,`creatorID`) VALUES (?,?)");
-        $sth->execute([$_GET['assignmentName'], $_SESSION['loggedID']]);
-        $sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE 'name'=?");
-        $sth -> execute([$_GET['assignmentName']]);
-        $row = $sth -> fetch();
-        unset($_GET['createAssignButton']);
-        ?>
-        <script>//window.location.href = "assignmentEditor.php?assign="<?= $row['id']?></script>
-    <?php } ?>
+    <h4 class="error" id="assignments"><?php if (isset($_SESSION['error'])) { echo $_SESSION['error']; unset($_SESSION['error']);}?></h4>
 </div>
 </body>
 </html>

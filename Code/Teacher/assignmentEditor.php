@@ -12,7 +12,7 @@ session_start();
 </head>
 <body>
     <?php
-    require_once ("../DBConnection.php");
+    require_once("../DB_Connection.php");
 
     $sth = $pdo -> prepare("SELECT * FROM `assignments`");
     $sth -> execute();

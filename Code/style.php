@@ -110,8 +110,6 @@ h1 {
     position: relative;
     transform: translate(-50%, 0%);
     left: 50%;
-    width: 600px;
-    height: 100px;
     opacity: 0;
     animation: show 200ms step-start 400ms;
     animation-fill-mode: forwards;
@@ -128,7 +126,15 @@ h1 {
 
 .error#createAccount {
     top: 20px;
-    margin-top: 0px;
+    margin-top: 0;
+}
+
+.error#assignments {
+    display: inline-block;
+    margin-top: 0;
+    opacity: 100;
+    animation: none;
+    font-size: 16px;
 }
 
 .extend {
@@ -456,10 +462,21 @@ body#teacherSite {
 
 #createAssignForm {
     position: relative;
+    display: inline-block;
     transform: translate(-50%, -50%);
     left: 50%;
     margin-top: 30px;
     margin-bottom: 10px;
+}
+
+#continueIcon {
+    position: absolute;
+    right: 10px;
+}
+
+#buttonDelete {
+    position: absolute;
+    left: 10px;
 }
 
 .sidebar {

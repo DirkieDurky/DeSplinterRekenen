@@ -43,3 +43,4 @@ for ($j = -1; $j < $groups['id'] || $j < $usersInGroup['id']; $j++, $groups = my
     echo "user " . $usersInGroup['id'] . " not deleted from group.<br>";
     }
 header("Location: teacherSite.php?selected=1");
+exit();
