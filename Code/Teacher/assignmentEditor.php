@@ -1,4 +1,5 @@
 <?php
+require_once("../DB_Connection.php");
 session_start();
 ?>
 <html lang="en">
@@ -12,46 +13,49 @@ session_start();
 </head>
 <body>
     <?php
-    require_once("../DB_Connection.php");
+
+    $_SESSION['editingAssign'] = $_GET['assign'];
 
     $sth = $pdo -> prepare("SELECT * FROM `assignments`");
     $sth -> execute();
     $row = $sth -> fetch();
 
     if (isset($row['id'])) {
-        $sth = $pdo->prepare("SELECT * FROM `exercises` WHERE 'assignment'=?;");
-        $sth->execute([$row['id']]);
-        $row = $sth->fetch();
+        $sth2 = $pdo->prepare("SELECT * FROM `exercises` WHERE 'assignment'=?;");
+        $sth2->execute([$row['id']]);
+        $row2 = $sth2->fetch();
     }
 
     $i = 1;
-    while ($row = $sth -> fetch()) {
-        $sth = $pdo -> prepare("SELECT * FROM `exercises` WHERE 'assignment'=? AND 'order'=?;");
-        $sth -> execute([$row['id'],$i]);
-        $row = $sth -> fetch();
-        if (isset($row['content'])){
-            echo $row['content'];
+    while ($row = $sth2 -> fetch()) {
+        $sth3 = $pdo -> prepare("SELECT * FROM `exercises` WHERE 'assignment'=? AND 'order'=?;");
+        $sth3 -> execute([$row['id'],$i]);
+        $row3 = $sth3 -> fetch();
+        if (isset($row3['content'])){
+            echo $row3['content'];
         }
         $i++;
     }
+
+    $sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE id = ?");
+    $sth -> execute([$_GET['assign']]);
+    $row = $sth -> fetch();
     ?>
     <div class="sidebar">
-        <center><h2 class="title">Opdracht maken</h2>
-        <form>
-            <label>
-                <input type="text" name="changeName" placeholder="opdrachtnaam">
-            </label>
-            <input type="submit" name="submitName" value="->">
-        </form>
-        </center>
-        <?php
-//Dit is een test
-        ?>
-        <div>
-        <button class="collapsible">Titel</button>
-        <div class="collapsibleContent">
-            <p>Test</p>
+        <div id="headOfSidebar">
+            <h2 class="title">Opdracht maken</h2>
+            <form action="changeAssignName.php">
+                <label>
+                    <input type="text" name="changeName" placeholder="opdrachtnaam" value="<?= $row['name']; ?>">
+                </label>
+                <input type="submit" name="submitName" value="->">
+            </form>
         </div>
+        <div>
+            <button class="collapsible">Titel</button>
+            <div class="collapsibleContent">
+                <p>Test</p>
+            </div>
         </div>
         <div>
             <button class="collapsible">Tekst</button>

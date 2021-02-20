@@ -505,4 +505,11 @@ body#teacherSite {
     background-color: #ccc;
 }
 
+#headOfSidebar {
+    display: inline-block;
+    position: relative;
+    transform: translate(-50%);
+    left: 50%;
+}
+
 </style>
