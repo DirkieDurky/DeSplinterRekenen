@@ -1,26 +1,20 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=0");
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$row = mysqli_fetch_assoc($result);
+require_once ("../DB_Connection.php");
 
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `groups` WHERE name = ?");
-mysqli_stmt_bind_param($stmt, "s", $_GET['groups']);
-mysqli_stmt_execute($stmt);
-$result2 = mysqli_stmt_get_result($stmt);
-$row2 = mysqli_fetch_assoc($result2);
+$sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0");
+$sth -> execute();
+$row = $sth -> fetch();
 
-echo "There were " . mysqli_num_rows($result) . " boxes to be checked<br>";
+$sth2 = $pdo -> prepare("SELECT * FROM `groups` WHERE name = ?");
+$sth2 -> execute([$_GET['groups']]);
+$row2 = $sth2 -> fetch();
 
-for ($i=0; $i<mysqli_num_rows($result); $i++, $row = mysqli_fetch_array($result)) {
+echo "There were " . $sth -> rowCount() . " boxes to be checked<br>";
+
+for ($i=0; $i<$sth -> rowCount(); $i++, $row = $sth2 -> fetch()) {
     if (isset($_GET['select' . $row['id']])) {
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET groupID = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "si", $row2['id'], $row['id']);
-        mysqli_stmt_execute($stmt);
+        $sth = $pdo -> prepare("UPDATE `accounts` SET groupID = ? WHERE id = ?");
+        $sth -> execute([$row2['id'], $row['id']]);
     } else {
         echo "select" . $row['id'] . " was not checked<br>";
     }

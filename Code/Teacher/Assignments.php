@@ -1,6 +1,6 @@
 <?php
-require_once("../DB_Connection.php");
 session_start();
+require_once("../DB_Connection.php");
 ?>
 <html lang="nl">
 <head>
@@ -12,13 +12,9 @@ session_start();
     <h1>Opdrachten toedienen</h1>
     Hier kun je opdrachten toedienen aan bepaalde leerlingen of klassen.
     <?php
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `groups` WHERE id != 1");
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
+    $sth = $pdo -> prepare("SELECT * FROM `groups` WHERE id != 1");
+    $sth -> execute();
+    $row = $sth -> fetch();
     if ($row == ""){
         echo "<h3 class=table>Er zijn nog geen groepen aangemaakt.</h3>";
     } else {
@@ -35,12 +31,9 @@ session_start();
             <tr>
                 <td class="collapsibleContent" id="table">
                 <?php
-                $stmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groupID = ?");
-                mysqli_stmt_bind_param($stmt, "s", $row['id']);
-                mysqli_stmt_execute($stmt);
-                $result2 = mysqli_stmt_get_result($stmt);
-                $row2 = mysqli_fetch_assoc($result2);
+                $sth2 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
+                $sth2 -> execute([$row['id']]);
+                $row2 = $sth2 -> fetch();
                 if (isset($row2['firstName'])){
                     ?>
                     <table class="table" id="usersInGroup">
@@ -67,7 +60,7 @@ session_start();
                     echo "<td>" . $row2['lastName'] . "</td>";
                     echo "<td>" . $row2['email'] . "</td>";
                             ?></tr><?php
-                    } while($row2 = mysqli_fetch_array($result2));
+                    } while($row2 = $sth2 -> fetch());
                     ?>
                     </table>
                     <?php
@@ -78,7 +71,7 @@ session_start();
                 </td>
             </tr>
         </table>
-            <?php } while($row = mysqli_fetch_array($result)); ?>
+            <?php } while($row = $sth -> fetch()); ?>
         </form>
         <script>
             var collapsible = document.getElementsByClassName("collapsible");
@@ -102,13 +95,9 @@ session_start();
             }
         </script>
     <?php }
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
+    $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
+    $sth -> execute();
+    $row = $sth -> fetch();
     if (!$row == "") {
         ?>
             <h3>Leerlingen die niet in een groep zitten:</h3>
@@ -130,16 +119,13 @@ session_start();
                     echo "<td>" . $row['lastName'] . "</td>";
                     echo "<td>" . $row['email'] . "</td>";
                     echo "</tr>";
-                } while($row = mysqli_fetch_array($result));
+                } while($row = $sth -> fetch());
                 ?>
             </table>
             <?php }
-            $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, "SELECT * FROM `assignments`");
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_assoc($result);
+            $sth = $pdo -> prepare("SELECT * FROM `assignments`");
+            $sth -> execute();
+            $row = $sth -> fetch();
             ?>
             <div id="addToGroupForm">
                 <label>
@@ -150,7 +136,7 @@ session_start();
                         do {
                             $name = $row['name'];
                             echo "<option>$name</option>";
-                        } while ($row = mysqli_fetch_array($result))
+                        } while ($row = $sth -> fetch())
                         ?>
                     </select>
                 </label>
@@ -159,12 +145,9 @@ session_start();
         </form>
     <h1>Opdrachten bewerken of maken</h1>
     <?php
-    $sth = $pdo -> prepare("SELECT * FROM `assignments`");
-    $sth -> execute();
-    $row = $sth -> fetch();
     if (!$row == ""){
     ?>
-    <form action="deleteAssign.php">
+    <form action="deleteAssignment.php">
     <?php do { ?>
         <div>
             <button id="editAssignButtons" onclick="window.location.href = 'assignmentEditor.php?assign=<?= $row['id']?>';">

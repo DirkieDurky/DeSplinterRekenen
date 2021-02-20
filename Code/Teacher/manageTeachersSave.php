@@ -1,18 +1,14 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
-mysqli_stmt_bind_param($stmt, "i", $_SESSION['loggedID']);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$row = mysqli_fetch_assoc($result);
+require_once ("../DB_Connection.php");
 
-for ($j=0; $j<$_SESSION['i']; $j++, $row = mysqli_fetch_array($result)){
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET perms = ? WHERE id = ?");
-    mysqli_stmt_bind_param($stmt, "ii", $_GET['perms' . $j], $row['id']);
-    mysqli_stmt_execute($stmt);
+$sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
+$sth -> execute([$_SESSION['loggedID']]);
+$row = $sth -> fetch();
+
+for ($j=0; $j<$_SESSION['i']; $j++, $row = $sth -> fetch()){
+    $sth2 = $pdo -> prepare("UPDATE `accounts` SET perms = ? WHERE id = ?");
+    $sth2 -> execute([$_GET['perms' . $j], $row['id']]);
     echo "Set the perms for user with id " . $row['id'] . " to " . $_GET['perms' . $j] . "<br>";
 }
 $_SESSION['notif'] = "Veranderingen zijn opgeslagen!";

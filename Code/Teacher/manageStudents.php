@@ -1,4 +1,5 @@
 <?php
+require_once ("../DB_Connection.php");
 session_start();
 ?>
 <html lang="nl">
@@ -12,12 +13,9 @@ session_start();
     Hier kun je groepen aanmaken om leerlingen in te stoppen, <br>
     en daaronder is het mogelijk om leerlingen toe te voegen aan deze groepen.
     <?php
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `groups` WHERE id != 1");
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
+    $sth = $pdo -> prepare("SELECT * FROM `groups` WHERE id != 1");
+    $sth -> execute();
+    $row = $sth -> fetch();
 
     if ($row == ""){
         echo "<h3 class=table>Er zijn nog geen groepen aangemaakt.</h3>";
@@ -35,12 +33,9 @@ session_start();
             <tr>
                 <td class="collapsibleContent" id="table">
                 <?php
-                $stmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groupID = ?");
-                mysqli_stmt_bind_param($stmt, "s", $row['id']);
-                mysqli_stmt_execute($stmt);
-                $result2 = mysqli_stmt_get_result($stmt);
-                $row2 = mysqli_fetch_assoc($result2);
+                $sth2 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
+                $sth2 -> execute([$row['id']]);
+                $row2 = $sth2 -> fetch();
                 if (isset($row2['firstName'])){
                     ?>
                     <table class="table" id="usersInGroup">
@@ -67,7 +62,7 @@ session_start();
                     echo "<td>" . $row2['lastName'] . "</td>";
                     echo "<td>" . $row2['email'] . "</td>";
                             ?></tr><?php
-                    } while($row2 = mysqli_fetch_array($result2));
+                    } while($row2 = $sth2 -> fetch());
                     ?>
                     </table>
                     <?php
@@ -78,7 +73,7 @@ session_start();
                 </td>
             </tr>
         </table>
-            <?php } while($row = mysqli_fetch_array($result)); ?>
+            <?php } while($row = $sth -> fetch()); ?>
         </form>
 
         <script>
@@ -115,13 +110,9 @@ session_start();
     <?php endif ?>
         <button id="addGroupButton" onclick="window.location.href='teacherSite.php?selected=1&createGroup=1';">Groep aanmaken</button>
     <?php
-            $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=0");
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_assoc($result);
-
+            $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0");
+            $sth -> execute();
+            $row = $sth -> fetch();
             if ($row == ""){
         echo "<h3 class=table>Er zijn geen leerlingen om aan groepen toe te voegen.</h3>";
             } else {
@@ -144,16 +135,13 @@ session_start();
                 echo "<td>" . $row['lastName'] . "</td>";
                 echo "<td>" . $row['email'] . "</td>";
                 echo "</tr>";
-            } while($row = mysqli_fetch_array($result));
+            } while($row = $sth -> fetch());
             ?>
         </table>
         <?php
-        $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "SELECT * FROM `groups` WHERE id != 1");
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
+        $sth = $pdo -> prepare("SELECT * FROM `groups` WHERE id != 1");
+        $sth -> execute();
+        $row = $sth -> fetch();
         ?>
         <div id="addToGroupForm">
         <label>
@@ -164,7 +152,7 @@ session_start();
                 do {
                     $name = $row['name'];
                     echo "<option>$name</option>";
-                } while ($row = mysqli_fetch_array($result))
+                } while ($row = $sth -> fetch())
                 ?>
             </select>
         </label>

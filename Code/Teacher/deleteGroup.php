@@ -1,43 +1,33 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `groups`");
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$groups = mysqli_fetch_assoc($result);
+require_once ("../DB_Connection.php");
 
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groupID != 1");
-mysqli_stmt_execute($stmt);
-$result2 = mysqli_stmt_get_result($stmt);
-$usersInGroup = mysqli_fetch_assoc($result2);
+$sth = $pdo -> prepare("SELECT * FROM `groups`");
+$sth -> execute();
+$groups = $sth -> fetch();
 
-for ($j = -1; $j < $groups['id'] || $j < $usersInGroup['id']; $j++, $groups = mysqli_fetch_array($result), $usersInGroup = mysqli_fetch_array($result2)) {
+$sth2 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID != 1");
+$sth2 -> execute();
+$usersInGroup = $sth2 -> fetch();
+
+for ($j = -1; $j < $groups['id'] || $j < $usersInGroup['id']; $j++, $groups = $sth -> fetch(), $usersInGroup = $sth2 -> fetch()) {
     //Remove group if asked
     if (isset ($_GET['deleteGroup' . $groups['id']])) {
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE groupID = ?");
-        mysqli_stmt_bind_param($stmt, "s", $groups['id']);
-        mysqli_stmt_execute($stmt);
-        $result3 = mysqli_stmt_get_result($stmt);
-        $inThisGroup = mysqli_fetch_assoc($result3);
 
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET groups = 1 WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $inThisGroup['id']);
-        mysqli_stmt_execute($stmt);
+        $sth3 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
+        $sth3 -> execute([$groups['id']]);
+        $inThisGroup = $sth3 -> fetch();
 
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "DELETE FROM groups WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $groups['id']);
-        mysqli_stmt_execute($stmt);
+        $sth4 = $pdo -> prepare("UPDATE `accounts` SET groupID = 1 WHERE id = ?");
+        $sth4 -> execute([$inThisGroup['id']]);
+
+        $sth5 = $pdo -> prepare("DELETE FROM groups WHERE id = ?");
+        $sth5 -> execute([$groups['id']]);
     }
     //Remove user from group if asked
     if (isset ($_GET['deleteUser' . $usersInGroup['id']])){
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "UPDATE `accounts` SET groupID = 1 WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $usersInGroup['id']);
-        mysqli_stmt_execute($stmt);
+
+        $sth5 = $pdo -> prepare("UPDATE `accounts` SET groupID = 1 WHERE id = ?");
+        $sth5 -> execute([$usersInGroup['id']]);
         echo "user " . $usersInGroup['id'] . " deleted from group.<br>";
         }
     echo "user " . $usersInGroup['id'] . " not deleted from group.<br>";

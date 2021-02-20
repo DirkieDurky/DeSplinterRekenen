@@ -1,14 +1,11 @@
 <?php
 session_start();
+require_once ("../DB_Connection.php");
 $_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
-    mysqli_stmt_bind_param($stmt, "s", $_COOKIE['loginEmail']);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
+    $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE Email=?");
+    $sth -> execute([$_COOKIE['loginEmail']]);
+    $row = $sth -> fetch();
     $_SESSION['loggedID'] = $row['id'];
     if ($row['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");

@@ -31,15 +31,10 @@ if ($_GET['email'] == ""){
         $_SESSION['error'] .= "Email is niet geldig.<br>";
         unset($_SESSION['creAccEmail']);
     } else {
-        //Check if there is an account using entered email
-        $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
-        mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $_SESSION['row'] = mysqli_fetch_assoc($result);
-        if ($_SESSION['row'] != "") {
+        $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE email=?");
+        $sth -> execute([$_GET['email']]);
+        $row = $sth -> fetch();
+        if ($row != "") {
             $_SESSION['error'] .= "Er bestaat al een ander account dat dit email gebruikt.<br>";
             unset($_SESSION['creAccEmail']);
         }
@@ -80,18 +75,13 @@ if ($_SESSION['error']!=""){
     exit();
 } else {
     $pass = password_hash($_GET['pass'],PASSWORD_DEFAULT);
-        $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "INSERT INTO `accounts` (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groupID`) VALUES (?,?,?,?,?,0,1);");
-        mysqli_stmt_bind_param($stmt, "ssssi", $_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']);
-        mysqli_stmt_execute($stmt);
 
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE Email=?");
-        mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
+        $sth = $pdo -> prepare("INSERT INTO `accounts` (`firstName`, `lastName`, `email`, `password`, `teacher`, `perms`, `groupID`) VALUES (?,?,?,?,?,0,1);");
+        $sth -> execute([$_GET['firstname'], $_GET['lastname'], $_GET['email'], $pass, $_GET['teacher']]);
+
+        $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE email=?");
+        $sth -> execute([$_GET['email']]);
+        $row = $sth -> fetch();
 
         if (!isset($row['perms'])) {
             $_SESSION['error'] .= "Er ging aan onze kant iets mis bij het maken van je account, sorry! Probeer het later opnieuw.<br>";
