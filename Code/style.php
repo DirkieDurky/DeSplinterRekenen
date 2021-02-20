@@ -36,24 +36,38 @@ body#signIn {
 
 .backButton {
     font-family: "Torus Regular", serif;
-    margin-top: 50px;
     color: white;
     text-align: center;
     position: absolute;
-    left: 30%;
-    transform: translate(-50%, 0%);
-    width: 100px;
-    height: 50px;
-    border-radius: 16px;
     font-size: 17px;
     background-color: #333;
     border: none;
+    text-decoration: none;
+}
+
+.backButton:link .backButton:visited {
+    text-decoration: none;
 }
 
 .backButton:hover {
     cursor: pointer;
     animation: hover 200ms;
     animation-fill-mode: forwards;
+    padding: 20px 40px;
+}
+
+.backButton#createAccount {
+    transform: translate(-50%, 0%);
+    left: 30%;
+    margin-top: 50px;
+    border-radius: 16px;
+}
+
+.backButton#assignmentEditor {
+    bottom: 13px;
+    left: 13px;
+    padding: 13px;
+    border-radius: 10px;
 }
 
 h1 {
@@ -157,8 +171,8 @@ h1 {
     left: 50%;
     width: 500px;
     margin-top: 25px;
-    height: 60px;
-    line-height: 60px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .hyperlinks:link {

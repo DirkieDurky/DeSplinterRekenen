@@ -13,7 +13,6 @@ session_start();
 </head>
 <body>
     <?php
-
     $_SESSION['editingAssign'] = $_GET['assign'];
 
     $sth = $pdo -> prepare("SELECT * FROM `assignments`");
@@ -106,6 +105,8 @@ session_start();
                 });
             }
         </script>
+
+            <a class="backbutton" id="assignmentEditor" href="teacherSite.php?selected=2"><-</a>
     </div>
 </body>
 </html>

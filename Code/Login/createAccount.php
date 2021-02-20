@@ -8,9 +8,7 @@ session_start();
 </head>
 <body id="signIn">
 <div>
-    <form action="signIn.php">
-        <input class="backbutton" type="submit" value="Terug">
-    </form>
+        <a class="backButton" id="createAccount" href="signIn.php">Terug</a>
 </div>
 <div class="field <?php if (isset($_SESSION['error'])&&$_SESSION['error']!=""){echo "extend";}?>" id=createAccount >
     <h1>Account aanmaken</h1>
