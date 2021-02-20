@@ -95,10 +95,10 @@ require_once("../DB_Connection.php");
             }
         </script>
     <?php }
-    $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
-    $sth -> execute();
-    $row = $sth -> fetch();
-    if (!$row == "") {
+    $sth3 = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
+    $sth3 -> execute();
+    $row3 = $sth3 -> fetch();
+    if (!$row3 == "") {
         ?>
             <h3>Leerlingen die niet in een groep zitten:</h3>
         <form action="addToGroup.php">
@@ -113,19 +113,19 @@ require_once("../DB_Connection.php");
                 do {
                     echo "<tr>";
                     ?>
-                    <td><label><input type="checkbox" name="select<?php echo $row['id']?>"></label></td>
+                    <td><label><input type="checkbox" name="select<?php echo $row3['id']?>"></label></td>
                     <?php
-                    echo "<td>" . $row['firstName'] . "</td>";
-                    echo "<td>" . $row['lastName'] . "</td>";
-                    echo "<td>" . $row['email'] . "</td>";
+                    echo "<td>" . $row3['firstName'] . "</td>";
+                    echo "<td>" . $row3['lastName'] . "</td>";
+                    echo "<td>" . $row3['email'] . "</td>";
                     echo "</tr>";
-                } while($row = $sth -> fetch());
+                } while($row3 = $sth3 -> fetch());
                 ?>
             </table>
             <?php }
-            $sth = $pdo -> prepare("SELECT * FROM `assignments`");
-            $sth -> execute();
-            $row = $sth -> fetch();
+            $sth4 = $pdo -> prepare("SELECT * FROM `assignments`");
+            $sth4 -> execute();
+            $row4 = $sth4 -> fetch();
             ?>
             <div id="addToGroupForm">
                 <label>
@@ -134,9 +134,9 @@ require_once("../DB_Connection.php");
                         <option disabled selected>opdracht</option>
                         <?php
                         do {
-                            $name = $row['name'];
+                            $name = $row4['name'];
                             echo "<option>$name</option>";
-                        } while ($row = $sth -> fetch())
+                        } while ($row4 = $sth4 -> fetch())
                         ?>
                     </select>
                 </label>
@@ -145,17 +145,20 @@ require_once("../DB_Connection.php");
         </form>
     <h1>Opdrachten bewerken of maken</h1>
     <?php
-    if (!$row == ""){
+    $sth4 = $pdo -> prepare("SELECT * FROM `assignments`");
+    $sth4 -> execute();
+    $row4 = $sth4 -> fetch();
+    if (!$row4 == ""){
     ?>
     <form action="deleteAssignment.php">
     <?php do { ?>
         <div>
-            <button id="editAssignButtons" onclick="window.location.href = 'assignmentEditor.php?assign=<?= $row['id']?>';">
-                <label id="buttonDelete"><input type="button" name="delete<?= $row['id']; ?>"></label>
-                <?= $row['name']?>
+                <button id="editAssignButtons" value="<?= $row4['id']?>" name="continue">
+                <label id="buttonDelete"><input type="submit" name="delete<?= $row4['id']; ?>" value=" "></label>
+                <?= $row4['name']?>
                 <span id="continueIcon">-></span></button>
         </div>
-    <?php } while($row = $sth -> fetch());?>
+    <?php } while($row4 = $sth4 -> fetch());?>
         </form>
     <?php } ?>
     <form action="createAssignment.php" id="createAssignForm">
