@@ -1,13 +1,11 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-    session_start();
-$conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-$stmt = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE id=?");
-mysqli_stmt_bind_param($stmt, "s", $_SESSION['loggedID']);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$row = mysqli_fetch_assoc($result);
+session_start();
+require_once ("../DB_Connection.php");
+
+$sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE id=?");
+$sth -> execute([$_SESSION['loggedID']]);
+$row = $sth -> fetch();
 ?>
 <html lang="nl">
 <head>

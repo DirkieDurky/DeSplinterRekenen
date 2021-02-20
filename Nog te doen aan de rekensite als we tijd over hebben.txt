@@ -1,6 +1,5 @@
 Extra dingen om toe te voegen aan de rekensite als we tijd over hebben:
 
-PDO gebruiken ipv mysqli.
 Cookies veiliger maken.
 Een warning als je op het punt staat een group te verwijderen.
 Gebruiker uit groep verwijderen zonder pagina te herladen.

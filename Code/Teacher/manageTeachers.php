@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once ("../DB_Connection.php");
 ?>
 <html lang="nl">
 <head>
@@ -32,13 +33,9 @@ Applicatiebeheerder (AB):
         <li>Leraren te beheren.</li>
     </ul>
     <?php
-    $conn = new mysqli("localhost", "root", "", "deSplinterRekenen");
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
-    mysqli_stmt_bind_param($stmt, "i", $_SESSION['loggedID']);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
+    $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
+    $sth -> execute([$_SESSION['loggedID']]);
+    $row = $sth -> fetch();
     if ($row == ""){
         echo "<h3 class='teachers'>Er zijn geen leraren om te beheren.</h3>";
     } else {
@@ -68,7 +65,7 @@ do {
     echo "<td>" . $row['email'] . "</td>";
     echo "</tr>";
     $i++;
-} while($row = mysqli_fetch_array($result));
+} while($row = $sth -> fetch());
 $_SESSION['i'] = $i;
 ?>
 </table>
