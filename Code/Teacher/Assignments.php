@@ -74,14 +74,14 @@ require_once("../DB_Connection.php");
             <?php } while($row = $sth -> fetch()); ?>
         </form>
         <script>
-            var collapsible = document.getElementsByClassName("collapsible");
-            for (var i = 0; i < collapsible.length; i++) {
+            const collapsible = document.getElementsByClassName("collapsible");
+            for (let i = 0; i < collapsible.length; i++) {
                 collapsible[i].addEventListener("click", function(e) {
                     if (e.target.tagName.toLowerCase() === 'input') {
                         return;
                     }
                     this.classList.toggle("collapsibleActive");
-                    var content = this.querySelector('.collapsibleContent');
+                    const content = this.querySelector('.collapsibleContent');
                     if (content.style.maxHeight){
                         content.style.maxHeight = null;
                         setTimeout(function(){

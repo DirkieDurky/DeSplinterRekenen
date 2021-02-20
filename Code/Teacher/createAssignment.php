@@ -20,4 +20,3 @@
     echo "Redirecting you to the assignment with id " . $pdo -> lastInsertId() . "...";
     //header("Location: assignmentEditor.php?assign=" . $pdo -> lastInsertId());
     header("Location: teacherSite.php?selected=2");
-?>

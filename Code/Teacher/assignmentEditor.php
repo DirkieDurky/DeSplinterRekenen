@@ -89,11 +89,11 @@ session_start();
         </div>
 
         <script>
-            var coll = document.getElementsByClassName("collapsible");
-            for (var i = 0; i < coll.length; i++) {
+            const coll = document.getElementsByClassName("collapsible");
+            for (let i = 0; i < coll.length; i++) {
                 coll[i].addEventListener("click", function() {
                     this.classList.toggle("collapsibleActive");
-                    var content = this.nextElementSibling;
+                    const content = this.nextElementSibling;
                     if (content.style.maxHeight){
                         content.style.maxHeight = null;
                         setTimeout(function(){

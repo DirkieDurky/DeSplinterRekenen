@@ -300,7 +300,7 @@ body#teacherSite {
 
 .table#students td:first-child, .table#usersInGroup td:first-child{
     border: none;
-    padding: 0 2.5px;
+    padding: 0 3px;
 }
 
 #teachers {
@@ -378,7 +378,7 @@ body#teacherSite {
     animation-fill-mode: forwards;
 }
 
-.notif{
+.notification{
     font-family: "Torus regular", serif;
     position: fixed;
     z-index: 1;
@@ -390,10 +390,10 @@ body#teacherSite {
     width: 250px;
     height: 50px;
     opacity: 0;
-    animation: notif 2500ms;
+    animation: notification 2500ms;
 }
 
-@keyframes notif {
+@keyframes notification {
     from {opacity: 100}
     50% {opacity: 100}
     to {opacity: 0}

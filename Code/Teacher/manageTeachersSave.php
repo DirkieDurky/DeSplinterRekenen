@@ -11,5 +11,5 @@ for ($j=0; $j<$_SESSION['i']; $j++, $row = $sth -> fetch()){
     $sth2 -> execute([$_GET['perms' . $j], $row['id']]);
     echo "Set the perms for user with id " . $row['id'] . " to " . $_GET['perms' . $j] . "<br>";
 }
-$_SESSION['notif'] = "Veranderingen zijn opgeslagen!";
+$_SESSION['notification'] = "Veranderingen zijn opgeslagen!";
 header("Location: teacherSite.php?selected=0");

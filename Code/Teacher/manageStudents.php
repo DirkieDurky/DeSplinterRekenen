@@ -77,14 +77,14 @@ session_start();
         </form>
 
         <script>
-            var collapsible = document.getElementsByClassName("collapsible");
-            for (var i = 0; i < collapsible.length; i++) {
+            const collapsible = document.getElementsByClassName("collapsible");
+            for (let i = 0; i < collapsible.length; i++) {
                 collapsible[i].addEventListener("click", function(e) {
                     if (e.target.tagName.toLowerCase() === 'input') {
                         return;
                     }
                     this.classList.toggle("collapsibleActive");
-                    var content = this.querySelector('.collapsibleContent');
+                    const content = this.querySelector('.collapsibleContent');
                     if (content.style.maxHeight){
                         content.style.maxHeight = null;
                         setTimeout(function(){
@@ -161,6 +161,6 @@ session_start();
     </form>
     <?php } ?>
 </div>
-<?php if (isset($_SESSION['notif'])){echo "<h3 class='notif'> " . $_SESSION['notif'] . " </h3>";} unset($_SESSION['notif'])?>
+<?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
 </body>
 </html>
