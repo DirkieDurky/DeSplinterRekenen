@@ -534,7 +534,7 @@ body#teacherSite {
     right: 0;
 }
 
-#exerciseSelectButtons {
+#questionSelectButtons {
     position: relative;
     display: inline-block;
     margin-top: 50px;
@@ -542,7 +542,7 @@ body#teacherSite {
     left: 50%;
 }
 
-#exerciseSelectButton {
+#questionSelectButton {
     text-decoration: none;
     display: inline-block;
     width: 45px;
@@ -555,12 +555,12 @@ body#teacherSite {
     z-index: 1;
 }
 
-#exerciseButtonsContainer {
+#questionButtonsContainer {
     position: relative;
     display: inline-block;
 }
 
-#exerciseDeleteButton {
+#questionDeleteButton {
     display: inline-block;
     text-decoration: none;
     width: 30px;
@@ -576,16 +576,16 @@ body#teacherSite {
     z-index: 0;
 }
 
-#exerciseButtonsContainer:hover #exerciseDeleteButton {
-    animation: exerciseDeleteButtonShowUp 100ms;
+#questionButtonsContainer:hover #questionDeleteButton {
+    animation: questionDeleteButtonShowUp 100ms;
     animation-fill-mode: forwards;
 }
 
-@keyframes exerciseDeleteButtonShowUp {
+@keyframes questionDeleteButtonShowUp {
     to {transform: translate(-50%);}
 }
 
-#exercise {
+#question {
     position: absolute;
     top: 150px;
     bottom: 0;

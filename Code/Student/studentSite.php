@@ -17,9 +17,9 @@
 </div>
 <?php
 if ($_GET['selected'] == 1){
-    include "mandatoryExercises.php";
+    include "mandatoryQuestions.php";
 } else {
-    include "allExercises.php";
+    include "allQuestions.php";
 }
 ?>
 </body>

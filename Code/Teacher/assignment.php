@@ -1,17 +1,16 @@
 <?php
 require_once "../DB_Connection.php";
-require_once "Exercise.php";
 
-    $sth = $pdo -> prepare("SELECT * FROM `exercises` WHERE assignmentID = ?;");
+    $sth = $pdo -> prepare("SELECT * FROM `questions` WHERE assignmentID = ?;");
     $sth -> execute([$_SESSION['editingAssign']]);
     $row = $sth -> fetch();
 
 if (!isset($row['id'])) {
-header("Location: createExercise.php");
+header("Location: createQuestion.php");
 exit();
 }
 ?>
-<div id="exerciseSelectButtons">
+<div id="questionSelectButtons">
 <?php
 $i = 1;
 do {
@@ -21,22 +20,22 @@ do {
     }
     $getSelectURL .= $row['order']
     ?>
-    <div id="exerciseButtonsContainer">
-        <a id="exerciseSelectButton" href=<?=$getSelectURL?>><?=$row['order']?></a><br>
-        <a id="exerciseDeleteButton" href="deleteExercise.php?selected=<?= $row['order'];?>">x</a>
+    <div id="questionButtonsContainer">
+        <a id="questionSelectButton" href=<?=$getSelectURL?>><?=$row['order']?></a><br>
+        <a id="questionDeleteButton" href="deleteQuestion.php?selected=<?= $row['order'];?>">x</a>
     </div>
     <?php
     $i++;
 } while ($row = $sth -> fetch());
 if (isset($_SESSION['editingAssign'])) {
     ?>
-    <a id="exerciseSelectButton" href="createExercise.php?selected=<?= $i; ?>"><?="+"?></a>
+    <a id="questionSelectButton" href="createQuestion.php?selected=<?= $i; ?>"><?="+"?></a>
     <?php
 }
 ?>
 </div>
-<div id="exercise">
+<div id="question">
     <?php
-    include("showExercise.php");
+    include("showQuestion.php");
     ?>
 </div>
