@@ -1,5 +1,5 @@
 <?php
-require_once ("../DB_Connection.php");
+require_once "../DB_Connection.php";
 
 $sth = $pdo -> prepare("SELECT * FROM `groups`");
 $sth -> execute();

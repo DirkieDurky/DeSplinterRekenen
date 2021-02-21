@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("../DB_Connection.php");
+require_once "../DB_Connection.php";
 
 $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE id=?");
 $sth -> execute([$_SESSION['loggedID']]);
@@ -27,7 +27,7 @@ $row = $sth -> fetch();
             }
         }?><!--
         --><a href="teacherSite.php?selected=1"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 1){echo " id=\"selected\"";}} ?>>Leerlingen beheren</a><!--
-        --><a href="teacherSite.php?selected=2"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 2){echo " id=\"selected\"";}} ?>>Opdrachten toedienen, bewerken of maken</a><!--
+        --><a href="teacherSite.php?selected=2"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 2){echo " id=\"selected\"";}} ?>>Opdrachten beheren</a><!--
         --><a href="teacherSite.php?selected=3"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 3){echo " id=\"selected\"";}} ?>>Resultaten inzien</a>
     </div>
     <div class="dropdown">
@@ -62,7 +62,7 @@ switch ($_GET['selected']){
         include "manageStudents.php";
         break;
     case 2:
-        include "assignments.php";
+        include "manageAssignments.php";
         break;
     case 3:
         include "results.php";

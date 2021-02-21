@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("../DB_Connection.php");
+require_once "../DB_Connection.php";
 
 $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=1 AND id!=?");
 $sth -> execute([$_SESSION['loggedID']]);

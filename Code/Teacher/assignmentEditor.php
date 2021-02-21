@@ -1,6 +1,12 @@
 <?php
-require_once("../DB_Connection.php");
+require_once "../DB_Connection.php";
 session_start();
+
+$_SESSION['editingAssign'] = $_GET['assign'];
+
+$sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE id = ?");
+$sth -> execute([$_GET['assign']]);
+$row = $sth -> fetch();
 ?>
 <html lang="en">
 <head>
@@ -12,34 +18,6 @@ session_start();
     <link rel="stylesheet" href="../style.php">
 </head>
 <body>
-    <?php
-    $_SESSION['editingAssign'] = $_GET['assign'];
-
-    $sth = $pdo -> prepare("SELECT * FROM `assignments`");
-    $sth -> execute();
-    $row = $sth -> fetch();
-
-    if (isset($row['id'])) {
-        $sth2 = $pdo->prepare("SELECT * FROM `exercises` WHERE 'assignment'=?;");
-        $sth2->execute([$row['id']]);
-        $row2 = $sth2->fetch();
-    }
-
-    $i = 1;
-    while ($row = $sth2 -> fetch()) {
-        $sth3 = $pdo -> prepare("SELECT * FROM `exercises` WHERE 'assignment'=? AND 'order'=?;");
-        $sth3 -> execute([$row['id'],$i]);
-        $row3 = $sth3 -> fetch();
-        if (isset($row3['content'])){
-            echo $row3['content'];
-        }
-        $i++;
-    }
-
-    $sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE id = ?");
-    $sth -> execute([$_GET['assign']]);
-    $row = $sth -> fetch();
-    ?>
     <div class="sidebar">
         <div id="headOfSidebar">
             <h2 class="title">Opdracht maken</h2>
@@ -49,12 +27,6 @@ session_start();
                 </label>
                 <input type="submit" name="submitName" value="->">
             </form>
-        </div>
-        <div>
-            <button class="collapsible">Titel</button>
-            <div class="collapsibleContent">
-                <p>Test</p>
-            </div>
         </div>
         <div>
             <button class="collapsible">Tekst</button>
@@ -86,7 +58,6 @@ session_start();
                 <p>Test</p>
             </div>
         </div>
-
         <script>
             const coll = document.getElementsByClassName("collapsible");
             for (let i = 0; i < coll.length; i++) {
@@ -105,8 +76,10 @@ session_start();
                 });
             }
         </script>
-
             <a class="backbutton" id="assignmentEditor" href="teacherSite.php?selected=2"><-</a>
+    </div>
+    <div id="assignment">
+<?php include "assignment.php"; ?>
     </div>
 </body>
 </html>

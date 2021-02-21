@@ -1,5 +1,5 @@
 <?php
-require_once ("../DB_Connection.php");
+require_once "../DB_Connection.php";
 session_start();
 
 if (!isset($_GET['groups'])) {

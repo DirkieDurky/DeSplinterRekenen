@@ -1,5 +1,5 @@
 <?php
-    require_once("../DB_Connection.php");
+    require_once "../DB_Connection.php";
     session_start();
 
     if (strlen($_GET['assignmentName'])==0) {
@@ -18,5 +18,4 @@
     $sth -> execute([$_GET['assignmentName'], $_SESSION['loggedID']]);
     unset($_GET['createAssignButton']);
     echo "Redirecting you to the assignment with id " . $pdo -> lastInsertId() . "...";
-    //header("Location: assignmentEditor.php?assign=" . $pdo -> lastInsertId());
     header("Location: teacherSite.php?selected=2");

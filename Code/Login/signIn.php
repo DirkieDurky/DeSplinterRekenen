@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("../DB_Connection.php");
+require_once "../DB_Connection.php";
 $_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
     $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE Email=?");

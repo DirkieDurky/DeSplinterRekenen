@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("DB_Connection.php");
+require_once "DB_Connection.php";
 ?>
 <style>
 @font-face {
@@ -219,10 +219,10 @@ body#teacherSite {
  ?>
 
 .headerSelect {
-    position: absolute;
+    position: relative;
+    display: inline-block;
     transform: translate(-50%, 0%);
     left: 50%;
-    <?php if($row['perms'] == 2){ echo "width: 1208px;";} elseif ($row['teacher'] == 0){echo "width: 604px;";}?>
 }
 
 .headerSelect a{
@@ -524,6 +524,72 @@ body#teacherSite {
     position: relative;
     transform: translate(-50%);
     left: 50%;
+}
+
+#assignment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 300px;
+    right: 0;
+}
+
+#exerciseSelectButtons {
+    position: relative;
+    display: inline-block;
+    margin-top: 50px;
+    transform: translate(-50%);
+    left: 50%;
+}
+
+#exerciseSelectButton {
+    text-decoration: none;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    line-height: 45px;
+    position: relative;
+    z-index: 1;
+}
+
+#exerciseButtonsContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#exerciseDeleteButton {
+    display: inline-block;
+    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    transform: translate(-50%, -100%);
+    top: 100%;
+    left: 50%;
+    z-index: 0;
+}
+
+#exerciseButtonsContainer:hover #exerciseDeleteButton {
+    animation: exerciseDeleteButtonShowUp 100ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes exerciseDeleteButtonShowUp {
+    to {transform: translate(-50%);}
+}
+
+#exercise {
+    position: absolute;
+    top: 150px;
+    bottom: 0;
+    width: 100%;
 }
 
 </style>

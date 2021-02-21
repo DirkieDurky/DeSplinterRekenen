@@ -2,7 +2,7 @@
 require_once "../DB_Connection.php";
 
 if (isset($_GET['continue'])) {
-?><script>window.location.href = "assignmentEditor.php?assign=<?=$_GET['continue'];?>";</script><?php
+?><script>window.location.href = "assignmentEditor.php?assign=<?=$_GET['continue'] . "&selected=1";?>";</script><?php
     exit;
 }
 
