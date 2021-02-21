@@ -1,6 +1,3 @@
-<?php
-echo "test";
-?>
 <html lang="nl">
 <head>
     <title>Leraren site</title>
