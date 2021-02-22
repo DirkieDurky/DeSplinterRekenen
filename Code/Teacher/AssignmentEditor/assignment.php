@@ -1,5 +1,5 @@
 <?php
-require_once "../DB_Connection.php";
+require_once "../../DB_Connection.php";
 
     $sth = $pdo -> prepare("SELECT * FROM `questions` WHERE assignmentID = ?;");
     $sth -> execute([$_SESSION['editingAssign']]);
@@ -22,14 +22,14 @@ do {
     ?>
     <div id="questionButtonsContainer">
         <a id="questionSelectButton" href=<?=$getSelectURL?>><?=$row['order']?></a><br>
-        <a id="questionDeleteButton" href="deleteQuestion.php?selected=<?= $row['order'];?>">x</a>
+        <a id="questionDeleteButton" href="deleteQuestion.php?question=<?= $row['order'];?>">x</a>
     </div>
     <?php
     $i++;
 } while ($row = $sth -> fetch());
 if (isset($_SESSION['editingAssign'])) {
     ?>
-    <a id="questionSelectButton" href="createQuestion.php?selected=<?= $i; ?>"><?="+"?></a>
+    <a id="questionSelectButton" href="createQuestion.php?question=<?= $i; ?>"><?="+"?></a>
     <?php
 }
 ?>
