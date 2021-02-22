@@ -592,4 +592,18 @@ body#teacherSite {
     width: 100%;
 }
 
+#deleteElements {
+    text-decoration: none;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    position: relative;
+    z-index: 1;
+}
+}
+
 </style>

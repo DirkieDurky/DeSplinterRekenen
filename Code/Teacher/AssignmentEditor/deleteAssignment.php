@@ -1,8 +1,14 @@
 <?php
-require_once "../DB_Connection.php";
+require_once "../../DB_Connection.php";
+session_start();
 
 if (isset($_GET['continue'])) {
-?><script>window.location.href = "assignmentEditor.php?assign=<?=$_GET['continue'] . "&selected=1";?>";</script><?php
+    if (isset($_SESSION['editingQuestion'])) {
+        $editingQuestion = $_SESSION['editingQuestion'];
+    } else {
+        $editingQuestion = 1;
+    }
+?><script>window.location.href = "assignmentEditor.php?assign=<?=$_GET['continue'] . "&question=" . $editingQuestion;?>";</script><?php
     exit;
 }
 

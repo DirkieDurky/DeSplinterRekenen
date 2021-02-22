@@ -2,6 +2,9 @@
 session_start();
 require_once "../DB_Connection.php";
 
+unset($_SESSION['editingAssign']);
+unset($_SESSION['editingQuestion']);
+
 $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE id=?");
 $sth -> execute([$_SESSION['loggedID']]);
 $row = $sth -> fetch();

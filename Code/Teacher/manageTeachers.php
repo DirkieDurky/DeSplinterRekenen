@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once "../DB_Connection.php";
 ?>
 <html lang="nl">
