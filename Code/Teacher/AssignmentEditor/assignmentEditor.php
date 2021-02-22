@@ -118,6 +118,5 @@ $row = $sth -> fetch();
 <?php include "assignment.php"; ?>
     </div>
     <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
-    <?php if (isset($_SESSION['error'])){echo "<h3 class='popupError'> " . $_SESSION['error'] . " </h3>";} unset($_SESSION['error'])?>
 </body>
 </html>

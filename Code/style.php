@@ -401,8 +401,8 @@ body#teacherSite {
     right:2%;
     bottom:2%;
     background-color: #3d3d3d;
-    min-width: 250px;
-    min-height: 50px;
+    width: 250px;
+    height: 50px;
     opacity: 0;
     animation: notification 2500ms;
 }
@@ -604,20 +604,6 @@ body#teacherSite {
     position: relative;
     z-index: 1;
 }
-
-.popupError{
-    font-family: "Torus regular", serif;
-    position: fixed;
-    z-index: 1;
-    color: red;
-    text-align: center;
-    right:2%;
-    bottom:2%;
-    background-color: darkred;
-    min-width: 250px;
-    min-height: 50px;
-    opacity: 0;
-    animation: notification 2500ms;
 }
 
 </style>
