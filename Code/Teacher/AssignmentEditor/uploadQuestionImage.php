@@ -2,7 +2,7 @@
 require_once "../../DB_Connection.php";
 session_start();
 
-$file = basename($_FILES["fileToUpload"]["name"]);
+
 
 require_once "../../DB_Connection.php";
     $sth = $pdo -> prepare("SELECT `media` FROM questions WHERE assignmentID = ? AND `order` = ?");
@@ -12,10 +12,12 @@ require_once "../../DB_Connection.php";
         unlink($row['media']);
     }
 
-    $targetDir = "../Uploads/Images/QuestionImages/";
-    $ext = "." . pathinfo($_FILES["fileToUpload"]["name"])['extension'];
-    $fileName = pathinfo($_FILES["fileToUpload"]["name"])['filename'];
-    $files = scandir('../Uploads/Images/QuestionImages/',SCANDIR_SORT_DESCENDING);
+    $file = basename($_FILES["fileToUpload"]["name"]);
+    $targetDir = "../../Uploads/Images/QuestionImages/";
+    $ext = "." . pathinfo($file)['extension'];
+    $fileName = pathinfo($file)['filename'];
+    $files = scandir($targetDir,SCANDIR_SORT_DESCENDING);
+
     if (!isset($files)) {
         $underscoreLocation = 0;
     } else {

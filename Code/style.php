@@ -392,7 +392,7 @@ body#teacherSite {
     animation-fill-mode: forwards;
 }
 
-.notification{
+.notification {
     font-family: "Torus regular", serif;
     position: fixed;
     z-index: 1;
@@ -402,9 +402,13 @@ body#teacherSite {
     bottom:2%;
     background-color: #3d3d3d;
     width: 250px;
-    height: 50px;
+    min-height: 50px;
     opacity: 0;
     animation: notification 2500ms;
+}
+
+.notification#error {
+    color: red;
 }
 
 @keyframes notification {
