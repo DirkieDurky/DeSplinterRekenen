@@ -74,7 +74,7 @@ $row = $sth -> fetch();
 
                 if (isset($row['media']) && $row['media'] != "") {
                     echo "Oude afbeelding \"$fileName\" verwijderen?";
-                    ?> <a href="deleteQuestionImage.php">x</a><br> <?php
+                    ?> <a href="deleteQuestionImage.php" id="elementDelete">x</a><br> <?php
                     echo "Of selecteer een afbeelding om de oude afbeelding mee te vervangen:";
                 } else {
                     echo "Selecteer een afbeelding om in te voegen:";

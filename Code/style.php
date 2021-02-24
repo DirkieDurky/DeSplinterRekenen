@@ -404,7 +404,7 @@ body#teacherSite {
     width: 250px;
     min-height: 50px;
     opacity: 0;
-    animation: notification 2500ms;
+    animation: notification 3500ms;
 }
 
 .notification#error {
@@ -413,7 +413,7 @@ body#teacherSite {
 
 @keyframes notification {
     from {opacity: 100}
-    50% {opacity: 100}
+    65% {opacity: 100}
     to {opacity: 0}
 }
 
@@ -608,6 +608,18 @@ body#teacherSite {
     position: relative;
     z-index: 1;
 }
+
+#elementDelete {
+    text-decoration: none;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    position: relative;
+    z-index: 1;
 }
 
 </style>
