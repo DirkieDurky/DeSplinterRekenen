@@ -16,7 +16,7 @@ function uploadImage()
     $fileName = pathinfo($file)['filename'];
 
     if ($ext != ".png" && $ext != ".jpg" && $ext != ".jpeg" && $ext != ".gif") {
-        $_SESSION['error'] = "Sorry, je afbeelding kan alleen een van de volgende extenties hebben: png, jpg, jpeg of gif.";
+        $_SESSION['error'] = "Sorry, je afbeelding kan alleen een van de volgende extensies hebben: png, jpg, jpeg of gif.";
         return;
     }
 
@@ -47,7 +47,6 @@ function uploadImage()
         $sth2->execute([$location, $_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
         $_SESSION['notification'] = "Afbeelding succesvol geupload!";
-        return;
     } else {
         $_SESSION['error'] = "Sorry, er ging iets mis bij het uploaden van je afbeelding.";
     }
