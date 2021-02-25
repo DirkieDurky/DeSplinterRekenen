@@ -49,7 +49,7 @@ function uploadImage()
         $_SESSION['notification'] = "Afbeelding succesvol geupload!";
         return;
     } else {
-        $_SESSION['notification'] = "Er ging iets mis bij het uploaden van je afbeelding.";
+        $_SESSION['error'] = "Sorry, er ging iets mis bij het uploaden van je afbeelding.";
     }
 }
 uploadImage();
