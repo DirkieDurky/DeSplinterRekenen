@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../extend.php";
 require_once "../DB_Connection.php";
 $_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
@@ -9,15 +10,17 @@ if (isset($_COOKIE['loginEmail'])) {
     $_SESSION['loggedID'] = $row['id'];
     if ($row['teacher'] == FALSE) {
         header("Location: ../Student/studentSite.php?selected=1");
+        exit();
     } else {
         header("Location: ../teacher/teacherSite.php?selected=1");
+        exit();
     }
 }
 ?>
 <html lang="nl">
 <head>
     <title>Inloggen</title>
-    <link href=../style.php rel=stylesheet>
+    <link href=../style.css rel=stylesheet>
 </head>
 <body id="signIn">
 <div class="field <?= isset($_SESSION['error']) && $_SESSION['error']!="" ? "extend" : ""?>" id="signIn">

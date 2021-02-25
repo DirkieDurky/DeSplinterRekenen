@@ -1,10 +1,11 @@
 <?php
 session_start();
+include "../extend.php";
 ?>
 <html lang="en">
 <head>
     <title>Account maken</title>
-    <link href="../style.php" rel=stylesheet>
+    <link rel=stylesheet href="../style.css">
 </head>
 <body id="signIn">
 <div>

@@ -5,3 +5,4 @@ if (isset($_GET['submit'])) {
     $sth -> execute([$_GET['groupName']]);
 }
 header("Location: teacherSite.php?selected=1");
+exit();

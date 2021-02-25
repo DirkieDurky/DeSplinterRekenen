@@ -4,7 +4,7 @@ require_once "../DB_Connection.php";
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.php rel=stylesheet>
+    <link href=../style.css rel=stylesheet>
 </head>
 <body>
 <div class="teacherField">
@@ -72,6 +72,6 @@ $_SESSION['i'] = $i;
     </form>
     <?php } ?>
 </div>
-    <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
+    <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
 </body>
 </html>

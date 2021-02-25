@@ -16,11 +16,12 @@ $row = $sth -> fetch();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Opdracht maken</title>
-    <link rel="stylesheet" href="../../style.php">
+    <link rel="stylesheet" href="../../style.css">
+    <script type="text/javascript" src="../notifications.js"></script>
 </head>
 <body>
     <div class="sidebar">
-        <div id="headOfSidebar">
+        <div id="sidebarText">
             <h2 class="title">Opdracht maken</h2>
             <form action="changeAssignName.php">
                 <label>
@@ -74,7 +75,7 @@ $row = $sth -> fetch();
 
                 if (isset($row['media']) && $row['media'] != "") {
                     echo "Oude afbeelding \"$fileName\" verwijderen?";
-                    ?> <a href="deleteQuestionImage.php" id="elementDelete">x</a><br> <?php
+                    ?> <a href="deleteQuestionImage.php" id="deleteElements">x</a><br> <?php
                     echo "Of selecteer een afbeelding om de oude afbeelding mee te vervangen:";
                 } else {
                     echo "Selecteer een afbeelding om in te voegen:";
@@ -87,12 +88,29 @@ $row = $sth -> fetch();
             </div>
         </div>
         <div>
-            <button class="collapsible">Vraag</button>
-            <div class="collapsibleContent">
-                <p>Meerkeuzevraag</p>
-                <p>Som</p>
-                <p>Antwoordveld</p>
-            </div>
+            <span id="sidebarText" style="margin-top: 10px">Vragen:</span>
+                <button class="collapsible">Meerkeuzevraag</button>
+                <div class="collapsibleContent">
+                    <form action="createMultipleChoice.php">
+                            Voer hier de mogelijke opties in voor je meerkeuzevraag. Je hoeft niet elke optie in te vullen. Vink het juiste antwoord aan.<br>
+                            <?php for($i = 0; $i < 6; $i++) {?>
+                            <label>
+                                <input type="checkbox" onclick="document.getElementById('textOption<?=$i?>').disabled = !document.getElementById('textOption<?=$i?>').disabled; document.getElementById('option<?=$i?>').disabled = !document.getElementById('option<?=$i?>').disabled;" id="checkbox<?=$i?>">
+                                <input disabled type="text" name="option<?=$i?>" id="textOption<?=$i?>">
+                                <input disabled type="radio" name="correctOption" id="option<?=$i?>">
+                            </label><br>
+                            <?php } ?>
+                        <input type="submit" value="->">
+                    </form>
+                </div>
+                <button class="collapsible">Som</button>
+                <div class="collapsibleContent">
+                    content
+                </div>
+                <button class="collapsible">Antwoordveld</button>
+                <div class="collapsibleContent">
+                    content
+                </div>
         </div>
         <script>
             const coll = document.getElementsByClassName("collapsible");
@@ -117,7 +135,17 @@ $row = $sth -> fetch();
     <div id="assignment">
 <?php include "assignment.php"; ?>
     </div>
-    <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
-    <?php if (isset($_SESSION['error'])){echo "<h3 class='notification' id='error'> " . $_SESSION['error'] . " </h3>";} unset($_SESSION['error'])?>
+    <?php
+    if (isset($_SESSION['notification'])) {
+        echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";
+        unset($_SESSION['notification']); ?>
+        <script> notifications('notification') </script>
+    <?php }
+
+    if (isset($_SESSION['error'])) {
+        echo "<h3 class='notification' id='error'> " . $_SESSION['error'] . " </h3>";
+        unset($_SESSION['error']); ?>
+        <script> errors('error') </script>
+    <?php } ?>
 </body>
 </html>

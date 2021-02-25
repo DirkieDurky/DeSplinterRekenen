@@ -1,7 +1,7 @@
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.php rel=stylesheet>
+    <link href=../style.css rel=stylesheet>
 </head>
 <body id="teacherSite">
 Pagina 1

@@ -4,14 +4,18 @@ session_start();
 function uploadImage()
 {
     require_once "../../DB_Connection.php";
-
     $file = basename($_FILES["fileToUpload"]["name"]);
+
+    if (!isset($file) || $file == "") {
+        $_SESSION['error'] = "Je hebt geen bestand geselecteerd";
+        return;
+    }
+
     $ext = "." . strtolower(pathinfo($file)['extension']);
     $targetDir = "../../Uploads/Images/QuestionImages/";
     $fileName = pathinfo($file)['filename'];
-    $files = scandir($targetDir, SCANDIR_SORT_DESCENDING);
 
-    if ($ext != "png" && $ext != "jpg" && $ext != "jpeg" && $ext != "gif") {
+    if ($ext != ".png" && $ext != ".jpg" && $ext != ".jpeg" && $ext != ".gif") {
         $_SESSION['error'] = "Sorry, je afbeelding kan alleen een van de volgende extenties hebben: png, jpg, jpeg of gif.";
         return;
     }
@@ -28,6 +32,8 @@ function uploadImage()
         unlink($row['media']);
     }
 
+    $files = scandir($targetDir, SCANDIR_SORT_DESCENDING);
+
     if (!isset($files)) {
         $underscoreLocation = 0;
     } else {
@@ -41,10 +47,10 @@ function uploadImage()
         $sth2->execute([$location, $_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
         $_SESSION['notification'] = "Afbeelding succesvol geupload!";
+        return;
     } else {
         $_SESSION['notification'] = "Er ging iets mis bij het uploaden van je afbeelding.";
     }
-    return;
 }
 uploadImage();
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
