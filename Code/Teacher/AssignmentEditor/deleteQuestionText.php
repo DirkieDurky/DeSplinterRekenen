@@ -6,3 +6,4 @@ $sth2 = $pdo->prepare("UPDATE `questions` SET text = '' WHERE assignmentID = ? A
 $sth2->execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
+exit();

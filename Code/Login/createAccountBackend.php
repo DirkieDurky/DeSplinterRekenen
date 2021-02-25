@@ -94,7 +94,9 @@ if ($_SESSION['error']!=""){
 
     if ($_GET['teacher'] == 0) {
         header("Location: ../Student/studentSite.php?selected=1");
+        exit();
     } else {
         header("Location: ../teacher/teacherSite.php?selected=1");
+        exit();
     }
 }

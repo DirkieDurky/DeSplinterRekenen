@@ -13,3 +13,4 @@ for ($j=0; $j<$_SESSION['i']; $j++, $row = $sth -> fetch()){
 }
 $_SESSION['notification'] = "Veranderingen zijn opgeslagen!";
 header("Location: teacherSite.php?selected=0");
+exit();

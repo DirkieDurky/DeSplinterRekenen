@@ -5,7 +5,7 @@ require_once "../DB_Connection.php";
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.php rel=stylesheet>
+    <link href=../style.css rel=stylesheet>
 </head>
 <body id="teacherSite">
 <div class="teacherField">
@@ -153,7 +153,7 @@ require_once "../DB_Connection.php";
     <form action="AssignmentEditor/deleteAssignment.php">
     <?php do { ?>
         <div>
-                <button id="editAssignButtons" value="<?= $row4['id']?>" name="continue">
+                <button class="collapsible" value="<?= $row4['id']?>" name="continue">
                 <label id="buttonDelete"><input type="submit" name="delete<?= $row4['id']; ?>" value=" "></label>
                 <?= $row4['name']?>
                 <span id="continueIcon">-></span></button>
@@ -161,7 +161,7 @@ require_once "../DB_Connection.php";
     <?php } while($row4 = $sth4 -> fetch());?>
         </form>
     <?php } ?>
-    <form action="AssignmentEditor/createAssignment.php" id="createAssignForm">
+    <form action="createAssignment.php" id="createAssignForm">
         <input type="hidden" name="selected" value="2">
         <label>
             Maak een nieuwe opdracht met de naam

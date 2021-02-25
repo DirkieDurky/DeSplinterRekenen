@@ -13,3 +13,4 @@ $sth2 = $pdo -> prepare("UPDATE `questions` SET media = '' WHERE assignmentID = 
 $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
+exit();
