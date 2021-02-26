@@ -57,7 +57,6 @@ $row = $sth -> fetch();
             <button class="collapsible">Afbeelding</button>
             <div class="collapsibleContent">
                 <?php
-                //Remove number from file
 
                 //Get the file location
                 $sth2 = $pdo -> prepare("SELECT `media` from `questions` WHERE assignmentID = ? AND `order` = ?");

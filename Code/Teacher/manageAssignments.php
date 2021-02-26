@@ -150,7 +150,7 @@ require_once "../DB_Connection.php";
     $row4 = $sth4 -> fetch();
     if (!$row4 == ""){
     ?>
-    <form action="AssignmentEditor/deleteAssignment.php">
+    <form action="Assignments/deleteAssignment.php">
     <?php do { ?>
         <div>
                 <button class="collapsible" value="<?= $row4['id']?>" name="continue">

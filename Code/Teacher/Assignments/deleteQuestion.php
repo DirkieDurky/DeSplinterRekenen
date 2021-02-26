@@ -12,14 +12,17 @@ if (isset($row['media'])) {
 $sth = $pdo -> prepare("DELETE FROM questions WHERE assignmentID = ? AND `order` = ?");
 $sth -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
-$sth2 = $pdo -> prepare("SELECT `order`, id FROM `questions` WHERE assignmentID = ? AND `order` > ?");
+$sth2 = $pdo -> prepare("DELETE FROM multiplechoiceoptions WHERE assignmentID = ? AND `questionOrder` = ?");
 $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
-$row2 = $sth2 -> fetch();
+
+$sth3 = $pdo -> prepare("SELECT `order`, id FROM `questions` WHERE assignmentID = ? AND `order` > ?");
+$sth3 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
+$row3 = $sth3 -> fetch();
 
 do {
-    $sth3 = $pdo -> prepare("UPDATE `questions` SET `order` = ? WHERE id = ?");
-    $sth3 -> execute([$row2['order'] - 1, $row2['id']]);
+    $sth4 = $pdo -> prepare("UPDATE `questions` SET `order` = ? WHERE id = ?");
+    $sth4 -> execute([$row3['order'] - 1, $row3['id']]);
 
-} while ($row2 = $sth2 -> fetch());
+} while ($row3 = $sth3 -> fetch());
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=1");
 exit();
