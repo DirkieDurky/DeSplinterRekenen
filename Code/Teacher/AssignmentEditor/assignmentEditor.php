@@ -33,10 +33,10 @@ $row = $sth -> fetch();
         <div>
             <button class="collapsible">Tekst</button>
             <div class="collapsibleContent">
-                <form action="addTextToQuestion.php">
+                <form action="createText.php">
                     <label>
                         <?php
-                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`question`,`options`,`answer` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
+                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`sum`,`answer` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
                         $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
                         $row = $sth2 -> fetch();
                         if (isset($row['text']) && $row['text'] != "") {
@@ -92,12 +92,21 @@ $row = $sth -> fetch();
                 <button class="collapsible">Meerkeuzevraag</button>
                 <div class="collapsibleContent">
                     <form action="createMultipleChoice.php">
-                            Voer hier de mogelijke opties in voor je meerkeuzevraag. Je hoeft niet elke optie in te vullen. Vink het juiste antwoord aan.<br>
-                            <?php for($i = 0; $i < 6; $i++) {?>
+                        <label>
+                            Voer hier de vraag in die hoort bij de meerkeuzevraag:
+                            <input type="text" name="question"><br>
+                        </label>
+                        Voer hier de mogelijke opties in voor je meerkeuzevraag.<br>
+                        Je hoeft niet elke optie in te vullen.<br>
+                        Vink het juiste antwoord aan.<br>
+                        <?php for($i = 0; $i < 6; $i++) {?>
                             <label>
-                                <input type="checkbox" onclick="document.getElementById('textOption<?=$i?>').disabled = !document.getElementById('textOption<?=$i?>').disabled; document.getElementById('option<?=$i?>').disabled = !document.getElementById('option<?=$i?>').disabled;" id="checkbox<?=$i?>">
-                                <input disabled type="text" name="option<?=$i?>" id="textOption<?=$i?>">
-                                <input disabled type="radio" name="correctOption" id="option<?=$i?>">
+                                <input type="checkbox" onclick="
+                                    document.getElementById('answer<?=$i?>').disabled = !document.getElementById('answer<?=$i?>').disabled;
+                                    document.getElementById('correct<?=$i?>').disabled = !document.getElementById('correct<?=$i?>').disabled;"
+                                name="checkbox<?=$i?>">
+                                <input disabled type="text" id="answer<?=$i?>" name="answer<?=$i?>">
+                                <input disabled type="radio" id="correct<?=$i?>" name="correct<?=$i?>">
                             </label><br>
                             <?php } ?>
                         <input type="submit" value="->">
@@ -105,11 +114,23 @@ $row = $sth -> fetch();
                 </div>
                 <button class="collapsible">Som</button>
                 <div class="collapsibleContent">
-                    content
+                    <form action="createSum.php">
+                        <label>
+                            Voer je som in:
+                            <input type="text" name="sum">
+                        </label>
+                        <input type="submit" value="->">
+                    </form>
                 </div>
                 <button class="collapsible">Antwoordveld</button>
                 <div class="collapsibleContent">
-                    content
+                    <form action="createAnswer.php">
+                        <label>
+                            Voer je antwoord in:
+                            <input type="text" name="answer">
+                        </label>
+                        <input type="submit" value="->">
+                    </form>
                 </div>
         </div>
         <script>
@@ -133,7 +154,7 @@ $row = $sth -> fetch();
             <a class="backbutton" id="assignmentEditor" href="../teacherSite.php?selected=2"><-</a>
     </div>
     <div id="assignment">
-<?php include "assignment.php"; ?>
+<?php include "../assignment.php"; ?>
     </div>
     <?php
     if (isset($_SESSION['notification'])) {

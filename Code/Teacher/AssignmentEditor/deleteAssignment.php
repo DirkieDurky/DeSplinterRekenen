@@ -25,5 +25,5 @@ do {
         echo "Assignment with id " . $row['id'] . " was not clicked<br>";
     }
 } while ($row = $sth -> fetch());
-header("Location: teacherSite.php?selected=2");
+header("Location: ../teacherSite.php?selected=2");
 exit();

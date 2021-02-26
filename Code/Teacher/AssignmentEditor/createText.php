@@ -6,4 +6,5 @@ $sth = $pdo -> prepare("UPDATE `questions` SET `text` = ? WHERE assignmentID = ?
 $sth -> execute([$_GET['text'], $_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
+$_SESSION['notification'] = "Tekst succesvol toegevoegd.";
 exit();

@@ -1,12 +1,14 @@
 <?php
-require_once "../../DB_Connection.php";
+require_once "../DB_Connection.php";
 
     $sth = $pdo -> prepare("SELECT * FROM `questions` WHERE assignmentID = ?;");
     $sth -> execute([$_SESSION['editingAssign']]);
     $row = $sth -> fetch();
 
 if (!isset($row['id'])) {
-header("Location: createQuestion.php");
+    ?>
+    <script type="text/javascript"> window.location.href = 'createQuestion.php';</script>
+<?php
 exit();
 }
 ?>
@@ -22,20 +24,20 @@ do {
     ?>
     <div id="questionButtonsContainer">
         <a id="questionSelectButton" href=<?=$getSelectURL?>><?=$row['order']?></a><br>
-        <a id="questionDeleteButton" href="deleteQuestion.php?question=<?= $row['order'];?>">x</a>
+        <a id="questionDeleteButton" href="AssignmentEditor/deleteQuestion.php?question=<?= $row['order'];?>">x</a>
     </div>
     <?php
     $i++;
 } while ($row = $sth -> fetch());
 if (isset($_SESSION['editingAssign'])) {
     ?>
-    <a id="questionSelectButton" href="createQuestion.php?question=<?= $i; ?>"><?="+"?></a>
+    <a id="questionSelectButton" href="AssignmentEditor/createQuestion.php?question=<?= $i; ?>"><?="+"?></a>
     <?php
 }
 ?>
 </div>
 <div id="question">
     <?php
-    include("showQuestion.php");
+    include("question.php");
     ?>
 </div>
