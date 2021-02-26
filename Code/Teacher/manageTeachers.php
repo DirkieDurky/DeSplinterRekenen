@@ -5,6 +5,7 @@ require_once "../DB_Connection.php";
 <head>
     <title>Leraren site</title>
     <link href=../style.css rel=stylesheet>
+    <script type="text/javascript" src="notifications.js"></script>
 </head>
 <body>
 <div class="teacherField">
@@ -72,6 +73,11 @@ $_SESSION['i'] = $i;
     </form>
     <?php } ?>
 </div>
-    <?php if (isset($_SESSION['notification'])){echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";} unset($_SESSION['notification'])?>
+    <?php
+    if (isset($_SESSION['notification'])){
+        echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";
+        unset($_SESSION['notification'])?>
+        <script> notifications('notification') </script>
+<?php } ?>
 </body>
 </html>
