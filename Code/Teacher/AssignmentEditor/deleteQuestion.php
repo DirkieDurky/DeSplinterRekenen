@@ -10,10 +10,10 @@ if (isset($row['media'])) {
 }
 
 $sth = $pdo -> prepare("DELETE FROM questions WHERE assignmentID = ? AND `order` = ?");
-$sth -> execute([$_SESSION['editingAssign'], $_GET['question']]);
+$sth -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 
 $sth2 = $pdo -> prepare("SELECT `order`, id FROM `questions` WHERE assignmentID = ? AND `order` > ?");
-$sth2 -> execute([$_SESSION['editingAssign'], $_GET['question']]);
+$sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
 $row2 = $sth2 -> fetch();
 
 do {

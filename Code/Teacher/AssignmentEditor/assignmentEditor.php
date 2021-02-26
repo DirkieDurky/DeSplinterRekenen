@@ -37,7 +37,7 @@ $row = $sth -> fetch();
                     <label>
                         <?php
                         $sth2 = $pdo -> prepare("SELECT `text`,`media`,`sum`,`answer` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
-                        $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
+                        $sth2 -> execute([$_GET['assign'], $_GET['question']]);
                         $row = $sth2 -> fetch();
                         if (isset($row['text']) && $row['text'] != "") {
                             echo "Oude tekst verwijderen?";
@@ -61,7 +61,7 @@ $row = $sth -> fetch();
 
                 //Get the file location
                 $sth2 = $pdo -> prepare("SELECT `media` from `questions` WHERE assignmentID = ? AND `order` = ?");
-                $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
+                $sth2 -> execute([$_GET['assign'], $_GET['question']]);
                 $row = $sth2 -> fetch();
 
                 //Remove directory
@@ -154,7 +154,7 @@ $row = $sth -> fetch();
             <a class="backbutton" id="assignmentEditor" href="../teacherSite.php?selected=2"><-</a>
     </div>
     <div id="assignment">
-<?php include "../assignment.php"; ?>
+<?php include "assignment.php"; ?>
     </div>
     <?php
     if (isset($_SESSION['notification'])) {

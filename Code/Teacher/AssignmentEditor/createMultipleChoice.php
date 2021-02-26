@@ -26,7 +26,7 @@ if ($correctCheck == $boxesChecked) {
 }
 
 $sth3 = $pdo -> prepare("INSERT INTO `multiplechoiceoptions` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
-$sth3 -> execute([$_GET['question'],1,0,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+$sth3 -> execute([$_SESSION['editingQuestion'],1,0,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 for ($i = 0; $i < $boxesChecked; $i++) {
     if (isset($_GET['checkbox' . $i])) {

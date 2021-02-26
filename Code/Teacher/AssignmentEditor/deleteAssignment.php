@@ -3,8 +3,8 @@ require_once "../../DB_Connection.php";
 session_start();
 
 if (isset($_GET['continue'])) {
-    if (isset($_SESSION['editingQuestion'])) {
-        $editingQuestion = $_SESSION['editingQuestion'];
+    if (isset($_GET['question'])) {
+        $editingQuestion = $_GET['question'];
     } else {
         $editingQuestion = 1;
     }
