@@ -45,7 +45,7 @@ if ($correctCheck == $boxesChecked) {
 $sth1 = $pdo -> prepare("DELETE FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
 $sth1 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
-$sth2 = $pdo -> prepare("DELETE FROM `answers` WHERE assignmentID = ? AND questionOrder = ?");
+$sth2 = $pdo -> prepare("DELETE FROM `answerFields` WHERE assignmentID = ? AND questionOrder = ?");
 $sth2 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 $sth3 = $pdo -> prepare("UPDATE `questions` SET sum = ? WHERE assignmentID = ? AND `order` = ?");

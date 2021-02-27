@@ -12,7 +12,7 @@ if ($_GET['sum'] == "") {
 $sth2 = $pdo -> prepare("DELETE FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
 $sth2 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
-$sth2 = $pdo -> prepare("DELETE FROM `answers` WHERE assignmentID = ? AND questionOrder = ?");
+$sth2 = $pdo -> prepare("DELETE FROM `answerFields` WHERE assignmentID = ? AND questionOrder = ?");
 $sth2 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 //Create new one

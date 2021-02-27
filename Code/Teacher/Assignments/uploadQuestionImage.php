@@ -12,7 +12,7 @@ function uploadImage()
     }
 
     $ext = "." . strtolower(pathinfo($file)['extension']);
-    $targetDir = "../../Uploads/Images/QuestionImages/";
+    $targetDir = "../../../Uploads/Images/QuestionImages/";
     $fileName = pathinfo($file)['filename'];
 
     if ($ext != ".png" && $ext != ".jpg" && $ext != ".jpeg" && $ext != ".gif") {

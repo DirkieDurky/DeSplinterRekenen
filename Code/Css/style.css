@@ -116,8 +116,12 @@ h1 {
 
 .submit:hover {
     cursor: pointer;
-    animation: hover 200ms;
+    animation: hover 100ms;
     animation-fill-mode: forwards;
+}
+
+@keyframes hover {
+    to {filter: brightness(80%);}
 }
 
 .error {
@@ -177,15 +181,6 @@ h1 {
 
 .hyperlinks:visited {
     color: rgb(255, 204, 34);
-}
-
-@keyframes hover {
-    from {
-        filter: brightness(100%);
-    }
-    to {
-        filter: brightness(70%);
-    }
 }
 
 body#teacherSite {

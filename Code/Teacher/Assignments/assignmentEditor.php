@@ -95,7 +95,7 @@ $row = $sth -> fetch();
                 </div>
             <button class="collapsible">Vraag</button>
             <div class="collapsibleContent">
-                <form action="createAnswer.php">
+                <form action="createAnswerField.php">
                     <label>
                         Voer je vraag in:<br>
                         <input type="text" name="question"><br>

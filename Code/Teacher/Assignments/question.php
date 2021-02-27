@@ -41,7 +41,6 @@ if (isset($row2['media']) && $row2['media'] != "") {
     <?php }
 }
 
-//Questions:
 //Text
 if (isset($row1['text']) && $row1['text'] != "") {
     ?>
@@ -52,6 +51,7 @@ if (isset($row1['text']) && $row1['text'] != "") {
     <?php
 }
 
+//Answer fields:
 //Multiple choice
 $sth3 = $pdo->prepare("SELECT text FROM `multiplechoice` WHERE assignmentID = ? AND `questionOrder` = ? AND `question` = ?");
 $sth3->execute([$_GET['assign'], $_GET['question'], 1]);
@@ -69,29 +69,33 @@ if (isset($row3['text']) && $row3['text'] != "") {
         $sth4->execute([$_GET['assign'], $_GET['question'], 0]);
         $row4 = $sth4->fetch();
 
-        do {
-            if (isset($row4['text']) && $row4['text'] != "") {
+        ?>
+        <form action="addAnswer.php" class="radioButtons" style="margin:0">
+            <?php
+            $i = 0;
+            do {
                 ?>
-                <a class="linkButtons" id="multipleChoiceSelect"
-                   href="answerCheck.php?answer=<?= $row4['text'] ?>"><?= $row4['text'] . "<br>" ?></a>
+                    <input type="radio" name="answer" id="<?= $i ?>" value="<?= $row4['text'] ?>" required>
+                    <label for="<?= $i ?>"><?= $row4['text'] ?></label>
                 <?php
                 $i++;
-            }
-        } while ($row4 = $sth4->fetch());
-        ?>
+            } while ($row4 = $sth4->fetch());
+            ?>
+            <input type="submit" value="->">
+        </form>
         <a class="linkButtons" id="MTPCDeleteButton" href="deleteMultipleChoice.php">x</a>
     </div>
     <?php
 }
 //Answer field
-$sth5 = $pdo->prepare("SELECT `question`, `answer`, `unit` FROM `answers` WHERE assignmentID = ? AND `questionOrder` = ?");
+$sth5 = $pdo->prepare("SELECT `question`, `answer`, `unit` FROM `answerFields` WHERE assignmentID = ? AND `questionOrder` = ?");
 $sth5->execute([$_GET['assign'], $_GET['question']]);
 $row5 = $sth5->fetch();
 
 if (isset($row5['answer']) && $row5['answer'] != "") {
     ?>
     <div class="element rightSideElement" id="answerField">
-        <form action="answerCheck.php" style="margin:0">
+        <form action="addAnswer.php" style="margin:0">
             <label>
                 <?= $row5['question'] . "<br>" ?>
                 <input type="text" name="answer"><?= " " . $row5['unit'] ?>
@@ -105,7 +109,7 @@ if (isset($row5['answer']) && $row5['answer'] != "") {
 if (isset($row1['sum']) && $row1['sum'] != "") {
     ?>
     <div class="element rightSideElement" id="sum">
-        <form action="answerCheck.php" style="margin:0">
+        <form action="addAnswer.php" style="margin:0">
             <label>
                 <?= $row1['sum'] . " =<br>" ?>
                 <input type="text" name="answer">

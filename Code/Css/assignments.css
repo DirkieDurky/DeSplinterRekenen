@@ -82,7 +82,13 @@
     display: inline-block;
 }
 
-#multipleChoiceSelect {
+.radioButtons input[type="radio"] {
+    position: fixed;
+    opacity: 0;
+}
+
+.radioButtons label {
+    color: white;
     display: block;
     background-color: #333;
     height: 25px;
@@ -91,8 +97,13 @@
     margin-bottom: 2px;
 }
 
-#multipleChoiceSelect:hover {
-    background-color: #707070;
+.radioButtons input[type="radio"]:checked + label {
+    background-color: #a9a9a9;
+}
+
+.radioButtons label:hover {
+    background-color: #a9a9a9;
+    cursor: pointer;
 }
 
 .element:hover {
