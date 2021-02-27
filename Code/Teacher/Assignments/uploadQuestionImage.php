@@ -28,6 +28,7 @@ function uploadImage()
     $sth = $pdo->prepare("SELECT `media` FROM questions WHERE assignmentID = ? AND `order` = ?");
     $sth->execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
     $row = $sth->fetch();
+  
     if (isset($row['media'])) {
         unlink($row['media']);
     }
