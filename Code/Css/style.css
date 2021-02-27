@@ -1,10 +1,10 @@
 @font-face {
     font-family: Torus Regular;
-    src: url("../Torus Regular.otf");
+    src: url("../../Torus Regular.otf");
 }
 
 body#signIn {
-    background-image: url('../RekensiteBackground.png');
+    background-image: url('../../RekensiteBackground.png');
 }
 
 .field {
@@ -391,6 +391,7 @@ body#teacherSite {
     width: 250px;
     min-height: 50px;
     animation: notification 3500ms;
+    vertical-align: middle;
 }
 
 .notification:hover {
@@ -485,99 +486,9 @@ body#teacherSite {
     left: 10px;
 }
 
-.sidebar {
-    font-family: "Torus regular", serif;
-    position: fixed;
-    background-color: #AAAAAA;
-    height: 100%;
-    width: 300px;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-#sidebarText {
-    display: inline-block;
-    position: relative;
-    transform: translate(-50%);
-    left: 50%;
-}
-
-#assignment {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 300px;
-    right: 0;
-}
-
-#questionSelectButtons {
-    position: relative;
-    display: inline-block;
-    margin-top: 50px;
-    transform: translate(-50%);
-    left: 50%;
-}
-
-#questionSelectButton {
-    text-decoration: none;
-    display: inline-block;
-    width: 45px;
-    height: 45px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    line-height: 45px;
-    position: relative;
-    z-index: 1;
-}
-
-#questionButtonsContainer {
-    position: relative;
-    display: inline-block;
-}
-
-#questionDeleteButton {
-    display: inline-block;
-    text-decoration: none;
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    color: white;
-    text-align: center;
-    line-height: 30px;
-    position: absolute;
-    transform: translate(-50%, -100%);
-    top: 100%;
-    left: 50%;
-    z-index: 0;
-}
-
-#questionButtonsContainer:hover #questionDeleteButton {
-    animation: questionDeleteButtonShowUp 100ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes questionDeleteButtonShowUp {
-    to {transform: translate(-50%);}
-}
-
 #question {
     position: absolute;
+    width: 100%;
     top: 150px;
     bottom: 0;
-    width: 100%;
-}
-
-#deleteElements {
-    text-decoration: none;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    line-height: 25px;
-    position: relative;
-    z-index: 1;
 }

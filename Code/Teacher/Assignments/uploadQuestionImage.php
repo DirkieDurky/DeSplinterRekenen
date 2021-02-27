@@ -20,7 +20,7 @@ function uploadImage()
         return;
     }
 
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
+    if ($_FILES["fileToUpload"]["size"] > 5000000) {
         $_SESSION['error'] = "Sorry, je afbeelding kan maximaal 5mb zijn.";
         return;
     }

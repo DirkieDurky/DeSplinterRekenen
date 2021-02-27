@@ -16,7 +16,8 @@ $row = $sth -> fetch();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Opdracht maken</title>
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../Css/style.css">
+    <link rel="stylesheet" href="../../Css/assignments.css">
     <script type="text/javascript" src="../notifications.js"></script>
 </head>
 <body>
@@ -40,14 +41,12 @@ $row = $sth -> fetch();
                         $sth2 -> execute([$_GET['assign'], $_GET['question']]);
                         $row = $sth2 -> fetch();
                         if (isset($row['text']) && $row['text'] != "") {
-                            echo "Oude tekst verwijderen?";
-                        ?> <a id="deleteElements" href="deleteQuestionText.php">x</a><br> <?php
-                    echo "Of voer tekst in om de oude tekst mee te vervangen:";
+                    echo "Voer tekst in om de oude tekst mee te vervangen:";
                 } else {
                     echo "Voeg tekst toe:";
                 }
                     ?>
-                    <input type="text" name="text">
+                        <textarea name="text" rows="5" cols="35" style="resize: none"></textarea>
                     </label>
                     <input type="submit" value="->">
                 </form>
@@ -57,25 +56,8 @@ $row = $sth -> fetch();
             <button class="collapsible">Afbeelding</button>
             <div class="collapsibleContent">
                 <?php
-
-                //Get the file location
-                $sth2 = $pdo -> prepare("SELECT `media` from `questions` WHERE assignmentID = ? AND `order` = ?");
-                $sth2 -> execute([$_GET['assign'], $_GET['question']]);
-                $row = $sth2 -> fetch();
-
-                //Remove directory
-                $slashLocation = strrpos($row['media'], "/");
-                $fullFileName = substr($row['media'], $slashLocation+1);
-
-                //Remove number from file
-                $underscoreLocation = strrpos($fullFileName, "_");
-
-                $fileName = substr($fullFileName, $underscoreLocation+1);
-
                 if (isset($row['media']) && $row['media'] != "") {
-                    echo "Oude afbeelding \"$fileName\" verwijderen?";
-                    ?> <a href="deleteQuestionImage.php" id="deleteElements">x</a><br> <?php
-                    echo "Of selecteer een afbeelding om de oude afbeelding mee te vervangen:";
+                    echo "Selecteer een afbeelding om de oude afbeelding mee te vervangen:";
                 } else {
                     echo "Selecteer een afbeelding om in te voegen:";
                 }
@@ -111,22 +93,30 @@ $row = $sth -> fetch();
                         <input type="submit" value="->">
                     </form>
                 </div>
+            <button class="collapsible">Vraag</button>
+            <div class="collapsibleContent">
+                <form action="createAnswer.php">
+                    <label>
+                        Voer je vraag in:<br>
+                        <input type="text" name="question"><br>
+                    </label>
+                    <label>
+                        Voer je antwoord in:<br>
+                        <input type="text" name="answer"><br>
+                    </label>
+                    <label>
+                        Voer eventuele eenheden in om na het antwoord veld te laten zien (Zoals km/u):<br>
+                        <input type="text" name="unit">
+                    </label>
+                    <input type="submit" value="->">
+                </form>
+            </div>
                 <button class="collapsible">Som</button>
                 <div class="collapsibleContent">
                     <form action="createSum.php">
                         <label>
                             Voer je som in:
                             <input type="text" name="sum">
-                        </label>
-                        <input type="submit" value="->">
-                    </form>
-                </div>
-                <button class="collapsible">Antwoordveld</button>
-                <div class="collapsibleContent">
-                    <form action="createAnswer.php">
-                        <label>
-                            Voer je antwoord in:
-                            <input type="text" name="answer">
                         </label>
                         <input type="submit" value="->">
                     </form>

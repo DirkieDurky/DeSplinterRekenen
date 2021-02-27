@@ -5,7 +5,7 @@ session_start();
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.css rel=stylesheet>
+    <link href=../Css/style.css rel=stylesheet>
 </head>
 <body>
 <div class="teacherField">

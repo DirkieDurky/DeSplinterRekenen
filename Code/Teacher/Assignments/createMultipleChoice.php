@@ -41,11 +41,19 @@ if ($correctCheck == $boxesChecked) {
     exit();
 }
 
-$sth2 = $pdo -> prepare("DELETE FROM `multiplechoiceoptions` WHERE assignmentID = ? AND questionOrder = ?");
+//Delete old questions
+$sth1 = $pdo -> prepare("DELETE FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
+$sth1 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+
+$sth2 = $pdo -> prepare("DELETE FROM `answers` WHERE assignmentID = ? AND questionOrder = ?");
 $sth2 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
-$sth3 = $pdo -> prepare("INSERT INTO `multiplechoiceoptions` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
-$sth3 -> execute([$_GET['question'],1,0,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+$sth3 = $pdo -> prepare("UPDATE `questions` SET sum = ? WHERE assignmentID = ? AND `order` = ?");
+$sth3 -> execute(["",$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+
+//Create new one
+$sth4 = $pdo -> prepare("INSERT INTO `multiplechoice` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+$sth4 -> execute([$_GET['question'],1,0,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 for ($i = 0; $i < $boxesChecked; $i++) {
     if (isset($_GET['checkbox' . $i])) {
@@ -53,10 +61,20 @@ for ($i = 0; $i < $boxesChecked; $i++) {
         if (isset($_GET['correct' . $i])) {
             $correct = 1;
         }
-        $sth4 = $pdo -> prepare("INSERT INTO `multiplechoiceoptions` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
-        $sth4 -> execute([$_GET['answer' . $i],0,$correct,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+        $sth5 = $pdo -> prepare("INSERT INTO `multiplechoice` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+        $sth5 -> execute([$_GET['answer' . $i],0,$correct,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
     }
 }
-$_SESSION['notification'] = "Meerkeuzevraag toegevoegd.";
+
+$sth6 = $pdo -> prepare("SELECT text FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
+$sth6 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+$row6 = $sth6 -> fetch();
+
+if ($sth6 -> rowCount() == $boxesChecked+1) {
+    $_SESSION['notification'] = "Meerkeuzevraag toegevoegd.";
+} else {
+    $_SESSION['error'] = "Sorry, er ging iets mis bij het maken van de meerkeuzevraag.";
+}
+
 header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
 exit();

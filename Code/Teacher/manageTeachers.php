@@ -4,7 +4,7 @@ require_once "../DB_Connection.php";
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.css rel=stylesheet>
+    <link href=../Css/style.css rel=stylesheet>
     <script type="text/javascript" src="notifications.js"></script>
 </head>
 <body>
