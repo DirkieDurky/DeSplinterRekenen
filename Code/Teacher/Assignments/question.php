@@ -53,7 +53,7 @@ if (isset($row1['text']) && $row1['text'] != "") {
 
 //Answer fields:
 //Multiple choice
-$sth3 = $pdo->prepare("SELECT text FROM `multiplechoice` WHERE assignmentID = ? AND `questionOrder` = ? AND `question` = ?");
+$sth3 = $pdo->prepare("SELECT text FROM multiplechoices WHERE assignmentID = ? AND `questionOrder` = ? AND `question` = ?");
 $sth3->execute([$_GET['assign'], $_GET['question'], 1]);
 $row3 = $sth3->fetch();
 
@@ -65,7 +65,7 @@ if (isset($row3['text']) && $row3['text'] != "") {
         echo $row3['text'] . "<br>";
 
         //Multiple choice answers
-        $sth4 = $pdo->prepare("SELECT text FROM `multiplechoice` WHERE assignmentID = ? AND `questionOrder` = ? AND `question` = ?");
+        $sth4 = $pdo->prepare("SELECT text FROM multiplechoices WHERE assignmentID = ? AND `questionOrder` = ? AND `question` = ?");
         $sth4->execute([$_GET['assign'], $_GET['question'], 0]);
         $row4 = $sth4->fetch();
 
@@ -98,8 +98,10 @@ if (isset($row5['answer']) && $row5['answer'] != "") {
         <form action="addAnswer.php" style="margin:0">
             <label>
                 <?= $row5['question'] . "<br>" ?>
-                <input type="text" name="answer"><?= " " . $row5['unit'] ?>
+                <input type="text" name="answer" required><?= " " . $row5['unit'] ?>
             </label>
+            <br>
+            <input type="submit" value="->">
         </form>
         <a class="linkButtons" id="answerDeleteButton" href="deleteAnswer.php">x</a>
     </div>
@@ -112,8 +114,10 @@ if (isset($row1['sum']) && $row1['sum'] != "") {
         <form action="addAnswer.php" style="margin:0">
             <label>
                 <?= $row1['sum'] . " =<br>" ?>
-                <input type="text" name="answer">
+                <input type="text" name="answer" required>
             </label>
+            <br>
+            <input type="submit" value="->">
         </form>
         <a class="linkButtons" id="sumDeleteButton" href="deleteSum.php">x</a>
     </div>

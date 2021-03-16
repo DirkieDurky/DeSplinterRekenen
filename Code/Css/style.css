@@ -1,10 +1,10 @@
 @font-face {
     font-family: Torus Regular;
-    src: url("../../Torus Regular.otf");
+    src: url("../../Sources/Torus Regular.otf");
 }
 
 body#signIn {
-    background-image: url('../../RekensiteBackground.png');
+    background-image: url('../../Sources/RekensiteBackground.png');
 }
 
 .field {
@@ -217,11 +217,11 @@ body#teacherSite {
     height: 56px;
     vertical-align: middle;
     background-color: #212121;
+    transition: all 200ms;
 }
 
 .headerSelect a:hover{
-   animation: hover 200ms;
-   animation-fill-mode: forwards;
+   filter: brightness(80%);
 }
 
 .headerSelect #selected{
@@ -306,6 +306,14 @@ body#teacherSite {
 }
 
 #addToGroupForm {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin-top:20px;
+    display: inline-block;
+}
+
+#addToAssignForm {
     position: relative;
     transform: translate(-50%, -50%);
     left: 50%;
@@ -422,7 +430,6 @@ body#teacherSite {
     background-color: #eee;
     cursor: pointer;
     font-size: 15px;
-    width: 90%;
     position: relative;
     transform: translate(-50%, 0);
     left: 50%;
@@ -430,6 +437,10 @@ body#teacherSite {
     margin-top: 10px;
     border: none;
     outline: none;
+}
+
+.collapsible {
+    width: 90%;
 }
 
 #groups {

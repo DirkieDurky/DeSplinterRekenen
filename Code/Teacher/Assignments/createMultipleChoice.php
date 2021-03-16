@@ -42,7 +42,7 @@ if ($correctCheck == $boxesChecked) {
 }
 
 //Delete old questions
-$sth1 = $pdo -> prepare("DELETE FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
+$sth1 = $pdo -> prepare("DELETE FROM multiplechoices WHERE assignmentID = ? AND questionOrder = ?");
 $sth1 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 $sth2 = $pdo -> prepare("DELETE FROM `answerFields` WHERE assignmentID = ? AND questionOrder = ?");
@@ -52,7 +52,7 @@ $sth3 = $pdo -> prepare("UPDATE `questions` SET sum = ? WHERE assignmentID = ? A
 $sth3 -> execute(["",$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 //Create new one
-$sth4 = $pdo -> prepare("INSERT INTO `multiplechoice` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+$sth4 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
 $sth4 -> execute([$_GET['question'],1,0,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 for ($i = 0; $i < $boxesChecked; $i++) {
@@ -61,12 +61,12 @@ for ($i = 0; $i < $boxesChecked; $i++) {
         if (isset($_GET['correct' . $i])) {
             $correct = 1;
         }
-        $sth5 = $pdo -> prepare("INSERT INTO `multiplechoice` (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+        $sth5 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
         $sth5 -> execute([$_GET['answer' . $i],0,$correct,$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
     }
 }
 
-$sth6 = $pdo -> prepare("SELECT text FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
+$sth6 = $pdo -> prepare("SELECT text FROM multiplechoices WHERE assignmentID = ? AND questionOrder = ?");
 $sth6 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 $row6 = $sth6 -> fetch();
 

@@ -12,14 +12,13 @@ require_once "../DB_Connection.php";
     <h1>Opdrachten toedienen</h1>
     Hier kun je opdrachten toedienen aan bepaalde leerlingen of klassen.
     <?php
-    $sth = $pdo -> prepare("SELECT * FROM `groups` WHERE id != 1");
-    $sth -> execute();
+    $sth = $pdo -> prepare("SELECT * FROM `groups` WHERE id != ?");
+    $sth -> execute([1]);
     $row = $sth -> fetch();
     if ($row == ""){
         echo "<h3 class=table>Er zijn nog geen groepen aangemaakt.</h3>";
     } else {
     ?>
-        <form action="deleteGroup.php" id="groups">
             <?php do { ?>
         <table class="collapsible">
             <tr>
@@ -72,7 +71,6 @@ require_once "../DB_Connection.php";
             </tr>
         </table>
             <?php } while($row = $sth -> fetch()); ?>
-        </form>
         <script>
             const collapsible = document.getElementsByClassName("collapsible");
             for (let i = 0; i < collapsible.length; i++) {
@@ -101,7 +99,7 @@ require_once "../DB_Connection.php";
     if (!$row3 == "") {
         ?>
             <h3>Leerlingen die niet in een groep zitten:</h3>
-        <form action="addToGroup.php">
+        <form action="assignAssignment.php">
             <table class="table" id="students">
                 <tr>
                     <th></th>
@@ -127,7 +125,7 @@ require_once "../DB_Connection.php";
             $sth4 -> execute();
             $row4 = $sth4 -> fetch();
             ?>
-            <div id="addToGroupForm">
+            <div id="addToAssignForm">
                 <label>
                     Dien de geselecteerde leerlingen en groepen de volgende opdracht toe:
                     <select name="assignments">
@@ -161,7 +159,7 @@ require_once "../DB_Connection.php";
     <?php } while($row4 = $sth4 -> fetch());?>
         </form>
     <?php } ?>
-    <form action="createAssignment.php" id="createAssignForm">
+    <form action="Assignments/createAssignment.php" id="createAssignForm">
         <input type="hidden" name="selected" value="2">
         <label>
             Maak een nieuwe opdracht met de naam

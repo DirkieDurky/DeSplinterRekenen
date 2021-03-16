@@ -26,7 +26,7 @@ exit();
         <div id="questionButtonsContainer">
             <a class="linkButtons" id="questionSelectButton" href=<?= $getSelectURL ?>><?= $row['order'] ?></a><br>
             <a class="linkButtons" id="questionDeleteButton"
-               href="deleteQuestion.php?question=<?= $row['order']; ?>">x</a>
+               href="deleteQuestion.php?deleteQuestion=<?= $row['order']; ?>">x</a>
         </div>
         <?php
         $i++;

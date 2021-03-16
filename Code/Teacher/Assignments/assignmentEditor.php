@@ -37,7 +37,7 @@ $row = $sth -> fetch();
                 <form action="createText.php">
                     <label>
                         <?php
-                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`sum`,`answer` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
+                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`sum` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
                         $sth2 -> execute([$_GET['assign'], $_GET['question']]);
                         $row = $sth2 -> fetch();
                         if (isset($row['text']) && $row['text'] != "") {
@@ -122,6 +122,8 @@ $row = $sth -> fetch();
                     </form>
                 </div>
         </div>
+        <br>
+        <a href="assignAssignment.php" id="assignAssignmentButton">Opdracht toedienen</a>
         <script>
             const coll = document.getElementsByClassName("collapsible");
             for (let i = 0; i < coll.length; i++) {
@@ -141,6 +143,18 @@ $row = $sth -> fetch();
             }
         </script>
             <a class="backbutton" id="assignmentEditor" href="../teacherSite.php?selected=2"><-</a>
+        <?php
+        $sth3 = $pdo -> prepare("SELECT public FROM `assignments` WHERE id = ?");
+        $sth3 -> execute([$_SESSION['editingAssign']]);
+        $row = $sth3 -> fetch();
+
+        ?>
+        <form action="setPublic.php" id="publicForm">
+            <label>
+                Openbaar:
+                <input type="checkbox" name="public" onclick="submit()" <?php if ($row['public'] == 1) {echo "checked";} ?>>
+            </label>
+        </form>
     </div>
     <div id="assignment">
 <?php include "assignment.php"; ?>

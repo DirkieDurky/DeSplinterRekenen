@@ -34,15 +34,15 @@ if (isset($_COOKIE['loginEmail'])) {
         </div>
         <div class=pass>
             <label>
-            Wachtwoord:<br>
-            <input class="input" name=pass placeholder=Wachtwoord type=password value="<?= isset($_SESSION['signInPass']) ? $_SESSION['signInPass'] : ""?>">
+                Wachtwoord:<br>
+                <input class="input" name=pass placeholder=Wachtwoord type=password value="<?= isset($_SESSION['signInPass']) ? $_SESSION['signInPass'] : ""?>">
             </label><br>
         </div>
         <label>
             Onthoud mijn gevens
             <input type="checkbox" name="rememberMe">
         </label><br>
-            <input class="submit" name="submit" type="submit" value="Inloggen"><br>
+        <input class="submit" name="submit" type="submit" value="Inloggen"><br>
     </form>
     <a class="hyperlinks" href="createAccount.php">Ik heb nog geen account</a>
     <h4 class="error" id="signIn"><?php if(isset($_SESSION['error'])){echo $_SESSION['error']; unset($_SESSION['error']);}?></h4>

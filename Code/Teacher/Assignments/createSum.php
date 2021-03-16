@@ -9,7 +9,7 @@ if ($_GET['sum'] == "") {
 }
 
 //Delete old questions
-$sth2 = $pdo -> prepare("DELETE FROM `multiplechoice` WHERE assignmentID = ? AND questionOrder = ?");
+$sth2 = $pdo -> prepare("DELETE FROM multiplechoices WHERE assignmentID = ? AND questionOrder = ?");
 $sth2 -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
 
 $sth2 = $pdo -> prepare("DELETE FROM `answerFields` WHERE assignmentID = ? AND questionOrder = ?");

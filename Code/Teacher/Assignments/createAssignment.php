@@ -1,5 +1,5 @@
 <?php
-    require_once "../DB_Connection.php";
+    require_once "../../DB_Connection.php";
     session_start();
 
     if (strlen($_GET['assignmentName'])==0) {
@@ -14,8 +14,8 @@
         exit();
     }
 
-    $sth = $pdo->prepare("INSERT INTO `assignments` (`name`,`creatorID`) VALUES (?,?)");
-    $sth -> execute([$_GET['assignmentName'], $_SESSION['loggedID']]);
+    $sth = $pdo->prepare("INSERT INTO `assignments` (`name`,`creatorID`,`public`) VALUES (?,?,?)");
+    $sth -> execute([$_GET['assignmentName'], $_SESSION['loggedID'],0]);
     unset($_GET['createAssignButton']);
-    header("Location: teacherSite.php?selected=2");
+    header("Location: ../teacherSite.php?selected=2");
 exit();

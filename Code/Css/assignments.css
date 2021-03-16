@@ -208,3 +208,57 @@
     height: 30px;
     line-height: 30px;
 }
+
+#publicForm {
+    position: absolute;
+    left: 70px;
+    bottom: 10px;
+}
+
+#assignAssignmentButton {
+    text-decoration: none;
+    display: block;
+    color: black;
+    text-align: center;
+    line-height: 30px;
+    background-color: #eee;
+    font-size: 15px;
+    width: 90%;
+    position: relative;
+    transform: translate(-50%, 0);
+    left: 50%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#assignAssignmentButton:hover {
+    background-color: #ccc;
+}
+
+#assignAssignmentTitle {
+    text-align: center;
+    position: relative;
+}
+
+#groupCheckbox {
+    position: absolute;
+    left: 0;
+}
+
+#subTitle {
+    width: 100%;
+    text-align: center;
+}
+
+#assignField {
+    font-family: "Torus regular", serif;
+    position: absolute;
+    transform: translate(-50%, 0);
+    left: 50%;
+    top: 20px;
+    background-color: #AAAAAA;
+    display:block;
+    padding: 20px 50px 20px 50px;
+    min-width: 500px;
+    min-height: 200px;
+}

@@ -34,7 +34,7 @@ $row = $sth -> fetch();
         --><a href="teacherSite.php?selected=3"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 3){echo " id=\"selected\"";}} ?>>Resultaten inzien</a>
     </div>
     <div class="dropdown">
-        <img src="../../unknownUser.png" alt="profPic" class="profPic">
+        <img src="../../Sources/unknownUser.png" alt="profPic" class="profPic">
         <div class="dropdown-cont">
             <a href="../logout.php">Uitloggen</a>
         </div>
