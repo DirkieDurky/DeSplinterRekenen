@@ -6,8 +6,8 @@ $sth1 = $pdo->prepare("SELECT name FROM `assignments` WHERE id = ?");
 $sth1->execute([$_SESSION['editingAssign']]);
 $row1 = $sth1->fetch();
 
-$sth2 = $pdo->prepare("SELECT * FROM `groups` WHERE id != ?");
-$sth2->execute([1]);
+$sth2 = $pdo->prepare("SELECT * FROM `groups` WHERE id != 1");
+$sth2->execute();
 $row2 = $sth2->fetch();
 ?>
 <html lang="nl">
@@ -15,6 +15,7 @@ $row2 = $sth2->fetch();
     <title>Opdracht toedienen</title>
     <link rel="stylesheet" href="../../Css/style.css">
     <link rel="stylesheet" href="../../Css/assignments.css">
+    <script type="text/javascript" src="../notifications.js"></script>
 </head>
 <body style="background-color: #181818;">
 
@@ -25,11 +26,28 @@ $row2 = $sth2->fetch();
         echo "<h3 class=table>Er zijn nog geen groepen aangemaakt.</h3>";
     } else {
     ?>
-    <?php do { ?>
+    <form action="assignAssignmentBackend.php">
+    <?php do {
+        $resultExistsOfPeopleAmount = 0;
+        $sth12 = $pdo -> prepare("SELECT id FROM `accounts` WHERE groupID = ?");
+        $sth12 -> execute([$row2['id']]);
+        $row12 = $sth12 -> fetch();
+
+        do {
+            $sth13 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
+            $sth13 -> execute([$_SESSION['editingAssign'], $row12['id']]);
+            $row13 = $sth13 -> fetch();
+
+            if ($sth13 -> rowCount() > 0) {
+                $resultExistsOfPeopleAmount++;
+            }
+        } while ($row12 = $sth12 -> fetch());
+
+        ?>
         <table class="collapsible">
             <tr>
                 <th>
-                    <label class="groupDelete"><input type="checkbox" value="" name="deleteGroup<?php echo $row2['id'];?>"></label>
+                    <label class="groupDelete"><input type="checkbox" value="" name="selectGroup<?php echo $row2['id'];?>" onclick="submit()" <?php if ($sth12 -> rowCount() == $resultExistsOfPeopleAmount){ echo "checked";} ?>></label>
                     <?php echo $row2['name'] ?>
                 </th>
             </tr>
@@ -57,9 +75,12 @@ $row2 = $sth2->fetch();
                             </tr>
                             <?php
                             do {
+                                $sth10 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
+                                $sth10 -> execute([$_SESSION['editingAssign'], $row3['id']]);
+                                $row10 = $sth10 -> fetch();
                                 ?>
                                 <tr>
-                                <td><label><input type="checkbox" value="" name="deleteUser<?php echo $row3['id'];?>"></label></td>
+                                <td><label><input type="checkbox" value="" name="selectInGroup<?php echo $row3['id'];?>" onclick="submit()" <?php if ($sth10 -> rowCount() > 0){echo "checked";} ?>></label></td>
                                 <?php
                                 echo "<td>" . $row3['firstName'] . "</td>";
                                 echo "<td>" . $row3['lastName'] . "</td>";
@@ -76,14 +97,14 @@ $row2 = $sth2->fetch();
                 </td>
             </tr>
         </table>
-    <?php } while($row2 = $sth2 -> fetch());
+    <?php } while($row2 = $sth2 -> fetch()); ?>
 
+    <?php
     $sth4 = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
     $sth4 -> execute();
     $row4 = $sth4 -> fetch();
     ?>
     <h3 id="subTitle">Leerlingen die niet in een groep zitten:</h3>
-    <form action="assignAssignment.php">
         <table class="table" id="students">
             <tr>
                 <th></th>
@@ -93,9 +114,12 @@ $row2 = $sth2->fetch();
             </tr>
             <?php
             do {
+                $sth5 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
+                $sth5 -> execute([$_SESSION['editingAssign'], $row4['id']]);
+                $row5 = $sth5 -> fetch();
                 echo "<tr>";
                 ?>
-                <td><label><input type="checkbox" name="select<?php echo $row4['id'] ?>"></label></td>
+                <td><label><input type="checkbox" name="selectNotInGroup<?php echo $row4['id'] ?>" onclick="submit()" <?php if ($sth5 -> rowCount() > 0){echo "checked";} ?>></label></td>
                 <?php
                 echo "<td>" . $row4['firstName'] . "</td>";
                 echo "<td>" . $row4['lastName'] . "</td>";
@@ -105,6 +129,7 @@ $row2 = $sth2->fetch();
             ?>
         </table>
         <?php } ?>
+    </form>
         <script>
             const collapsible = document.getElementsByClassName("collapsible");
             for (let i = 0; i < collapsible.length; i++) {
@@ -129,5 +154,17 @@ $row2 = $sth2->fetch();
 </div>
 <a class="backbutton" id="assignmentEditor"
    href="<?= "assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion'] ?>"><-</a>
+<?php
+if (isset($_SESSION['notification'])) {
+    echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";
+    unset($_SESSION['notification']); ?>
+    <script> notifications('notification') </script>
+<?php }
+
+if (isset($_SESSION['error'])) {
+    echo "<h3 class='notification' id='error'> " . $_SESSION['error'] . " </h3>";
+    unset($_SESSION['error']); ?>
+    <script> errors('error') </script>
+<?php } ?>
 </body>
 </html>
