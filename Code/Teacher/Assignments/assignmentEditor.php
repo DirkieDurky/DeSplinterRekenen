@@ -5,6 +5,8 @@ session_start();
 $_SESSION['editingAssign'] = $_GET['assign'];
 $_SESSION['editingQuestion'] = $_GET['question'];
 
+//$_SESSION['editingQuestionID'] =
+
 $sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE id = ?");
 $sth -> execute([$_GET['assign']]);
 $row = $sth -> fetch();
