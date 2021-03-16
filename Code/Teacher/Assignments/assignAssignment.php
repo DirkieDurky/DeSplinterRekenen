@@ -21,52 +21,66 @@ $row2 = $sth2->fetch();
 <div id="assignField">
     <h1 id="assignAssignmentTitle">Opdracht "<?= $row1['name'] ?>" toedienen:</h1>
     <?php
-    if ($row2 == "") {
+    if ($row2 == ""){
         echo "<h3 class=table>Er zijn nog geen groepen aangemaakt.</h3>";
     } else {
-        do {
-            ?>
-            <button class="collapsible" id="assignAssignment"><label id="groupCheckbox"><input
-                            type="checkbox"></label><?= $row2['name'] ?></button>
-            <div class="collapsibleContent" id="assignAssignment">
-                <?php
-                $sth3 = $pdo->prepare("SELECT * FROM `accounts` WHERE groupID = ?");
-                $sth3->execute([$row2['id']]);
-                $row3 = $sth3->fetch();
-
-                do {
-                    ?>
-                    <table class="table" id="usersInGroup">
-                        <tr>
-                            <th></th>
-                            <th>Voornaam</th>
-                            <th>Achternaam</th>
-                            <th>Email</th>
-                        </tr>
-                        <?php
-                        do {
-                            ?>
-                            <tr>
-                            <td><label><input type="checkbox" name="selectUser<?php echo $row3['id']; ?>"></label></td>
-                            <?php
-                            echo "<td>" . $row3['firstName'] . "</td>";
-                            echo "<td>" . $row3['lastName'] . "</td>";
-                            echo "<td>" . $row3['email'] . "</td>";
-                            ?></tr><?php
-                        } while ($row3 = $sth3->fetch());
-                        ?>
-                    </table>
+    ?>
+    <?php do { ?>
+        <table class="collapsible">
+            <tr>
+                <th>
+                    <label class="groupDelete"><input type="checkbox" value="" name="deleteGroup<?php echo $row2['id'];?>"></label>
+                    <?php echo $row2['name'] ?>
+                </th>
+            </tr>
+            <tr>
+                <td class="collapsibleContent" id="table">
                     <?php
-                } while ($row3 = $sth3->fetch());
-                ?>
-            </div>
-        <?php } while ($row2 = $sth2->fetch());
-    }
+                    $sth3 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
+                    $sth3 -> execute([$row2['id']]);
+                    $row3 = $sth3 -> fetch();
+                    if (isset($row3['firstName'])){
+                        ?>
+                        <table class="table" id="usersInGroup">
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    Voornaam
+                                </th>
+                                <th>
+                                    Achternaam
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                            </tr>
+                            <?php
+                            do {
+                                ?>
+                                <tr>
+                                <td><label><input type="checkbox" value="" name="deleteUser<?php echo $row3['id'];?>"></label></td>
+                                <?php
+                                echo "<td>" . $row3['firstName'] . "</td>";
+                                echo "<td>" . $row3['lastName'] . "</td>";
+                                echo "<td>" . $row3['email'] . "</td>";
+                                ?></tr><?php
+                            } while($row3 = $sth3 -> fetch());
+                            ?>
+                        </table>
+                        <?php
+                    } else {
+                        echo "Deze groep is leeg.";
+                    }
+                    ?>
+                </td>
+            </tr>
+        </table>
+    <?php } while($row2 = $sth2 -> fetch());
 
-    $sth3 = $pdo->prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
-    $sth3->execute();
-    $row3 = $sth3->fetch();
-    if (!$row3 == "") {
+    $sth4 = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
+    $sth4 -> execute();
+    $row4 = $sth4 -> fetch();
     ?>
     <h3 id="subTitle">Leerlingen die niet in een groep zitten:</h3>
     <form action="assignAssignment.php">
@@ -81,28 +95,28 @@ $row2 = $sth2->fetch();
             do {
                 echo "<tr>";
                 ?>
-                <td><label><input type="checkbox" name="select<?php echo $row3['id'] ?>"></label></td>
+                <td><label><input type="checkbox" name="select<?php echo $row4['id'] ?>"></label></td>
                 <?php
-                echo "<td>" . $row3['firstName'] . "</td>";
-                echo "<td>" . $row3['lastName'] . "</td>";
-                echo "<td>" . $row3['email'] . "</td>";
+                echo "<td>" . $row4['firstName'] . "</td>";
+                echo "<td>" . $row4['lastName'] . "</td>";
+                echo "<td>" . $row4['email'] . "</td>";
                 echo "</tr>";
-            } while ($row3 = $sth3->fetch());
+            } while ($row4 = $sth4->fetch());
             ?>
         </table>
         <?php } ?>
         <script>
-            const coll = document.getElementsByClassName("collapsible");
-            for (let i = 0; i < coll.length; i++) {
-                coll[i].addEventListener("click", function (e) {
+            const collapsible = document.getElementsByClassName("collapsible");
+            for (let i = 0; i < collapsible.length; i++) {
+                collapsible[i].addEventListener("click", function(e) {
                     if (e.target.tagName.toLowerCase() === 'input') {
                         return;
                     }
                     this.classList.toggle("collapsibleActive");
-                    const content = this.nextElementSibling;
-                    if (content.style.maxHeight) {
+                    const content = this.querySelector('.collapsibleContent');
+                    if (content.style.maxHeight){
                         content.style.maxHeight = null;
-                        setTimeout(function () {
+                        setTimeout(function(){
                             content.style.display = "none";
                         }, 200)
                     } else {
