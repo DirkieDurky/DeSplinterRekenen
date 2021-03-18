@@ -3,7 +3,7 @@ require_once "../../DB_Connection.php";
 session_start();
 
 $sth1 = $pdo->prepare("SELECT name FROM `assignments` WHERE id = ?");
-$sth1->execute([$_SESSION['editingAssign']]);
+$sth1->execute([$_SESSION['activeAssign']]);
 $row1 = $sth1->fetch();
 
 $sth2 = $pdo->prepare("SELECT * FROM `groups` WHERE id != 1");
@@ -39,7 +39,7 @@ $row2 = $sth2->fetch();
 
         do {
             $sth13 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
-            $sth13 -> execute([$_SESSION['editingAssign'], $row12['id']]);
+            $sth13 -> execute([$_SESSION['activeAssign'], $row12['id']]);
             $row13 = $sth13 -> fetch();
 
             if ($sth13 -> rowCount() > 0) {
@@ -92,7 +92,7 @@ $row2 = $sth2->fetch();
                             <?php
                             do {
                                 $sth10 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
-                                $sth10 -> execute([$_SESSION['editingAssign'], $row3['id']]);
+                                $sth10 -> execute([$_SESSION['activeAssign'], $row3['id']]);
                                 $row10 = $sth10 -> fetch();
                                 ?>
                                 <tr>
@@ -141,7 +141,7 @@ $row2 = $sth2->fetch();
             <?php
             do {
                 $sth5 = $pdo -> prepare("SELECT id FROM `results` WHERE assignmentID= ? AND studentID = ?");
-                $sth5 -> execute([$_SESSION['editingAssign'], $row4['id']]);
+                $sth5 -> execute([$_SESSION['activeAssign'], $row4['id']]);
                 $row5 = $sth5 -> fetch();
                 echo "<tr>";
                 ?>
@@ -180,7 +180,7 @@ $row2 = $sth2->fetch();
         </script>
 </div>
 <a class="backbutton" id="assignmentEditor"
-   href="<?= "assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion'] ?>"><-</a>
+   href="<?= "assignmentEditor.php?assign=" . $_SESSION['activeAssign'] . "&question=" . $_SESSION['activeQuestion'] ?>"><-</a>
 <?php
 if (isset($_SESSION['notification'])) {
     echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";

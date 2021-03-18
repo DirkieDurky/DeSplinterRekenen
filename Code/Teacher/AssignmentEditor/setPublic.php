@@ -10,7 +10,7 @@ if (isset($_GET['public'])) {
 }
 
 $sth = $pdo -> prepare("UPDATE `assignments` SET public = ? WHERE id = ?");
-$sth -> execute([$public,$_SESSION['editingAssign']]);
+$sth -> execute([$public,$_SESSION['activeAssign']]);
 
-header("Location: assignmentEditor.php?assign=" . $_SESSION['editingAssign'] . "&question=" . $_SESSION['editingQuestion']);
+header("Location: assignmentEditor.php?assign=" . $_SESSION['activeAssign'] . "&question=" . $_SESSION['activeQuestion']);
 exit();

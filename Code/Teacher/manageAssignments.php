@@ -16,7 +16,7 @@ require_once "../DB_Connection.php";
     $row4 = $sth4 -> fetch();
     if (!$row4 == ""){
     ?>
-    <form action="Assignments/deleteAssignment.php">
+    <form action="AssignmentEditor/deleteAssignment.php">
     <?php do { ?>
         <div>
                 <button class="collapsible" value="<?= $row4['id']?>" name="continue">
@@ -27,7 +27,7 @@ require_once "../DB_Connection.php";
     <?php } while($row4 = $sth4 -> fetch());?>
         </form>
     <?php } ?>
-    <form action="Assignments/createAssignment.php" id="createAssignForm" style="margin-bottom:20px;">
+    <form action="AssignmentEditor/createAssignment.php" id="createAssignForm" style="margin-bottom:20px;">
         <input type="hidden" name="selected" value="2">
         <label>
             Maak een nieuwe opdracht met de naam

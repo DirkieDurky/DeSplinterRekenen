@@ -106,10 +106,6 @@
     cursor: pointer;
 }
 
-.element:hover {
-    outline: solid blue 3px;
-}
-
 .element:hover #textDeleteButton, .element:hover #ImgDeleteButton, .element:hover #MTPCDeleteButton, .element:hover #answerDeleteButton, .element:hover #sumDeleteButton {
     display: block;
 }

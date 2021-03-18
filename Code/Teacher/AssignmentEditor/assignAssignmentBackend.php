@@ -17,15 +17,15 @@ do {
     do {
         if (isset($_GET['selectInGroup' . $row2['id']])) {
             $sth3 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth3 -> execute([$row2['id'], $_SESSION['editingAssign']]);
+            $sth3 -> execute([$row2['id'], $_SESSION['activeAssign']]);
 
             if ($sth3 -> rowCount() == 0) {
                 $sth4 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
-                $sth4->execute([$row2['id'], $_SESSION['editingAssign'], ""]);
+                $sth4->execute([$row2['id'], $_SESSION['activeAssign'], ""]);
             }
         } else {
             $sth5 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth5->execute([$row2['id'], $_SESSION['editingAssign']]);
+            $sth5->execute([$row2['id'], $_SESSION['activeAssign']]);
         }
     } while ($row2 = $sth2 -> fetch());
 
@@ -39,15 +39,15 @@ $row6 = $sth6 -> fetch();
 do {
     if (isset($_GET['selectNotInGroup' . $row6['id']])) {
         $sth7 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
-        $sth7 -> execute([$row6['id'], $_SESSION['editingAssign']]);
+        $sth7 -> execute([$row6['id'], $_SESSION['activeAssign']]);
 
         if ($sth7 -> rowCount() == 0) {
             $sth8 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
-            $sth8->execute([$row6['id'], $_SESSION['editingAssign'], ""]);
+            $sth8->execute([$row6['id'], $_SESSION['activeAssign'], ""]);
         }
     } else {
         $sth9 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
-        $sth9 -> execute([$row6['id'], $_SESSION['editingAssign']]);
+        $sth9 -> execute([$row6['id'], $_SESSION['activeAssign']]);
     }
 } while ($row6 = $sth6 -> fetch());
 

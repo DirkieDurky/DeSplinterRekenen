@@ -2,8 +2,7 @@
 require_once "../../DB_Connection.php";
 session_start();
 
-$_SESSION['editingAssign'] = $_GET['assign'];
-$_SESSION['editingQuestion'] = $_GET['question'];
+$_SESSION['editing'] = 1;
 
 //$_SESSION['editingQuestionID'] =
 
@@ -147,9 +146,8 @@ $row = $sth -> fetch();
             <a class="backbutton" id="assignmentEditor" href="../teacherSite.php?selected=2"><-</a>
         <?php
         $sth3 = $pdo -> prepare("SELECT public FROM `assignments` WHERE id = ?");
-        $sth3 -> execute([$_SESSION['editingAssign']]);
+        $sth3 -> execute([$_GET['assign']]);
         $row = $sth3 -> fetch();
-
         ?>
         <form action="setPublic.php" id="publicForm">
             <label>
@@ -159,7 +157,7 @@ $row = $sth -> fetch();
         </form>
     </div>
     <div id="assignment">
-<?php include "assignment.php"; ?>
+<?php include "../../assignment.php"; ?>
     </div>
     <?php
     if (isset($_SESSION['notification'])) {

@@ -1,15 +1,25 @@
 <?php
-require_once "../../DB_Connection.php";
-require_once "../../Css/rightSideElements.php";
+require_once "defineRootDir.php";
+
+require_once "DB_Connection.php";
+require_once "Css/rightSideElements.php";
 ?>
 <html lang="en">
 <head>
     <title>Vraag</title>
-    <link rel=stylesheet href="../../Css/style.css">
-    <link rel="stylesheet" href="../../Css/assignments.css">
+    <link rel=stylesheet href="Css/style.css">
+    <link rel="stylesheet" href="Css/assignments.css">
 </head>
 <body>
 <?php
+if (isset($_SESSION['editing'])) {
+?>
+<style>
+    .element:hover {
+        outline: solid blue 3px;
+    }
+</style>
+<?php }
 $sth1 = $pdo->prepare("SELECT * FROM `questions` WHERE assignmentID = ? AND `order` = ?");
 $sth1->execute([$_GET['assign'], $_GET['question']]);
 $row1 = $sth1->fetch();
@@ -35,8 +45,12 @@ if (isset($row2['media']) && $row2['media'] != "") {
     if ($row2['media'] != "") {
         ?>
         <div class="element" id="imgContainer">
-            <img id="questionImg" src="<?= $row2['media'] ?>" alt="<?= $fileName ?>">
-            <a class="linkButtons" id="imgDeleteButton" href="deleteImage.php">x</a><br>
+            <img src="<?= ROOT_DIR . $row2['media'] ?>" alt="<?= $fileName ?>">
+            <?php
+            if (isset($_SESSION['editing'])) {
+            ?>
+            <a class="linkButtons" id="imgDeleteButton" href="<?= CODE_DIR ?>/Teacher/AssignmentEditor/deleteImage.php">x</a><br>
+            <?php } ?>
         </div>
     <?php }
 }
@@ -45,7 +59,11 @@ if (isset($row2['media']) && $row2['media'] != "") {
 if (isset($row1['text']) && $row1['text'] != "") {
     ?>
     <p class="element rightSideElement" id="text"><?= $row1['text'] ?>
-        <a class="linkButtons" id="textDeleteButton" href="deleteText.php">x</a>
+        <?php
+        if (isset($_SESSION['editing'])) {
+        ?>
+        <a class="linkButtons" id="textDeleteButton" href="<?= CODE_DIR ?>/Teacher/AssignmentEditor/deleteText.php">x</a>
+        <?php } ?>
     </p>
     <br>
     <?php
@@ -70,7 +88,7 @@ if (isset($row3['text']) && $row3['text'] != "") {
         $row4 = $sth4->fetch();
 
         ?>
-        <form action="addAnswer.php" class="radioButtons" style="margin:0">
+        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" class="radioButtons" style="margin:0">
             <?php
             $i = 0;
             do {
@@ -83,7 +101,11 @@ if (isset($row3['text']) && $row3['text'] != "") {
             ?>
             <input type="submit" value="->">
         </form>
-        <a class="linkButtons" id="MTPCDeleteButton" href="deleteMultipleChoice.php">x</a>
+        <?php
+        if (isset($_SESSION['editing'])) {
+        ?>
+        <a class="linkButtons" id="MTPCDeleteButton" href="<?= CODE_DIR ?>/Teacher/AssignmentEditor/deleteMultipleChoice.php">x</a>
+        <?php } ?>
     </div>
     <?php
 }
@@ -95,7 +117,7 @@ $row5 = $sth5->fetch();
 if (isset($row5['answer']) && $row5['answer'] != "") {
     ?>
     <div class="element rightSideElement" id="answerField">
-        <form action="addAnswer.php" style="margin:0">
+        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" style="margin:0">
             <label>
                 <?= $row5['question'] . "<br>" ?>
                 <input type="text" name="answer" required><?= " " . $row5['unit'] ?>
@@ -103,7 +125,11 @@ if (isset($row5['answer']) && $row5['answer'] != "") {
             <br>
             <input type="submit" value="->">
         </form>
-        <a class="linkButtons" id="answerDeleteButton" href="deleteAnswer.php">x</a>
+        <?php
+        if (isset($_SESSION['editing'])) {
+        ?>
+        <a class="linkButtons" id="answerDeleteButton" href="<?= CODE_DIR ?>/Teacher/AssignmentEditor/deleteAnswer.php">x</a>
+        <?php } ?>
     </div>
 <?php }
 
@@ -111,7 +137,7 @@ if (isset($row5['answer']) && $row5['answer'] != "") {
 if (isset($row1['sum']) && $row1['sum'] != "") {
     ?>
     <div class="element rightSideElement" id="sum">
-        <form action="addAnswer.php" style="margin:0">
+        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" style="margin:0">
             <label>
                 <?= $row1['sum'] . " =<br>" ?>
                 <input type="text" name="answer" required>
@@ -119,7 +145,11 @@ if (isset($row1['sum']) && $row1['sum'] != "") {
             <br>
             <input type="submit" value="->">
         </form>
-        <a class="linkButtons" id="sumDeleteButton" href="deleteSum.php">x</a>
+        <?php
+        if (isset($_SESSION['editing'])) {
+        ?>
+        <a class="linkButtons" id="sumDeleteButton" href="<?= CODE_DIR ?>/Teacher/AssignmentEditor/deleteSum.php">x</a>
+        <?php } ?>
     </div>
 <?php } ?>
 </body>

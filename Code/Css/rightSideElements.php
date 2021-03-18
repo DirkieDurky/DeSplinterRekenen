@@ -1,6 +1,6 @@
 <?php
 $sth = $pdo -> prepare("SELECT * FROM `questions` WHERE assignmentID = ? AND `order` = ?");
-$sth -> execute([$_SESSION['editingAssign'],$_SESSION['editingQuestion']]);
+$sth -> execute([$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 $row = $sth -> fetch();
 ?>
 <html lang="nl">
