@@ -19,6 +19,10 @@ $sth2 -> execute([$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 $sth = $pdo -> prepare("UPDATE `questions` SET `sum` = ? WHERE assignmentID = ? AND `order` = ?");
 $sth -> execute([$_GET['sum'], $_SESSION['activeAssign'], $_SESSION['activeQuestion']]);
 
+//Set type to sum
+$sth4 = $pdo -> prepare("UPDATE `questions` SET type = ? WHERE assignmentID = ? AND `order` = ?");
+$sth4 -> execute([3,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+
 $_SESSION['notification'] = "Som succesvol toegevoegd.";
 header("Location: assignmentEditor.php?assign=" . $_SESSION['activeAssign'] . "&question=" . $_SESSION['activeQuestion']);
 exit();

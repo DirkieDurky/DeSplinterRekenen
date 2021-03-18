@@ -15,3 +15,5 @@ Als er al een error is, pas de hoogte van het veld aan op basis van de oude hoog
 Site publiceren
 Site beveiligen met encryptie voor https
 Notificatie toevoegen als de veranderingen op de leerlingen beheren pagina zijn opgeslagen.
+
+Verwijder antwoorden van leerlingen als opdracht geupdate wordt.

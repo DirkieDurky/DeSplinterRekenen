@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2021 at 10:21 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.1
+-- Generation Time: Mar 18, 2021 at 09:43 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -76,7 +76,8 @@ CREATE TABLE `answers` (
 CREATE TABLE `assignments` (
   `id` int(11) NOT NULL,
   `name` varchar(35) NOT NULL,
-  `creatorID` int(11) NOT NULL
+  `creatorID` int(11) NOT NULL,
+  `public` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -101,10 +102,10 @@ INSERT INTO `groups` (`id`, `name`, `studentCount`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `multiplechoice`
+-- Table structure for table `multiplechoices`
 --
 
-CREATE TABLE `multiplechoice` (
+CREATE TABLE `multiplechoices` (
   `id` int(11) NOT NULL,
   `text` varchar(100) NOT NULL,
   `question` tinyint(4) NOT NULL,
@@ -123,6 +124,7 @@ CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `assignmentID` int(11) NOT NULL,
   `order` int(11) NOT NULL,
+  `type` tinyint(4) NOT NULL,
   `text` text NOT NULL,
   `media` varchar(2048) NOT NULL,
   `sum` varchar(100) NOT NULL,
@@ -185,9 +187,9 @@ ALTER TABLE `groups`
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `multiplechoice`
+-- Indexes for table `multiplechoices`
 --
-ALTER TABLE `multiplechoice`
+ALTER TABLE `multiplechoices`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`questionOrder`),
   ADD KEY `assignmentID` (`assignmentID`);
@@ -240,12 +242,12 @@ ALTER TABLE `assignments`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `multiplechoice`
+-- AUTO_INCREMENT for table `multiplechoices`
 --
-ALTER TABLE `multiplechoice`
+ALTER TABLE `multiplechoices`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -292,11 +294,11 @@ ALTER TABLE `assignments`
   ADD CONSTRAINT `assignments_ibfk_1` FOREIGN KEY (`creatorID`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `multiplechoice`
+-- Constraints for table `multiplechoices`
 --
-ALTER TABLE `multiplechoice`
-  ADD CONSTRAINT `multiplechoice_ibfk_1` FOREIGN KEY (`questionOrder`) REFERENCES `questions` (`order`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `multiplechoice_ibfk_2` FOREIGN KEY (`assignmentID`) REFERENCES `assignments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `multiplechoices`
+  ADD CONSTRAINT `multiplechoices_ibfk_1` FOREIGN KEY (`questionOrder`) REFERENCES `questions` (`order`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `multiplechoices_ibfk_2` FOREIGN KEY (`assignmentID`) REFERENCES `assignments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `questions`

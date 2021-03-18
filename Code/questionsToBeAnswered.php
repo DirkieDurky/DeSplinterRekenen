@@ -25,6 +25,7 @@ $questionsToBeAnswered = array_diff($allQuestions,$questionsAnswered);
 
 if (empty($questionsToBeAnswered)) {
     echo "Alle vragen zijn beantwoord! Je wordt elk moment doorgestuurd naar de volgende pagina...";
+    header("Location: gradeAssignment.php");
     exit();
 }
 ?>

@@ -51,9 +51,13 @@ $sth2 -> execute([$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 $sth3 = $pdo -> prepare("UPDATE `questions` SET sum = ? WHERE assignmentID = ? AND `order` = ?");
 $sth3 -> execute(["",$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 
+//Set type to multiplechoice
+$sth4 = $pdo -> prepare("UPDATE `questions` SET type = ? WHERE assignmentID = ? AND `order` = ?");
+$sth4 -> execute([1,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+
 //Create new one
-$sth4 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
-$sth4 -> execute([$_GET['question'],1,0,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+$sth5 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+$sth5 -> execute([$_GET['question'],1,0,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 
 for ($i = 0; $i < $boxesChecked; $i++) {
     if (isset($_GET['checkbox' . $i])) {
@@ -61,16 +65,16 @@ for ($i = 0; $i < $boxesChecked; $i++) {
         if (isset($_GET['correct' . $i])) {
             $correct = 1;
         }
-        $sth5 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
-        $sth5 -> execute([$_GET['answer' . $i],0,$correct,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+        $sth6 = $pdo -> prepare("INSERT INTO multiplechoices (text, question , correct, assignmentID ,questionOrder) VALUES (?,?,?,?,?)");
+        $sth6 -> execute([$_GET['answer' . $i],0,$correct,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
     }
 }
 
-$sth6 = $pdo -> prepare("SELECT text FROM multiplechoices WHERE assignmentID = ? AND questionOrder = ?");
-$sth6 -> execute([$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
-$row6 = $sth6 -> fetch();
+$sth7 = $pdo -> prepare("SELECT text FROM multiplechoices WHERE assignmentID = ? AND questionOrder = ?");
+$sth7 -> execute([$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+$row7 = $sth7 -> fetch();
 
-if ($sth6 -> rowCount() == $boxesChecked+1) {
+if ($sth7 -> rowCount() == $boxesChecked+1) {
     $_SESSION['notification'] = "Meerkeuzevraag toegevoegd.";
 } else {
     $_SESSION['error'] = "Sorry, er ging iets mis bij het maken van de meerkeuzevraag.";

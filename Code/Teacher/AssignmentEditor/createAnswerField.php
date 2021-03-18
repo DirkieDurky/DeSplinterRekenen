@@ -16,6 +16,10 @@ $sth3 -> execute(["",$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
 $sth4 = $pdo -> prepare("INSERT INTO `answerFields` (question, answer, unit, assignmentID, questionOrder) VALUES (?,?,?,?,?)");
 $sth4 -> execute([$_GET['question'], $_GET['answer'], $_GET['unit'],$_SESSION['activeAssign'], $_SESSION['activeQuestion']]);
 
+//Set type to answer field
+$sth4 = $pdo -> prepare("UPDATE `questions` SET type = ? WHERE assignmentID = ? AND `order` = ?");
+$sth4 -> execute([2,$_SESSION['activeAssign'],$_SESSION['activeQuestion']]);
+
 $_SESSION['notification'] = "Antwoord succesvol toegevoegd.";
 header("Location: assignmentEditor.php?assign=" . $_SESSION['activeAssign'] . "&question=" . $_SESSION['activeQuestion']);
 exit();
