@@ -1,0 +1,290 @@
+.sidebar {
+    font-family: "Torus regular", serif;
+    position: fixed;
+    background-color: #AAAAAA;
+    height: 100%;
+    width: 300px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#sidebarText {
+    display: inline-block;
+    position: relative;
+    transform: translate(-50%);
+    left: 50%;
+}
+
+#assignmentPage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 300px;
+    right: 0;
+}
+
+#questionSelectButtons {
+    position: absolute;
+    margin-top: 50px;
+    transform: translate(-50%);
+    left: 50%;
+}
+
+#questionSelectButton {
+    width: 45px;
+    height: 45px;
+    background-color: #333;
+    line-height: 45px;
+    position: relative;
+    z-index: 1;
+}
+
+#questionGradeButton {
+    width: 90px;
+    height: 45px;
+    background-color: #333;
+    line-height: 45px;
+    position: relative;
+    z-index: 1;
+}
+
+#questionButtonsContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#questionDeleteButton {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    line-height: 30px;
+    position: absolute;
+    transform: translate(-50%, -100%);
+    top: 100%;
+    left: 50%;
+    z-index: 0;
+    transition: transform 100ms;
+}
+
+#questionButtonsContainer:hover #questionDeleteButton {
+    transform: translate(-50%);
+}
+
+#deleteElements {
+    width: 25px;
+    height: 25px;
+    background-color: #333;
+    line-height: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.linkButtons {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    text-align: center;
+}
+
+#multipleChoice {
+    display: inline-block;
+}
+
+.radioButtons input[type="radio"] {
+    position: fixed;
+    opacity: 0;
+}
+
+.radioButtons label {
+    color: white;
+    display: block;
+    background-color: #333;
+    height: 25px;
+    width: 150px;
+    line-height: 25px;
+    margin-bottom: 2px;
+}
+
+.radioButtons input[type="radio"]:checked + label {
+    background-color: #a9a9a9;
+}
+
+.radioButtons label:hover {
+    background-color: #a9a9a9;
+    cursor: pointer;
+}
+
+.element:hover #textDeleteButton, .element:hover #ImgDeleteButton, .element:hover #MTPCDeleteButton, .element:hover #answerDeleteButton, .element:hover #sumDeleteButton {
+    display: block;
+}
+
+#imgDeleteButton {
+    display: none;
+}
+
+#text {
+    position: relative;
+    max-width: 450px;
+    word-wrap: break-word;
+    max-height: 300px;
+    display: inline-block;
+    margin-top: 0;
+}
+
+#textDeleteButton {
+    display: none;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    line-height: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#imgContainer {
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    left: 45%;
+    top: 0;
+    transform: translate(-100%);
+    margin-top: 0;
+}
+
+#imgContainer img {
+    vertical-align: middle;
+    min-height: 200px;
+    min-width: 200px;
+    max-height: 450px;
+    max-width: 450px;
+}
+
+#imgContainer a {
+    display: none;
+    text-align: center;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#MTPCDeleteButton {
+    display: none;
+    text-align: center;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#sumDeleteButton {
+    display: none;
+    text-align: center;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.element {
+    position: relative;
+    display: inline-block;
+}
+
+#answerDeleteButton {
+    display: none;
+    text-align: center;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#publicForm {
+    position: absolute;
+    left: 70px;
+    bottom: 10px;
+}
+
+#assignAssignmentButton {
+    text-decoration: none;
+    display: block;
+    color: black;
+    text-align: center;
+    line-height: 30px;
+    background-color: #eee;
+    font-size: 15px;
+    width: 90%;
+    position: relative;
+    transform: translate(-50%, 0);
+    left: 50%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#assignAssignmentButton:hover {
+    background-color: #ccc;
+}
+
+#assignAssignmentTitle {
+    text-align: center;
+    position: relative;
+}
+
+#groupCheckbox {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+
+#subTitle {
+    width: 100%;
+    text-align: center;
+}
+
+#assignField {
+    font-family: "Torus regular", serif;
+    position: absolute;
+    transform: translate(-50%, 0);
+    left: 50%;
+    top: 20px;
+    background-color: #AAAAAA;
+    display:block;
+    padding: 20px 50px 20px 50px;
+    min-width: 500px;
+    min-height: 200px;
+}
+
+.collapsible#assignAssignment {
+    line-height: 30px;
+    text-align: center;
+}
+
+.backButton#assignmentEditor {
+    bottom: 13px;
+    left: 13px;
+    padding: 13px;
+    border-radius: 10px;
+}
+
+.backButton#assignment {
+    bottom: 13px;
+    left: 13px;
+    padding: 13px;
+    border-radius: 10px;
+}

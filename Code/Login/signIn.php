@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../extend.php";
+include "../Css/extend.php";
 require_once "../DB_Connection.php";
 $_SESSION['count'] = 0;
 if (isset($_COOKIE['loginEmail'])) {
@@ -20,7 +20,7 @@ if (isset($_COOKIE['loginEmail'])) {
 <html lang="nl">
 <head>
     <title>Inloggen</title>
-    <link href=../style.css rel=stylesheet>
+    <link href=../Css/style.css rel=stylesheet>
 </head>
 <body id="signIn">
 <div class="field <?= isset($_SESSION['error']) && $_SESSION['error']!="" ? "extend" : ""?>" id="signIn">
@@ -34,15 +34,15 @@ if (isset($_COOKIE['loginEmail'])) {
         </div>
         <div class=pass>
             <label>
-            Wachtwoord:<br>
-            <input class="input" name=pass placeholder=Wachtwoord type=password value="<?= isset($_SESSION['signInPass']) ? $_SESSION['signInPass'] : ""?>">
+                Wachtwoord:<br>
+                <input class="input" name=pass placeholder=Wachtwoord type=password value="<?= isset($_SESSION['signInPass']) ? $_SESSION['signInPass'] : ""?>">
             </label><br>
         </div>
         <label>
             Onthoud mijn gevens
             <input type="checkbox" name="rememberMe">
         </label><br>
-            <input class="submit" name="submit" type="submit" value="Inloggen"><br>
+        <input class="submit" name="submit" type="submit" value="Inloggen"><br>
     </form>
     <a class="hyperlinks" href="createAccount.php">Ik heb nog geen account</a>
     <h4 class="error" id="signIn"><?php if(isset($_SESSION['error'])){echo $_SESSION['error']; unset($_SESSION['error']);}?></h4>

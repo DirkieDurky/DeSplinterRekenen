@@ -2,8 +2,8 @@
 session_start();
 require_once "../DB_Connection.php";
 
-unset($_SESSION['editingAssign']);
-unset($_SESSION['editingQuestion']);
+unset($_SESSION['activeAssign']);
+unset($_SESSION['activeQuestion']);
 
 $sth = $pdo -> prepare("SELECT * FROM `accounts` WHERE id=?");
 $sth -> execute([$_SESSION['loggedID']]);
@@ -12,7 +12,7 @@ $row = $sth -> fetch();
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.css rel=stylesheet>
+    <link href=../Css/style.css rel=stylesheet>
 </head>
 <body id="teacherSite">
 <div class="header">
@@ -34,7 +34,7 @@ $row = $sth -> fetch();
         --><a href="teacherSite.php?selected=3"<?php if (isset($_GET['selected'])) {if($_GET['selected'] == 3){echo " id=\"selected\"";}} ?>>Resultaten inzien</a>
     </div>
     <div class="dropdown">
-        <img src="../../unknownUser.png" alt="profPic" class="profPic">
+        <img src="../../Sources/unknownUser.png" alt="profPic" class="profPic">
         <div class="dropdown-cont">
             <a href="../logout.php">Uitloggen</a>
         </div>

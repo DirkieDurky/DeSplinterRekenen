@@ -1,7 +1,7 @@
 <html lang="nl">
 <head>
     <title>Leraren site</title>
-    <link href=../style.css rel=stylesheet>
+    <link href=../Css/style.css rel=stylesheet>
 </head>
 <body id="teacherSite">
 <div class="header">
@@ -9,7 +9,7 @@
         <a href="studentSite.php?selected=1"<?php if ($_GET['selected'] == 1){echo " id=\"selected\"";}?>>Verplichte opdrachten</a><a href="studentSite.php?selected=2"<?php if ($_GET['selected'] == 2){echo " id=\"selected\"";}?>>Alle opdrachten</a>
     </div>
     <div class="dropdown">
-        <img src="../../unknownUser.png" alt="profPic" class="profPic">
+        <img src="../../Sources/unknownUser.png" alt="profPic" class="profPic">
         <div class="dropdown-cont">
             <a href="../logout.php">Uitloggen</a>
         </div>

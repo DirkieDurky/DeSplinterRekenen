@@ -3,8 +3,8 @@ require_once "../../DB_Connection.php";
 session_start();
 
 if (isset($_GET['continue'])) {
-    if (isset($_SESSION['editingQuestion'])) {
-        $editingQuestion = $_SESSION['editingQuestion'];
+    if (isset($_GET['question'])) {
+        $editingQuestion = $_GET['question'];
     } else {
         $editingQuestion = 1;
     }
@@ -25,5 +25,5 @@ do {
         echo "Assignment with id " . $row['id'] . " was not clicked<br>";
     }
 } while ($row = $sth -> fetch());
-header("Location: teacherSite.php?selected=2");
+header("Location: ../teacherSite.php?selected=2");
 exit();

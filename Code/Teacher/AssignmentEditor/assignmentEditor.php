@@ -2,8 +2,9 @@
 require_once "../../DB_Connection.php";
 session_start();
 
-$_SESSION['editingAssign'] = $_GET['assign'];
-$_SESSION['editingQuestion'] = $_GET['question'];
+$_SESSION['editing'] = 1;
+
+//$_SESSION['editingQuestionID'] =
 
 $sth = $pdo -> prepare("SELECT * FROM `assignments` WHERE id = ?");
 $sth -> execute([$_GET['assign']]);
@@ -16,8 +17,9 @@ $row = $sth -> fetch();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Opdracht maken</title>
-    <link rel="stylesheet" href="../../style.css">
-    <script type="text/javascript" src="../notifications.js"></script>
+    <link rel="stylesheet" href="../../Css/style.css">
+    <link rel="stylesheet" href="../../Css/assignments.css">
+    <script type="text/javascript" src="../../notifications.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -33,21 +35,19 @@ $row = $sth -> fetch();
         <div>
             <button class="collapsible">Tekst</button>
             <div class="collapsibleContent">
-                <form action="addTextToQuestion.php">
+                <form action="createText.php">
                     <label>
                         <?php
-                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`question`,`options`,`answer` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
-                        $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
+                        $sth2 = $pdo -> prepare("SELECT `text`,`media`,`sum` FROM `questions` WHERE assignmentID = ? AND `order` = ?");
+                        $sth2 -> execute([$_GET['assign'], $_GET['question']]);
                         $row = $sth2 -> fetch();
                         if (isset($row['text']) && $row['text'] != "") {
-                            echo "Oude tekst verwijderen?";
-                        ?> <a id="deleteElements" href="deleteQuestionText.php">x</a><br> <?php
-                    echo "Of voer tekst in om de oude tekst mee te vervangen:";
+                    echo "Voer tekst in om de oude tekst mee te vervangen:";
                 } else {
                     echo "Voeg tekst toe:";
                 }
                     ?>
-                    <input type="text" name="text">
+                        <textarea name="text" rows="5" cols="35" style="resize: none"></textarea>
                     </label>
                     <input type="submit" value="->">
                 </form>
@@ -57,26 +57,8 @@ $row = $sth -> fetch();
             <button class="collapsible">Afbeelding</button>
             <div class="collapsibleContent">
                 <?php
-                //Remove number from file
-
-                //Get the file location
-                $sth2 = $pdo -> prepare("SELECT `media` from `questions` WHERE assignmentID = ? AND `order` = ?");
-                $sth2 -> execute([$_SESSION['editingAssign'], $_SESSION['editingQuestion']]);
-                $row = $sth2 -> fetch();
-
-                //Remove directory
-                $slashLocation = strrpos($row['media'], "/");
-                $fullFileName = substr($row['media'], $slashLocation+1);
-
-                //Remove number from file
-                $underscoreLocation = strrpos($fullFileName, "_");
-
-                $fileName = substr($fullFileName, $underscoreLocation+1);
-
                 if (isset($row['media']) && $row['media'] != "") {
-                    echo "Oude afbeelding \"$fileName\" verwijderen?";
-                    ?> <a href="deleteQuestionImage.php" id="deleteElements">x</a><br> <?php
-                    echo "Of selecteer een afbeelding om de oude afbeelding mee te vervangen:";
+                    echo "Selecteer een afbeelding om de oude afbeelding mee te vervangen:";
                 } else {
                     echo "Selecteer een afbeelding om in te voegen:";
                 }
@@ -92,26 +74,57 @@ $row = $sth -> fetch();
                 <button class="collapsible">Meerkeuzevraag</button>
                 <div class="collapsibleContent">
                     <form action="createMultipleChoice.php">
-                            Voer hier de mogelijke opties in voor je meerkeuzevraag. Je hoeft niet elke optie in te vullen. Vink het juiste antwoord aan.<br>
-                            <?php for($i = 0; $i < 6; $i++) {?>
+                        <label>
+                            Voer hier de vraag in die hoort bij de meerkeuzevraag:
+                            <input type="text" name="question"><br>
+                        </label>
+                        Voer hier de mogelijke opties in voor je meerkeuzevraag.<br>
+                        Je hoeft niet elke optie in te vullen.<br>
+                        Vink het juiste antwoord aan.<br>
+                        <?php for($i = 0; $i < 6; $i++) {?>
                             <label>
-                                <input type="checkbox" onclick="document.getElementById('textOption<?=$i?>').disabled = !document.getElementById('textOption<?=$i?>').disabled; document.getElementById('option<?=$i?>').disabled = !document.getElementById('option<?=$i?>').disabled;" id="checkbox<?=$i?>">
-                                <input disabled type="text" name="option<?=$i?>" id="textOption<?=$i?>">
-                                <input disabled type="radio" name="correctOption" id="option<?=$i?>">
+                                <input type="checkbox" onclick="
+                                    document.getElementById('answer<?=$i?>').disabled = !document.getElementById('answer<?=$i?>').disabled;
+                                    document.getElementById('correct<?=$i?>').disabled = !document.getElementById('correct<?=$i?>').disabled;"
+                                name="checkbox<?=$i?>">
+                                <input disabled type="text" id="answer<?=$i?>" name="answer<?=$i?>">
+                                <input disabled type="radio" id="correct<?=$i?>" name="correct<?=$i?>">
                             </label><br>
                             <?php } ?>
                         <input type="submit" value="->">
                     </form>
                 </div>
+            <button class="collapsible">Vraag</button>
+            <div class="collapsibleContent">
+                <form action="createAnswerField.php">
+                    <label>
+                        Voer je vraag in:<br>
+                        <input type="text" name="question"><br>
+                    </label>
+                    <label>
+                        Voer je antwoord in:<br>
+                        <input type="text" name="answer"><br>
+                    </label>
+                    <label>
+                        Voer eventuele eenheden in om na het antwoord veld te laten zien (Zoals km/u):<br>
+                        <input type="text" name="unit">
+                    </label>
+                    <input type="submit" value="->">
+                </form>
+            </div>
                 <button class="collapsible">Som</button>
                 <div class="collapsibleContent">
-                    content
-                </div>
-                <button class="collapsible">Antwoordveld</button>
-                <div class="collapsibleContent">
-                    content
+                    <form action="createSum.php">
+                        <label>
+                            Voer je som in:
+                            <input type="text" name="sum">
+                        </label>
+                        <input type="submit" value="->">
+                    </form>
                 </div>
         </div>
+        <br>
+        <a href="assignAssignment.php" id="assignAssignmentButton">Opdracht toedienen</a>
         <script>
             const coll = document.getElementsByClassName("collapsible");
             for (let i = 0; i < coll.length; i++) {
@@ -131,9 +144,20 @@ $row = $sth -> fetch();
             }
         </script>
             <a class="backbutton" id="assignmentEditor" href="../teacherSite.php?selected=2"><-</a>
+        <?php
+        $sth3 = $pdo -> prepare("SELECT public FROM `assignments` WHERE id = ?");
+        $sth3 -> execute([$_GET['assign']]);
+        $row = $sth3 -> fetch();
+        ?>
+        <form action="setPublic.php" id="publicForm">
+            <label>
+                Openbaar:
+                <input type="checkbox" name="public" onclick="submit()" <?php if ($row['public'] == 1) {echo "checked";} ?>>
+            </label>
+        </form>
     </div>
-    <div id="assignment">
-<?php include "assignment.php"; ?>
+    <div id="assignmentPage">
+<?php include "../../assignment.php"; ?>
     </div>
     <?php
     if (isset($_SESSION['notification'])) {

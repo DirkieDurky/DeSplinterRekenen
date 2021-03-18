@@ -1,10 +1,10 @@
 @font-face {
     font-family: Torus Regular;
-    src: url("../Torus Regular.otf");
+    src: url("../../Sources/Torus Regular.otf");
 }
 
 body#signIn {
-    background-image: url('../RekensiteBackground.png');
+    background-image: url('../../Sources/RekensiteBackground.png');
 }
 
 .field {
@@ -64,13 +64,6 @@ body#signIn {
     border-radius: 16px;
 }
 
-.backButton#assignmentEditor {
-    bottom: 13px;
-    left: 13px;
-    padding: 13px;
-    border-radius: 10px;
-}
-
 h1 {
     font-size: 35px;
 }
@@ -116,8 +109,12 @@ h1 {
 
 .submit:hover {
     cursor: pointer;
-    animation: hover 200ms;
+    animation: hover 100ms;
     animation-fill-mode: forwards;
+}
+
+@keyframes hover {
+    to {filter: brightness(80%);}
 }
 
 .error {
@@ -179,15 +176,6 @@ h1 {
     color: rgb(255, 204, 34);
 }
 
-@keyframes hover {
-    from {
-        filter: brightness(100%);
-    }
-    to {
-        filter: brightness(70%);
-    }
-}
-
 body#teacherSite {
     background-color: #181818;
 }
@@ -222,11 +210,11 @@ body#teacherSite {
     height: 56px;
     vertical-align: middle;
     background-color: #212121;
+    transition: all 200ms;
 }
 
 .headerSelect a:hover{
-   animation: hover 200ms;
-   animation-fill-mode: forwards;
+   filter: brightness(80%);
 }
 
 .headerSelect #selected{
@@ -318,6 +306,14 @@ body#teacherSite {
     display: inline-block;
 }
 
+#addToAssignForm {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin-top:20px;
+    display: inline-block;
+}
+
 .teacherField {
     font-family: "Torus regular", serif;
     position: absolute;
@@ -329,7 +325,21 @@ body#teacherSite {
     display:block;
     padding: 20px 50px 0 50px;
     min-width: 500px;
-    min-height: 500px;
+    min-height: 200px;
+}
+
+.studentField {
+    font-family: "Torus regular", serif;
+    position: absolute;
+    transform: translate(-50%, 0);
+    left: 50%;
+    top: 0;
+    margin-top:56px;
+    background-color: #AAAAAA;
+    display:block;
+    padding: 20px 50px 0 50px;
+    min-width: 500px;
+    min-height: 200px;
 }
 
 .warning {
@@ -391,6 +401,7 @@ body#teacherSite {
     width: 250px;
     min-height: 50px;
     animation: notification 3500ms;
+    vertical-align: middle;
 }
 
 .notification:hover {
@@ -426,7 +437,6 @@ body#teacherSite {
     background-color: #eee;
     cursor: pointer;
     font-size: 15px;
-    width: 90%;
     position: relative;
     transform: translate(-50%, 0);
     left: 50%;
@@ -434,6 +444,10 @@ body#teacherSite {
     margin-top: 10px;
     border: none;
     outline: none;
+}
+
+.collapsible {
+    width: 90%;
 }
 
 #groups {
@@ -485,99 +499,10 @@ body#teacherSite {
     left: 10px;
 }
 
-.sidebar {
-    font-family: "Torus regular", serif;
-    position: fixed;
-    background-color: #AAAAAA;
-    height: 100%;
-    width: 300px;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-#sidebarText {
-    display: inline-block;
-    position: relative;
-    transform: translate(-50%);
-    left: 50%;
-}
-
-#assignment {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 300px;
-    right: 0;
-}
-
-#questionSelectButtons {
-    position: relative;
-    display: inline-block;
-    margin-top: 50px;
-    transform: translate(-50%);
-    left: 50%;
-}
-
-#questionSelectButton {
-    text-decoration: none;
-    display: inline-block;
-    width: 45px;
-    height: 45px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    line-height: 45px;
-    position: relative;
-    z-index: 1;
-}
-
-#questionButtonsContainer {
-    position: relative;
-    display: inline-block;
-}
-
-#questionDeleteButton {
-    display: inline-block;
-    text-decoration: none;
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    color: white;
-    text-align: center;
-    line-height: 30px;
-    position: absolute;
-    transform: translate(-50%, -100%);
-    top: 100%;
-    left: 50%;
-    z-index: 0;
-}
-
-#questionButtonsContainer:hover #questionDeleteButton {
-    animation: questionDeleteButtonShowUp 100ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes questionDeleteButtonShowUp {
-    to {transform: translate(-50%);}
-}
-
 #question {
     position: absolute;
+    width: 100%;
+    left: 0;
     top: 150px;
     bottom: 0;
-    width: 100%;
-}
-
-#deleteElements {
-    text-decoration: none;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    line-height: 25px;
-    position: relative;
-    z-index: 1;
 }
