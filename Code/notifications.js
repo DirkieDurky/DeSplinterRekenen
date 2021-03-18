@@ -10,7 +10,6 @@ function notifications(notifId) {
 }
 
 function errors(errorId) {
-    console.log("shitsadwadwadwd");
     let remove = setTimeout("removeError()", 3500);
     const el = document.getElementById(errorId);
     el.addEventListener("mouseover", function() {

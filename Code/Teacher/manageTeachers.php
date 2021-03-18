@@ -5,7 +5,7 @@ require_once "../DB_Connection.php";
 <head>
     <title>Leraren site</title>
     <link href=../Css/style.css rel=stylesheet>
-    <script type="text/javascript" src="notifications.js"></script>
+    <script type="text/javascript" src="../notifications.js"></script>
 </head>
 <body>
 <div class="teacherField">

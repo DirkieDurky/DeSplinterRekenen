@@ -1,10 +1,9 @@
 <?php
 require_once "defineRootDir.php";
-
 require_once "DB_Connection.php";
 require_once "Css/rightSideElements.php";
 ?>
-<html lang="en">
+<html lang="nl">
 <head>
     <title>Vraag</title>
     <link rel=stylesheet href="Css/style.css">
@@ -12,6 +11,8 @@ require_once "Css/rightSideElements.php";
 </head>
 <body>
 <?php
+
+
 if (isset($_SESSION['editing'])) {
 ?>
 <style>
@@ -20,6 +21,7 @@ if (isset($_SESSION['editing'])) {
     }
 </style>
 <?php }
+
 $sth1 = $pdo->prepare("SELECT * FROM `questions` WHERE assignmentID = ? AND `order` = ?");
 $sth1->execute([$_GET['assign'], $_GET['question']]);
 $row1 = $sth1->fetch();
@@ -88,12 +90,12 @@ if (isset($row3['text']) && $row3['text'] != "") {
         $row4 = $sth4->fetch();
 
         ?>
-        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" class="radioButtons" style="margin:0">
+        <form action="<?= CODE_DIR ?>/addAnswer.php" class="radioButtons" style="margin:0">
             <?php
             $i = 0;
             do {
                 ?>
-                    <input type="radio" name="answer" id="<?= $i ?>" value="<?= $row4['text'] ?>" required>
+                    <input type="radio" name="answer" id="<?= $i ?>" value="<?= $row4['text'] ?>">
                     <label for="<?= $i ?>"><?= $row4['text'] ?></label>
                 <?php
                 $i++;
@@ -117,10 +119,10 @@ $row5 = $sth5->fetch();
 if (isset($row5['answer']) && $row5['answer'] != "") {
     ?>
     <div class="element rightSideElement" id="answerField">
-        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" style="margin:0">
+        <form action="<?= CODE_DIR ?>/addAnswer.php" style="margin:0">
             <label>
                 <?= $row5['question'] . "<br>" ?>
-                <input type="text" name="answer" required><?= " " . $row5['unit'] ?>
+                <input type="text" name="answer" ><?= " " . $row5['unit'] ?>
             </label>
             <br>
             <input type="submit" value="->">
@@ -137,7 +139,7 @@ if (isset($row5['answer']) && $row5['answer'] != "") {
 if (isset($row1['sum']) && $row1['sum'] != "") {
     ?>
     <div class="element rightSideElement" id="sum">
-        <form action="<?= CODE_DIR ?>/Teacher/AssignmentEditor/addAnswer.php" style="margin:0">
+        <form action="<?= CODE_DIR ?>/addAnswer.php" style="margin:0">
             <label>
                 <?= $row1['sum'] . " =<br>" ?>
                 <input type="text" name="answer" required>

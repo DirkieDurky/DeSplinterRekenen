@@ -17,7 +17,8 @@
         $sth1 -> execute([$_SESSION['loggedID']]);
         $row1 = $sth1 -> fetch();
 
-        do {
+        if (isset($row1['assignmentID'])) {
+     do {
             $sth2 = $pdo -> prepare("SELECT id,name FROM `assignments` WHERE id = ?");
             $sth2 -> execute([$row1['assignmentID']]);
             $row2 = $sth2 -> fetch();
@@ -30,6 +31,9 @@
             </div>
     <?php
         } while ($row1 = $sth1 -> fetch());
+        } else {
+            echo "Geen verplichte opdrachten meer over!";
+        }
     ?>
 </div>
 </body>

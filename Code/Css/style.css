@@ -64,13 +64,6 @@ body#signIn {
     border-radius: 16px;
 }
 
-.backButton#assignmentEditor {
-    bottom: 13px;
-    left: 13px;
-    padding: 13px;
-    border-radius: 10px;
-}
-
 h1 {
     font-size: 35px;
 }
@@ -509,6 +502,7 @@ body#teacherSite {
 #question {
     position: absolute;
     width: 100%;
+    left: 0;
     top: 150px;
     bottom: 0;
 }

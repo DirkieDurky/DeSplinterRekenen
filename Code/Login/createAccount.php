@@ -2,7 +2,7 @@
 session_start();
 include "../Css/extend.php";
 ?>
-<html lang="en">
+<html lang="nl">
 <head>
     <title>Account maken</title>
     <link rel=stylesheet href="../Css/style.css">

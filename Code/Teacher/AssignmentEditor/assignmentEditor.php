@@ -19,7 +19,7 @@ $row = $sth -> fetch();
     <title>Opdracht maken</title>
     <link rel="stylesheet" href="../../Css/style.css">
     <link rel="stylesheet" href="../../Css/assignments.css">
-    <script type="text/javascript" src="../notifications.js"></script>
+    <script type="text/javascript" src="../../notifications.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -156,7 +156,7 @@ $row = $sth -> fetch();
             </label>
         </form>
     </div>
-    <div id="assignment">
+    <div id="assignmentPage">
 <?php include "../../assignment.php"; ?>
     </div>
     <?php

@@ -15,7 +15,7 @@ $row2 = $sth2->fetch();
     <title>Opdracht toedienen</title>
     <link rel="stylesheet" href="../../Css/style.css">
     <link rel="stylesheet" href="../../Css/assignments.css">
-    <script type="text/javascript" src="../notifications.js"></script>
+    <script type="text/javascript" src="../../notifications.js"></script>
 </head>
 <body style="background-color: #181818;">
     <script>
