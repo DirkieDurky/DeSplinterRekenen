@@ -1,91 +1,56 @@
 <?php
 require_once "../../DB_Connection.php";
 session_start();
-$_SESSION['error'] = "Oeps... Er ging iets mis... Sorry!";
 
 //Update groups
-$sth2 = $pdo->prepare("SELECT * FROM `groups` WHERE id != 1");
-$sth2->execute();
-$row2 = $sth2->fetch();
+$sth1 = $pdo->prepare("SELECT * FROM `groups` WHERE id != 1");
+$sth1->execute();
+$row1 = $sth1->fetch();
 
 do {
-    if (isset($_GET['selectGroup' . $row2['id']])) {
-        $sth10 = $pdo -> prepare("SELECT id FROM `accounts` WHERE groupID = ?");
-        $sth10 -> execute([$row2['id']]);
-        $row10 = $sth10 -> fetch();
-
-        do {
-            $sth16 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth16 -> execute([$row10['id'], $_SESSION['editingAssign']]);
-
-            if ($sth16 -> rowCount() == 0) {
-                $sth11 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
-                $sth11 -> execute([$row10['id'], $_SESSION['editingAssign'], ""]);
-
-                $_SESSION['notification'] = "Opdracht succesvol toegediend";
-
-                echo $row10['id'] . "<br>";
-                echo $_SESSION['editingAssign'] . "<br>";
-            }
-        } while ($row10 = $sth10 -> fetch());
-    } else {
-        $sth13 = $pdo -> prepare("SELECT id FROM `accounts` WHERE groupID = ?");
-        $sth13 -> execute([$row2['id']]);
-        $row13 = $sth13 -> fetch();
-
-        do {
-            $sth11 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth11 -> execute([$row13['id'], $_SESSION['editingAssign']]);
-            $_SESSION['notification'] = "Opdracht toedienen succesvol ongedaan gemaakt";
-        } while ($row13 = $sth13 -> fetch());
-    }
 
     //Update users in group
-    $sth30 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
-    $sth30 -> execute([$row2['id']]);
-    $row30 = $sth30 -> fetch();
+    $sth2 = $pdo -> prepare("SELECT * FROM `accounts` WHERE groupID = ?");
+    $sth2 -> execute([$row1['id']]);
+    $row2 = $sth2 -> fetch();
 
     do {
-        if (isset($_GET['selectInGroup' . $row30['id']])) {
-            $sth33 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth33 -> execute([$row30['id'], $_SESSION['editingAssign']]);
+        if (isset($_GET['selectInGroup' . $row2['id']])) {
+            $sth3 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
+            $sth3 -> execute([$row2['id'], $_SESSION['editingAssign']]);
 
-            if ($sth33 -> rowCount() == 0) {
-                $sth31 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
-                $sth31->execute([$row30['id'], $_SESSION['editingAssign'], ""]);
-                $_SESSION['notification'] = "Opdracht succesvol toegediend";
+            if ($sth3 -> rowCount() == 0) {
+                $sth4 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
+                $sth4->execute([$row2['id'], $_SESSION['editingAssign'], ""]);
             }
         } else {
-            $sth32 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
-            $sth32->execute([$row30['id'], $_SESSION['editingAssign']]);
-            $_SESSION['notification'] = "Opdracht toedienen succesvol ongedaan gemaakt";
+            $sth5 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
+            $sth5->execute([$row2['id'], $_SESSION['editingAssign']]);
         }
-    } while ($row30 = $sth30 -> fetch());
+    } while ($row2 = $sth2 -> fetch());
 
-} while ($row2 = $sth2->fetch());
+} while ($row1 = $sth1->fetch());
 
 //Update students not in a group
-$sth3 = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
-$sth3 -> execute();
-$row3 = $sth3 -> fetch();
+$sth6 = $pdo -> prepare("SELECT * FROM `accounts` WHERE teacher=0 AND groupID=1");
+$sth6 -> execute();
+$row6 = $sth6 -> fetch();
 
 do {
-    if (isset($_GET['selectNotInGroup' . $row3['id']])) {
-        $sth41 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
-        $sth41 -> execute([$row3['id'], $_SESSION['editingAssign']]);
+    if (isset($_GET['selectNotInGroup' . $row6['id']])) {
+        $sth7 = $pdo -> prepare("SELECT id FROM results WHERE studentID = ? AND assignmentID = ?");
+        $sth7 -> execute([$row6['id'], $_SESSION['editingAssign']]);
 
-        if ($sth41 -> rowCount() == 0) {
-            $sth4 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
-            $sth4->execute([$row3['id'], $_SESSION['editingAssign'], ""]);
-            $_SESSION['notification'] = "Opdracht succesvol toegediend";
+        if ($sth7 -> rowCount() == 0) {
+            $sth8 = $pdo -> prepare("INSERT INTO results (studentID, assignmentID, score) VALUES (?,?,?)");
+            $sth8->execute([$row6['id'], $_SESSION['editingAssign'], ""]);
         }
     } else {
-        $sth5 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
-        $sth5 -> execute([$row3['id'], $_SESSION['editingAssign']]);
-        $_SESSION['notification'] = "Opdracht toedienen succesvol ongedaan gemaakt";
+        $sth9 = $pdo -> prepare("DELETE FROM results WHERE studentID = ? AND assignmentID = ?");
+        $sth9 -> execute([$row6['id'], $_SESSION['editingAssign']]);
     }
-} while ($row3 = $sth3 -> fetch());
+} while ($row6 = $sth6 -> fetch());
 
-if (isset($_SESSION['notification'])) {unset($_SESSION['error']);}
-//header("Location: assignAssignment.php");
+$_SESSION['notification'] = "Veranderingen succesvol aangepast";
+header("Location: assignAssignment.php");
 exit();

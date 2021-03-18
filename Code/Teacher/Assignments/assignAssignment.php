@@ -18,6 +18,10 @@ $row2 = $sth2->fetch();
     <script type="text/javascript" src="../notifications.js"></script>
 </head>
 <body style="background-color: #181818;">
+    <script>
+        const groupSelect = document.getElementById("groupSelect");
+        const childChkBoxs = document.getElementsByClassName("childChkBoxs");
+    </script>
 
 <div id="assignField">
     <h1 id="assignAssignmentTitle">Opdracht "<?= $row1['name'] ?>" toedienen:</h1>
@@ -47,7 +51,19 @@ $row2 = $sth2->fetch();
         <table class="collapsible">
             <tr>
                 <th>
-                    <label class="groupDelete"><input type="checkbox" value="" name="selectGroup<?php echo $row2['id'];?>" onclick="submit()" <?php if ($sth12 -> rowCount() == $resultExistsOfPeopleAmount){ echo "checked";} ?>></label>
+                    <label class="groupDelete"><input onclick="
+                    if (this.checked) {
+                        for (let i = 0; i < childChkBoxs.length; i++) {
+                            childChkBoxs[i].checked = true;
+                        }
+                    } else {
+                        for (let i = 0; i < childChkBoxs.length; i++) {
+                            childChkBoxs[i].checked = false;
+                        }
+                    }
+                    " type="checkbox" value="" name="selectGroup<?php echo $row2['id'];?>" id="groupSelect"
+                            <?php if ($sth12 -> rowCount() == $resultExistsOfPeopleAmount){ echo "checked";} ?>
+                        ></label>
                     <?php echo $row2['name'] ?>
                 </th>
             </tr>
@@ -80,7 +96,17 @@ $row2 = $sth2->fetch();
                                 $row10 = $sth10 -> fetch();
                                 ?>
                                 <tr>
-                                <td><label><input type="checkbox" value="" name="selectInGroup<?php echo $row3['id'];?>" onclick="submit()" <?php if ($sth10 -> rowCount() > 0){echo "checked";} ?>></label></td>
+                                <td><label><input onclick="
+                                let checkedAmount = 0;
+                                for (let i = 0; i < childChkBoxs.length; i++) {
+                                        if (childChkBoxs[i].checked === true) {
+                                            checkedAmount++;
+                                        }
+                                    }
+                                groupSelect.checked = checkedAmount === childChkBoxs.length;
+                                console.log(checkedAmount);
+                                console.log(childChkBoxs.length);
+                                " class="childChkBoxs" type="checkbox" value="" name="selectInGroup<?php echo $row3['id'];?>" <?php if ($sth10 -> rowCount() > 0){echo "checked";} ?>></label></td>
                                 <?php
                                 echo "<td>" . $row3['firstName'] . "</td>";
                                 echo "<td>" . $row3['lastName'] . "</td>";
@@ -119,7 +145,7 @@ $row2 = $sth2->fetch();
                 $row5 = $sth5 -> fetch();
                 echo "<tr>";
                 ?>
-                <td><label><input type="checkbox" name="selectNotInGroup<?php echo $row4['id'] ?>" onclick="submit()" <?php if ($sth5 -> rowCount() > 0){echo "checked";} ?>></label></td>
+                <td><label><input type="checkbox" name="selectNotInGroup<?php echo $row4['id'] ?>" <?php if ($sth5 -> rowCount() > 0){echo "checked";} ?>></label></td>
                 <?php
                 echo "<td>" . $row4['firstName'] . "</td>";
                 echo "<td>" . $row4['lastName'] . "</td>";
@@ -129,6 +155,7 @@ $row2 = $sth2->fetch();
             ?>
         </table>
         <?php } ?>
+        <input type="submit" value="Verzenden" name="submit">
     </form>
         <script>
             const collapsible = document.getElementsByClassName("collapsible");
