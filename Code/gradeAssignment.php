@@ -24,6 +24,7 @@ do {
             $correctAnswers[] = $row3['answer'];
             break;
         case 3:
+            /** @noinspection PhpUnreachableStatementInspection */
             $correctAnswers[] = eval("return " . $row1['sum'] . ";");
     }
 } while ($row1 = $sth1 -> fetch());

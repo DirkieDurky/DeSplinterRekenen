@@ -2,7 +2,7 @@
 session_start();
 require_once "../DB_Connection.php";
 $_SESSION['appMan'] = 0;
-$_SESSION['error'] = "";
+unset($_SESSION['error']);
 $_SESSION['errorLength'] = 0;
 
 $_SESSION['signInPass'] = $_GET['pass'];

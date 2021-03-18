@@ -85,13 +85,13 @@ if (!isset($_SESSION['editing'])) {
     ?>
 <?php
 if (isset($_SESSION['notification'])) {
-    echo "<h3 class='notification' id='notification'> " . $_SESSION['notification'] . " </h3>";
+    echo "<h3 class='notification' id='notification'> |" . $_SESSION['notification'] . "| </h3>";
     unset($_SESSION['notification']); ?>
     <script> notifications('notification') </script>
 <?php }
 
 if (isset($_SESSION['error'])) {
-    echo "<h3 class='notification' id='error'> " . $_SESSION['error'] . " </h3>";
+    echo "<h3 class='notification' id='error'> |" . $_SESSION['error'] . "| </h3>";
     unset($_SESSION['error']); ?>
     <script> errors('error') </script>
 <?php } ?>
