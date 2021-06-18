@@ -1,0 +1,18 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../:\xampp\htdocs\.apps\DeSplinterRekenen\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/dataSources/3db08bc2-5905-4b6a-9644-b8473d6bc039.xml
+/codeStyles/codeStyleConfig.xml
+/dataSources.xml
+/DeSplinterRekenen.iml
+/dataSources/3db08bc2-5905-4b6a-9644-b8473d6bc039/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+/modules.xml
+/dataSources/3db08bc2-5905-4b6a-9644-b8473d6bc039/storage_v2/_src_/schema/mysql.osA4Bg.meta
+/inspectionProfiles/Project_Default.xml
+/dataSources/3db08bc2-5905-4b6a-9644-b8473d6bc039/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+/vcs.xml
